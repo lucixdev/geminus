@@ -1,0 +1,29 @@
+<!--
+  This file is part of GEMINUS.
+
+  Copyright (C) 2026 lucix.dev <lucix.dev@proton.me>
+
+  GEMINUS is free software: you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation, either version 3 of the License, or (at your option)
+  any later version.
+
+  GEMINUS is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+  details.
+
+  You should have received a copy of the GNU General Public License along
+  with GEMINUS. If not, see <https://www.gnu.org/licenses/>.
+
+  SPDX-License-Identifier: GPL-3.0-or-later
+-->
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="52" fill="#242424"/>
+  <polygon points="88,40 96,72 128,72 103,92 112,124 88,104 64,124 73,92 48,72 80,72" fill="none" stroke="#e8e8e8" stroke-width="3.5" stroke-linejoin="round"/>
+  <polygon points="168,40 176,72 208,72 183,92 192,124 168,104 144,124 153,92 128,72 160,72" fill="none" stroke="#FFD700" stroke-width="3.5" stroke-linejoin="round"/>
+  <line x1="128" y1="36" x2="128" y2="130" stroke="#444" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="128" y="175" text-anchor="middle" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#e8e8e8" letter-spacing="6">GEMINUS</text>
+  <text x="128" y="200" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#555" letter-spacing="2">CASTORE · POLLUCE</text>
+  <line x1="60" y1="185" x2="196" y2="185" stroke="#333" stroke-width="0.5"/>
+</svg>

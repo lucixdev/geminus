@@ -1,0 +1,66 @@
+# This file is part of GEMINUS.
+#
+# Copyright (C) 2026 lucix.dev <lucix.dev@proton.me>
+#
+# GEMINUS is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option)
+# any later version.
+#
+# GEMINUS is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU General Public License along
+# with GEMINUS. If not, see <https://www.gnu.org/licenses/>.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[package]
+name = "geminus"
+version = "1.0.0"
+description = "Desktop application for comparing two disks or folders"
+authors = ["lucix.dev <lucix.dev@proton.me>"]
+license = "GPL-3.0-or-later"
+edition = "2021"
+rust-version = "1.88"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.6", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.10.3", features = [] }
+tauri-plugin-log = "2"
+blake3 = "1"
+
+# Official Microsoft bindings, for what only the system can answer: opening an
+# item with its associated program, which disk is behind a path, the elevated
+# side channel of the diagnosis, and where the user's downloads go.
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+  "Win32_UI_Shell",
+  "Win32_UI_WindowsAndMessaging",
+  "Win32_Foundation",
+  "Win32_Storage_FileSystem",
+  "Win32_System_Com",
+  "Win32_System_IO",
+  "Win32_System_Ioctl",
+  "Win32_System_Pipes",
+  "Win32_System_SystemInformation",
+  "Win32_System_Threading",
+  # The two below are never called: they carry types the calls above have in
+  # their own signatures — a security descriptor, a registry key — and without
+  # them those calls are not there at all. Removing them breaks the build.
+  "Win32_Security",
+  "Win32_System_Registry",
+] }

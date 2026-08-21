@@ -1,0 +1,18 @@
+Additional permission under GNU GPL version 3 section 7
+=======================================================
+
+Copyright (C) 2026 lucix.dev <lucix.dev@proton.me>
+
+On Windows, GEMINUS renders its interface with the Microsoft Edge WebView2
+runtime, a component of the operating system that is not free software.
+
+As a special exception, and as an additional permission under section 7 of
+the GNU General Public License version 3, the copyright holder of GEMINUS
+gives you permission to link or combine GEMINUS with the Microsoft Edge
+WebView2 runtime and its loader library (or a modified version of those
+components), and to convey the resulting work. The terms of the GNU General
+Public License version 3 continue to apply to every other part of GEMINUS.
+
+If you modify GEMINUS, you may extend this exception to your version of the
+program, but you are not obliged to do so. If you do not wish to do so,
+delete this exception statement from your version.

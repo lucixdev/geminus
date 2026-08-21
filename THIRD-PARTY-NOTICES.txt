@@ -1,0 +1,36 @@
+Third-party components shipped with GEMINUS
+===========================================
+
+GEMINUS is licensed under the GNU General Public License version 3 or later
+(see LICENSE). This file lists software written by others that is shipped
+together with it, and where to find its licence and its source code.
+
+1. Rust crates compiled into the program
+----------------------------------------
+The exact list, with versions, is src-tauri/Cargo.lock. Every crate compiled
+into the released binaries is distributed under a permissive licence — MIT,
+Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, Zlib, 0BSD, Unlicense, CC0-1.0,
+the Unicode licence — or under MPL-2.0. All of them are available from
+<https://crates.io>.
+
+2. System libraries bundled in the Linux AppImage
+-------------------------------------------------
+The AppImage carries a copy of the GTK and WebKitGTK stack together with its
+dependencies, taken unmodified from Debian 13 (trixie). Most of them are
+covered by the GNU Lesser General Public License; the rest by permissive
+licences. The licence of every bundled library is shipped inside the AppImage,
+under usr/share/doc/third-party-licenses/.
+
+The corresponding unmodified sources can be obtained for the same Debian
+release from <https://sources.debian.org/>, and on request from the address in
+the copyright notice.
+
+The .deb and the .rpm bundle nothing: they use the libraries already installed
+on the system.
+
+3. Windows
+----------
+On Windows the interface is rendered by the Microsoft Edge WebView2 runtime,
+which is part of the operating system, is not free software and is not covered
+by the licence of GEMINUS; the installer obtains it from Microsoft. See
+LICENSE-EXCEPTION.txt.
