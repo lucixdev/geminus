@@ -46,6 +46,8 @@ GEMINUS is an open source project born from a personal need. Anyone can contribu
 
 ## Installation
 
+Ready-made packages are on the releases page — [Codeberg](https://codeberg.org/lucixdev/geminus/releases) or [GitHub](https://github.com/lucixdev/geminus/releases). GEMINUS lives in both places: Codeberg is home, GitHub is its mirror, and the two carry the same code.
+
 **On Linux** — three formats, take the one you need: **AppImage** (a single file: make it executable and run it, nothing to install), a **`.deb`** package for Debian and derivatives, an **`.rpm`** package for Fedora.
 
 **On Windows** — an installer: open it, click through to the end, and GEMINUS lands in the start menu. It needs Windows 10 22H2 or later, 64 bit. If the machine is missing the system component used to draw the interface, the installation adds it.
@@ -107,6 +109,8 @@ GEMINUS è un progetto open source nato da un'esigenza personale. Chiunque può 
 ---
 
 ## Installazione
+
+I pacchetti pronti stanno nella pagina dei rilasci — [Codeberg](https://codeberg.org/lucixdev/geminus/releases) o [GitHub](https://github.com/lucixdev/geminus/releases). GEMINUS vive in tutti e due i posti: Codeberg è la casa, GitHub è la copia, e portano lo stesso codice.
 
 **Su Linux** — tre formati, scegli quello che ti serve: **AppImage** (un file solo: lo rendi eseguibile e lo lanci, senza installare niente), pacchetto **`.deb`** per Debian e derivate, pacchetto **`.rpm`** per Fedora.
 
