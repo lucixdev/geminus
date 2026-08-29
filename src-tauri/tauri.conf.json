@@ -1,7 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "geminus",
-  "version": "1.0.0",
+  "productName": "Geminus",
+  "mainBinaryName": "geminus",
+  "version": "1.0.1",
   "identifier": "org.codeberg.lucixdev.geminus",
   "build": {
     "frontendDist": "../src"
@@ -25,6 +26,7 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "publisher": "lucixdev",
     "copyright": "Copyright (C) 2026 lucix.dev <lucix.dev@proton.me>",
     "licenseFile": "../LICENSE",
     "shortDescription": "Compare two disks or folders",

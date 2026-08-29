@@ -19,7 +19,7 @@
 
 [package]
 name = "geminus"
-version = "1.0.0"
+version = "1.0.1"
 description = "Desktop application for comparing two disks or folders"
 authors = ["lucix.dev <lucix.dev@proton.me>"]
 license = "GPL-3.0-or-later"
