@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare two disks or folders on Linux and Windows — GEMINUS</title>
+<meta name="description" content="GEMINUS compares two disks or folders on Linux and Windows, shows you exactly what changed, and lets you copy, move or delete the differences. Free software, GPLv3.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg:        #ffffff;
+    --bg-soft:   #f5f5f4;
+    --bg-card:   #fafaf9;
+    --line:      #e0dedb;
+    --text:      #1c1a17;
+    --text-dim:  #57534e;
+    --accent:    #a16207;
+    --accent-bg: #fef3c7;
+    --shadow:    0 1px 3px rgba(0,0,0,.07), 0 8px 24px rgba(0,0,0,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #14120f;
+      --bg-soft:   #1c1a16;
+      --bg-card:   #1f1c18;
+      --line:      #322e28;
+      --text:      #f0ece5;
+      --text-dim:  #a8a29e;
+      --accent:    #e3b341;
+      --accent-bg: #2b2415;
+      --shadow:    0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #14120f;
+    --bg-soft:   #1c1a16;
+    --bg-card:   #1f1c18;
+    --line:      #322e28;
+    --text:      #f0ece5;
+    --text-dim:  #a8a29e;
+    --accent:    #e3b341;
+    --accent-bg: #2b2415;
+    --shadow:    0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+  /* language switch */
+  .langbar {
+    display: flex; justify-content: flex-end; gap: 4px;
+    padding: 20px 24px 0; max-width: 820px; margin: 0 auto;
+  }
+  .langbar button {
+    font: inherit; font-size: 14px; font-weight: 600;
+    padding: 5px 12px; border-radius: 999px; cursor: pointer;
+    background: transparent; color: var(--text-dim);
+    border: 1px solid transparent;
+  }
+  .langbar button[aria-pressed="true"] {
+    background: var(--accent-bg); color: var(--accent);
+    border-color: var(--line);
+  }
+
+  /* hero */
+  header.hero { padding: 40px 0 8px; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 18px;
+  }
+  h1 {
+    font-size: clamp(30px, 5.4vw, 46px);
+    line-height: 1.12; letter-spacing: -.022em;
+    margin: 0 0 18px; font-weight: 700;
+  }
+  .lede {
+    font-size: clamp(18px, 2.3vw, 21px);
+    color: var(--text-dim); margin: 0 0 32px; max-width: 60ch;
+  }
+
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-block; text-decoration: none;
+    font-size: 15px; font-weight: 600;
+    padding: 11px 20px; border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--bg-card); color: var(--text);
+    transition: border-color .15s, transform .15s;
+  }
+  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .btn.primary {
+    background: var(--accent); border-color: var(--accent);
+    color: #14120f;
+  }
+  .btn.primary:hover { opacity: .9; }
+  .cta-note { font-size: 14px; color: var(--text-dim); width: 100%; margin-top: 4px; }
+
+  /* sections */
+  section { padding: 44px 0; border-top: 1px solid var(--line); margin-top: 44px; }
+  section:first-of-type { border-top: 0; margin-top: 0; }
+  h2 {
+    font-size: 13px; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--accent);
+    margin: 0 0 20px;
+  }
+  h3 { font-size: 20px; margin: 0 0 8px; letter-spacing: -.01em; }
+  p { margin: 0 0 18px; }
+  p:last-child { margin-bottom: 0; }
+  a { color: var(--accent); }
+
+  .methods { display: grid; gap: 14px; }
+  .method {
+    background: var(--bg-card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .method h3 { color: var(--accent); font-size: 17px; }
+  .method p { font-size: 16px; color: var(--text-dim); margin: 0; }
+
+  .shots { display: grid; gap: 16px; }
+  .shots img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: var(--shadow);
+  }
+  figcaption { font-size: 13px; color: var(--text-dim); margin-top: 8px; }
+  figure { margin: 0; }
+
+  .platforms { display: grid; gap: 20px; }
+  @media (min-width: 680px) { .platforms { grid-template-columns: 1fr 1fr; } }
+  .platform {
+    background: var(--bg-soft); border: 1px solid var(--line);
+    border-radius: 10px; padding: 20px 22px;
+  }
+  .platform p { font-size: 16px; color: var(--text-dim); }
+  .platform strong { color: var(--text); }
+
+  .mirrors { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 44px;
+    padding: 32px 0 56px; font-size: 14px; color: var(--text-dim);
+  }
+  footer p { margin: 0 0 10px; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .9em; background: var(--bg-soft);
+    padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line);
+  }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="langbar">
+  <button id="btn-en" aria-pressed="true">English</button>
+  <button id="btn-it" aria-pressed="false">Italiano</button>
+</div>
+
+<!-- ══════════════════════════ ENGLISH ══════════════════════════ -->
+<main id="lang-en" class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">GEMINUS</p>
+    <h1>Compare two disks or folders on Linux and Windows</h1>
+    <p class="lede">
+      See exactly what changed between a working drive and its backup — then copy,
+      move or delete the differences yourself. No NAS, no service running in the
+      background, no account.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="https://codeberg.org/lucixdev/geminus/releases">Download</a>
+      <a class="btn" href="https://github.com/lucixdev/geminus/blob/main/MANUAL.md">Read the manual</a>
+      <p class="cta-note">Free software, GPLv3 · Linux (AppImage, .deb, .rpm) and Windows 10/11 64‑bit</p>
+    </div>
+  </header>
+
+  <section>
+    <h2>Why</h2>
+    <p>
+      A NAS costs money, and it has to be kept running. Two external drives cost far
+      less and ask for nothing. GEMINUS was born from this simple idea: one working
+      drive and one backup drive, brought in line when <em>you</em> decide, with no
+      dedicated hardware and no system to administer.
+    </p>
+    <p>
+      GEMINUS is not a NAS — it is a tool for people who want to know exactly what has
+      changed between two drives or folders, and act accordingly. Choose two paths.
+      GEMINUS compares them file by file. You see the differences. You copy, move or
+      delete what you want.
+    </p>
+  </section>
+
+  <section>
+    <h2>Three ways to compare</h2>
+    <p>Every time you start a comparison, GEMINUS asks how thorough you want to be.</p>
+    <div class="methods">
+      <div class="method">
+        <h3>Quick</h3>
+        <p>Looks at file names, sizes and dates. Fast, but doesn't tell you if the contents differ. Good for everyday sync.</p>
+      </div>
+      <div class="method">
+        <h3>Deep</h3>
+        <p>Also reads the contents, to be sure files that look identical really are. Slower, but reliable. Good before an important backup.</p>
+      </div>
+      <div class="method">
+        <h3>Full</h3>
+        <p>Deep, plus a physical health check on the drives. Asks for permission — the administrator password on Linux, the system's own consent window on Windows. Good when you have doubts about an old USB drive.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>A damaged drive does not stop the work</h2>
+    <p>
+      When GEMINUS meets a file it cannot read, it doesn't give up on the whole job:
+      it marks that file with a warning and finishes the comparison. At the end you
+      know exactly what could not be read, and where.
+    </p>
+  </section>
+
+  <section>
+    <h2>What it looks like</h2>
+    <div class="shots">
+      <figure>
+        <img src="screenshots/screenshot-dark-en.png" alt="GEMINUS comparing two folders side by side, dark theme" loading="lazy">
+        <figcaption>Two folders side by side, differences marked. Dark theme.</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/screenshot-light-en.png" alt="GEMINUS comparing two folders side by side, light theme" loading="lazy">
+        <figcaption>The same view in the light theme.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Install</h2>
+    <div class="platforms">
+      <div class="platform">
+        <h3>Linux</h3>
+        <p>
+          Three formats, take the one you need. <strong>AppImage</strong> — a single
+          file: make it executable and run it, nothing to install. A <strong>.deb</strong>
+          package for Debian and derivatives. An <strong>.rpm</strong> package for Fedora.
+        </p>
+      </div>
+      <div class="platform">
+        <h3>Windows</h3>
+        <p>
+          An installer: open it, click through to the end, and GEMINUS lands in the
+          start menu. Needs <strong>Windows 10 22H2 or later, 64‑bit</strong>. If the
+          machine is missing the system component used to draw the interface, the
+          installation adds it.
+        </p>
+        <p>
+          The installer is not signed, so Windows shows a security warning before
+          opening it: that is expected, and you get past it by choosing to proceed.
+          A certificate costs money every year, and this is one person's project.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where it lives</h2>
+    <p>
+      GEMINUS is published in two places, and they carry exactly the same code:
+      Codeberg is home, GitHub is its mirror. Neither is a fork — pick whichever
+      you prefer.
+    </p>
+    <div class="mirrors">
+      <a class="btn" href="https://codeberg.org/lucixdev/geminus">Codeberg</a>
+      <a class="btn" href="https://github.com/lucixdev/geminus">GitHub</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Copyright © 2026 lucix.dev — GEMINUS is free software under the
+      <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL, version 3 or later</a>.
+    </p>
+    <p>
+      On Windows the interface is drawn by the Microsoft Edge WebView2 runtime,
+      which is not free software: <code>LICENSE-EXCEPTION.txt</code> grants the
+      additional permission that allows linking against it. Software written by
+      others and shipped together with GEMINUS is listed in
+      <code>THIRD-PARTY-NOTICES.txt</code>.
+    </p>
+  </footer>
+
+</main>
+
+<!-- ══════════════════════════ ITALIANO ══════════════════════════ -->
+<main id="lang-it" class="wrap" hidden>
+
+  <header class="hero">
+    <p class="eyebrow">GEMINUS</p>
+    <h1>Confronta due dischi o due cartelle su Linux e Windows</h1>
+    <p class="lede">
+      Vedi esattamente cosa è cambiato fra il disco di lavoro e quello di backup, e
+      poi copi, sposti o cancelli le differenze con le tue mani. Niente NAS, niente
+      servizio che gira di nascosto, nessun account.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="https://codeberg.org/lucixdev/geminus/releases">Scarica</a>
+      <a class="btn" href="https://github.com/lucixdev/geminus/blob/main/MANUAL.md">Leggi il manuale</a>
+      <p class="cta-note">Software libero, GPLv3 · Linux (AppImage, .deb, .rpm) e Windows 10/11 a 64 bit</p>
+    </div>
+  </header>
+
+  <section>
+    <h2>Perché</h2>
+    <p>
+      Un NAS costa, e va tenuto in piedi. Due dischi esterni costano molto meno e non
+      chiedono niente. GEMINUS nasce da questa idea semplice: un disco di lavoro e un
+      disco di backup, allineati quando lo decidi <em>tu</em>, senza hardware dedicato
+      e senza un sistema da amministrare.
+    </p>
+    <p>
+      GEMINUS non è un NAS — è uno strumento per chi vuole sapere esattamente cosa è
+      cambiato tra due dischi o due cartelle, e agire di conseguenza. Scegli due
+      percorsi. GEMINUS li confronta file per file. Vedi le differenze. Copi, sposti o
+      cancelli quello che vuoi.
+    </p>
+  </section>
+
+  <section>
+    <h2>Tre modi di confrontare</h2>
+    <p>Ogni volta che lanci un confronto, GEMINUS ti chiede quanto vuoi essere accurato.</p>
+    <div class="methods">
+      <div class="method">
+        <h3>Veloce</h3>
+        <p>Guarda nomi, dimensioni e date. Rapido, ma non ti dice se il contenuto è diverso. Va bene per la sincronizzazione quotidiana.</p>
+      </div>
+      <div class="method">
+        <h3>Approfondito</h3>
+        <p>Legge anche il contenuto, per essere sicuro che i file che sembrano uguali lo siano davvero. Più lento, ma affidabile. Va bene prima di un backup importante.</p>
+      </div>
+      <div class="method">
+        <h3>Completo</h3>
+        <p>Approfondito, più una verifica fisica della salute dei dischi. Chiede un permesso: su Linux la password di amministratore, su Windows il consenso nella finestra del sistema. Va bene quando hai dubbi su una USB vecchia.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Un disco danneggiato non ferma il lavoro</h2>
+    <p>
+      Quando GEMINUS incontra un file che non riesce a leggere, non molla tutto:
+      lo marca con un avviso e porta a termine il confronto. Alla fine sai
+      esattamente cosa non è stato possibile leggere, e dove.
+    </p>
+  </section>
+
+  <section>
+    <h2>Com'è fatto</h2>
+    <div class="shots">
+      <figure>
+        <img src="screenshots/screenshot-dark-en.png" alt="GEMINUS confronta due cartelle affiancate, tema scuro" loading="lazy">
+        <figcaption>Due cartelle affiancate, con le differenze evidenziate. Tema scuro.</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/screenshot-light-en.png" alt="GEMINUS confronta due cartelle affiancate, tema chiaro" loading="lazy">
+        <figcaption>La stessa vista nel tema chiaro.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Installazione</h2>
+    <div class="platforms">
+      <div class="platform">
+        <h3>Linux</h3>
+        <p>
+          Tre formati, scegli quello che ti serve. <strong>AppImage</strong> — un file
+          solo: lo rendi eseguibile e lo lanci, senza installare niente. Pacchetto
+          <strong>.deb</strong> per Debian e derivate. Pacchetto <strong>.rpm</strong>
+          per Fedora.
+        </p>
+      </div>
+      <div class="platform">
+        <h3>Windows</h3>
+        <p>
+          Un programma di installazione: lo apri, vai avanti fino alla fine, e GEMINUS
+          finisce nel menu di avvio. Serve <strong>Windows 10 22H2 o successivo, a 64
+          bit</strong>. Se al computer manca il componente di sistema che serve a
+          mostrare l'interfaccia, l'installazione lo aggiunge da sé.
+        </p>
+        <p>
+          Il programma di installazione non è firmato, quindi Windows mostra un avviso
+          di sicurezza prima di aprirlo: è atteso, e si passa oltre scegliendo di
+          procedere. Un certificato costa ogni anno, e questo è il progetto di una
+          persona sola.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dove vive</h2>
+    <p>
+      GEMINUS è pubblicato in due posti, e portano esattamente lo stesso codice:
+      Codeberg è la casa, GitHub è la copia. Nessuno dei due è un fork — prendi
+      quello che preferisci.
+    </p>
+    <div class="mirrors">
+      <a class="btn" href="https://codeberg.org/lucixdev/geminus">Codeberg</a>
+      <a class="btn" href="https://github.com/lucixdev/geminus">GitHub</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Copyright © 2026 lucix.dev — GEMINUS è software libero sotto la
+      <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL, versione 3 o successive</a>.
+    </p>
+    <p>
+      Su Windows l'interfaccia è disegnata dal motore Microsoft Edge WebView2, che non
+      è software libero: <code>LICENSE-EXCEPTION.txt</code> concede il permesso
+      aggiuntivo che ne autorizza il collegamento. Il software scritto da altri e
+      distribuito insieme a GEMINUS è elencato in <code>THIRD-PARTY-NOTICES.txt</code>.
+    </p>
+  </footer>
+
+</main>
+
+<script>
+  // Both language sections stay in the document so that search engines and
+  // no-script visitors get all the text; the switch only hides one of them.
+  var en = document.getElementById('lang-en');
+  var it = document.getElementById('lang-it');
+  var bEn = document.getElementById('btn-en');
+  var bIt = document.getElementById('btn-it');
+
+  function show(lang) {
+    var italian = lang === 'it';
+    en.hidden = italian;
+    it.hidden = !italian;
+    bEn.setAttribute('aria-pressed', String(!italian));
+    bIt.setAttribute('aria-pressed', String(italian));
+    document.documentElement.lang = italian ? 'it' : 'en';
+    try { localStorage.setItem('geminus-lang', lang); } catch (e) {}
+  }
+
+  bEn.addEventListener('click', function () { show('en'); });
+  bIt.addEventListener('click', function () { show('it'); });
+
+  var saved = null;
+  try { saved = localStorage.getItem('geminus-lang'); } catch (e) {}
+  if (saved !== 'en' && saved !== 'it') {
+    saved = (navigator.language || '').toLowerCase().indexOf('it') === 0 ? 'it' : 'en';
+  }
+  show(saved);
+</script>
+
+</body>
+</html>
