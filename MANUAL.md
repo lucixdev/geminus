@@ -26,29 +26,29 @@
 
 ## English
 
-### Table Of Contents
+### Table of contents
 
 1. [About GEMINUS](#about-geminus)
-2. [How To Use](#how-to-use)
-3. [Slow Or Faulty Disks](#slow-or-faulty-disks)
-4. [Formatting A Disk](#formatting-a-disk)
-5. [Frequently Asked Questions](#frequently-asked-questions)
+2. [How to use](#how-to-use)
+3. [Slow or faulty disks](#slow-or-faulty-disks)
+4. [Formatting a disk](#formatting-a-disk)
+5. [Frequently asked questions](#frequently-asked-questions)
 
 ---
 
 ### About GEMINUS
 
-#### What GEMINUS Is
+#### What GEMINUS is
 
 GEMINUS is a desktop application that **compares two disks or two folders**. It shows side by side which files are identical, which have been modified, which exist on only one side.
 
-#### Where It Runs
+#### Where it runs
 
 On Linux and on Windows, with the same features. On Windows it needs version 10 22H2 or later, 64 bit.
 
 The few things that differ between the two systems are marked throughout this manual with **On Linux** and **On Windows**. Where there's no marker, it holds for both.
 
-#### What It's For
+#### What it's for
 
 - Verify that a backup is complete and identical to the source.
 - Find modified files between two copies of a folder.
@@ -56,7 +56,7 @@ The few things that differ between the two systems are marked throughout this ma
 - Copy or move files and folders between sides by dragging them.
 - Delete from the backup what no longer exists in the source.
 
-#### How It Works
+#### How it works
 
 When you click **▶ Compare**, GEMINUS asks how you want to compare the disks. There are three methods:
 
@@ -64,7 +64,7 @@ When you click **▶ Compare**, GEMINUS asks how you want to compare the disks. 
 - **Deep**. GEMINUS also reads the contents of files that look the same (same name, same size, same date), to be sure they really are identical inside. Files that differ it spots right away without reading them. Slow, but reliable.
 - **Full**. Like Deep, plus it checks the physical health of the disks before starting. To do that it asks for permission: *on Linux* the administrator password, *on Windows* your consent in the system's own window.
 
-#### When To Use Which Method
+#### When to use which method
 
 For everyday use (seeing what changed after a copy): **Quick**.
 
@@ -78,11 +78,11 @@ GEMINUS is written in Rust on the Tauri framework. It is free software distribut
 
 ---
 
-### How To Use
+### How to use
 
-#### Basic Compare
+#### Basic compare
 
-1. Click on the **Drive A** block in the top left. The folder picker opens: `⏏ Devices` lists the connected disks, `🏠 Home` takes you to your personal folder. Pick a folder and press **Select This Folder**.
+1. Click on the **Drive A** block in the top left. The folder picker opens: `⏏ Devices` lists the connected disks, `🏠 Home` takes you to your personal folder. Pick a folder and press **Select this folder**.
 2. Same with the **Drive B** block on the right.
 3. Click **▶ Compare** in the center. GEMINUS asks which method to use: **Quick**, **Deep** or **Full**. Choose, read the confirmation, press **Proceed**.
 
@@ -94,7 +94,7 @@ If you chose **Full**, GEMINUS asks for permission to check the disks' health �
 
 The health check relies on a free external program, installed once and for all. If it isn't there, GEMINUS tells you and explains how to install it the way your system does it; you can also carry on without, and then Full counts as Deep. Comparing and copying don't depend on that program: they work either way.
 
-#### What You See After The Compare
+#### What you see after the compare
 
 The two side-by-side trees show the contents of the two disks, row by row: where an item is missing on one side, an **(absent)** row takes its place, so the columns stay aligned at any depth. Rows are color-coded by status: **blue** = only in A, **green** = only in B, **orange** = modified, and a badge labels each one. The status bar at the bottom summarizes the counts.
 
@@ -102,21 +102,25 @@ Folders reflect the state of what's inside them: if even one file within a folde
 
 After a **Quick** comparison a warning stays above the trees, and for good reason: that comparison did not read file contents, so there "identical" means "same size and same date".
 
-#### Filters And Search
+#### Filters and search
 
-The chips at the top filter by status: `All`, `Modified`, `Only In A`, `Only In B`, `Same In A And B`, `Unreadable`. Search filters by name.
+The chips at the top filter by status: `All`, `Modified`, `Only in A`, `Only in B`, `Same in A and B`, `Unreadable`. Search filters by name.
 
 The `Hidden` chip also shows the items your system considers hidden: *on Linux* those whose name starts with a dot, *on Windows* those carrying the hidden attribute. An item hidden on one side and plain on the other stays visible anyway, because that is a difference. Worth knowing: the same disk compared from Linux and from Windows can show a different number of hidden files — what changes is the notion of hidden, not the disk.
 
 The numbers on the chips count only files. Folders appear colored in the tree but are not part of the totals.
 
-#### Copy Or Move Files
+#### Copy or move files
 
 Drag a file or a folder from one column to the other. The mode (`Copy` or `Move`) is chosen in the toolbar.
 
 Dropping **always** puts the item in its mirror position on the other side: same folder, same place. It doesn't matter which row you drop it on — GEMINUS aligns the two sides, it doesn't rearrange the disk.
 
-If something with the same name is already on the other side, GEMINUS asks what to do: **Overwrite**, **Rename** or **Cancel**. On a folder, Overwrite does not replace it: it merges the contents, replaces the files with the same name, and leaves the rest alone.
+**Several items at once:** `Ctrl`+click adds a row to the selection or takes it out, `Shift`+click takes every row between the last one clicked and this one. You select in one column only. Dragging a selected row carries the whole group, each item to its own mirror position; if the group holds a folder, what is inside it travels with it. Only what you see is carried: changing filter, searching or closing a folder takes the rows that disappear out of the selection. `Esc` or a plain click on a file clears it; a plain click on a folder opens or closes it and leaves the selection alone, so you can pick rows from several folders.
+
+If something with the same name is already on the other side, GEMINUS asks only when something could be lost. A missing file is copied; an identical file (✓) is copied over without a question, since nothing changes; a folder that is already there is not replaced: GEMINUS goes into it and completes its contents, with the same rules for the files inside.
+
+The question comes only for files with the same name that are **different**, because overwriting them deletes the version that was there for good. For a file dragged alone: **Overwrite**, **Rename** or **Cancel**. For a group or a folder, before starting, one window lists them all, including the ones inside folders: **Overwrite all**, **Skip these** (they stay as they are, everything else goes), **One by one** (Overwrite, Rename or Cancel for each) or **Cancel** (nothing starts).
 
 Write-protected files get replaced too. The one case where it can't is when the destination folder itself refuses to be written to, and then it tells you instead of pretending.
 
@@ -128,9 +132,9 @@ Links (🔗) can't be dragged. And if you drag a folder that contains some, the 
 
 When an operation ends, the status bar at the bottom says how it went: copied, moved, skipped, cancelled, or partial copy with the number of files left behind. If something didn't go through in full — a folder copied halfway, links skipped, an operation stopped — a summary also opens, with the counts and the destination.
 
-In `Move` mode, if any file of a folder was left behind, **the source folder is not removed**: that would be the one way to lose what didn't make it. You find it where it was, with inside what didn't get through.
+In `Move` mode, if any file of a folder was left behind, **the source folder is not removed**: that would be the one way to lose what didn't make it. You find it where it was and whole, including the files that already reached the other side: nothing is removed from the source, and the summary says so.
 
-#### Delete Files
+#### Delete files
 
 **Right click** on a row → **Delete**. GEMINUS asks for confirmation, naming the item and saying it **will be permanently deleted**. The button already primed is Cancel: to delete, you have to choose it yourself.
 
@@ -144,7 +148,7 @@ In normal use the net is the comparison itself: a file deleted from the backup b
 
 On links (🔗), deleting removes the link and doesn't touch the file or folder it points to.
 
-#### When A File Has Trouble
+#### When a file has trouble
 
 If during a copy or move a file can't be read or written, GEMINUS stops and opens a window that says **where the item is**, **what failed** (reading from the source disk, writing to the destination disk, creating a folder, reading the contents of a folder) and **why**: permissions don't allow it, space has run out, the destination disk is read-only, the file is open in another program, the disk stopped responding, the disk reports a physical error. The system's raw text follows at the end, for whoever wants to read it.
 
@@ -164,7 +168,7 @@ When the test is over the result is saved as a text file **in your downloads fol
 
 Permission is needed here too, but here the system asks for it directly — in Full it was GEMINUS asking you first, in its own window. If you refuse, the check doesn't start and nothing else happens. And if the external program isn't installed there's nothing to start: the window explains how to install it, and from there you go back whichever button you press.
 
-#### Cancel An Operation
+#### Cancel an operation
 
 During the scan and the comparison there's always a window with a `Cancel` button. In copies and moves it appears when there's something to wait for — a folder or a large file: for a small file the operation is over before stopping it would matter.
 
@@ -172,39 +176,39 @@ Cancelling is clean: the copy in progress is thrown away and the file that was a
 
 ---
 
-### Slow Or Faulty Disks
+### Slow or faulty disks
 
-#### What Bad Sectors Are
+#### What bad sectors are
 
 Every disk is physically divided into small zones called **sectors**. Over time, some zones stop working correctly (bad sectors). When GEMINUS tries to read a file located on a bad sector, the disk may respond slowly, return an error, or not respond at all.
 
-#### Message "Waiting For Disk..."
+#### Message "Waiting for disk..."
 
-Appears while reading file contents when the disk hasn't responded for a few seconds. **It's not an error**: GEMINUS is waiting patiently. If the disk unblocks, the bar reverts to "Reading File Contents..." and continues. What to do: nothing, let it work. What NOT to do: don't close the window, don't unplug the disk.
+Appears while reading file contents when the disk hasn't responded for a few seconds. **It's not an error**: GEMINUS is waiting patiently. If the disk unblocks, the bar reverts to "Reading file contents..." and continues. What to do: nothing, let it work. What NOT to do: don't close the window, don't unplug the disk.
 
 This doesn't happen in Quick mode: in Quick mode GEMINUS doesn't read file contents, so it never has to wait for the disk.
 
-#### Counter "Unreadable"
+#### Counter "unreadable"
 
 At the end of the compare, in the status: `(N Unreadable)`. These are the files GEMINUS could not read: the disk did not answer within the time limit, or returned an error, or permissions did not allow it. GEMINUS marked them unreadable and moved on. Filter the tree with the `Unreadable` chip to see them.
 
-#### Counter "Skipped — Disk Stuck"
+#### Counter "skipped — disk stuck"
 
-Appears only in serious cases: `(N Skipped — Disk Stuck)`. Means the disk got stuck so many times (8 failed files) that GEMINUS gave up and skipped the remaining files to avoid wasting time and resources.
+Appears only in serious cases: `(N skipped — disk stuck)`. Means the disk got stuck so many times (8 failed files) that GEMINUS gave up and skipped the remaining files to avoid wasting time and resources.
 
-#### What To Do When You See These Numbers
+#### What to do when you see these numbers
 
-- **Few Unreadable (1-3)**: probably isolated bad sectors. Make an urgent backup of the still-readable files to another disk.
-- **Many Unreadable or Skipped**: the disk is seriously compromised. Salvage what you can, then go to the [Formatting A Disk](#formatting-a-disk) section to reformat with sector check, or replace the disk if it's at end of life.
-- **Disk With Many Sectors Waiting To Be Remapped** (dozens or more): consider reformatting it with sector checking on, so the faulty ones get marked and the system stops using them. How to do it, on both systems, is in the [Formatting A Disk](#formatting-a-disk) chapter.
+- **Few unreadable (1-3)**: probably isolated bad sectors. Make an urgent backup of the still-readable files to another disk.
+- **Many unreadable or skipped**: the disk is seriously compromised. Salvage what you can, then go to the [Formatting a disk](#formatting-a-disk) section to reformat with sector check, or replace the disk if it's at end of life.
+- **Disk with many sectors waiting to be remapped** (dozens or more): consider reformatting it with sector checking on, so the faulty ones get marked and the system stops using them. How to do it, on both systems, is in the [Formatting a disk](#formatting-a-disk) chapter.
 
 ---
 
-### Formatting A Disk
+### Formatting a disk
 
 > ⚠ **Warning**: Formatting a disk wipes all data. Double-check which disk you are formatting before you proceed. Picking the wrong disk means losing everything.
 
-#### First Of All — Save What Can Be Recovered
+#### First of all — save what can be recovered
 
 **Before formatting, copy elsewhere everything still readable.** Formatting wipes everything, including from healthy sectors. Use GEMINUS or your system's file manager to copy data to another disk. Only when you're sure you have nothing left to save, proceed.
 
@@ -226,7 +230,7 @@ If instead you only want to check an ailing disk **without wiping anything**, op
 
 Here you go through the terminal, and the commands deserve attention: identify the disk before touching it.
 
-##### Step 1 — Identify The Disk
+##### Step 1 — identify the disk
 
 Open a terminal and run:
 
@@ -236,7 +240,7 @@ lsblk -f
 
 Recognize your USB by size and label. Example: a 4 TB USB might be `/dev/sdb` with partition `/dev/sdb1`. **Never use `/dev/sda`** unless you're absolutely sure: it's usually the system disk.
 
-##### Step 2 — Unmount
+##### Step 2 — unmount
 
 ```bash
 sudo umount /dev/sdX1
@@ -244,7 +248,7 @@ sudo umount /dev/sdX1
 
 Replace `X` with the actual letter (e.g. `sdb1`). If the disk wasn't mounted, ignore the error.
 
-##### Step 3 — Format (Pick A Filesystem)
+##### Step 3 — format (pick a filesystem)
 
 **ext4 — recommended for Linux, with sector check:**
 
@@ -289,7 +293,7 @@ sudo mkfs.ntfs -Q -L "MyDisk" /dev/sdX1
 sudo mkfs.exfat -L "MyDisk" /dev/sdX1
 ```
 
-##### Step 4 — Remount
+##### Step 4 — remount
 
 Physically unplug the USB and plug it back in: the file manager will auto-mount it. Alternatively:
 
@@ -298,7 +302,7 @@ sudo mkdir -p /mnt/mydisk
 sudo mount /dev/sdX1 /mnt/mydisk
 ```
 
-##### Step 5 — Verify
+##### Step 5 — verify
 
 ```bash
 df -h | grep sdX
@@ -308,10 +312,10 @@ Check that the total space matches expectations and that the filesystem is the r
 
 ---
 
-### Frequently Asked Questions
+### Frequently asked questions
 
 **Does GEMINUS modify my files?**
-Not on its own. The compare is read-only: it looks and touches nothing. Files change only when you ask, and there are two ways: dragging something from one column to the other, or deleting with the right button. In the first case, if there's a conflict, GEMINUS always asks what to do; in the second it asks for confirmation, and the deletion is permanent.
+Not on its own. The compare is read-only: it looks and touches nothing. Files change only when you ask, and there are two ways: dragging something from one column to the other, or deleting with the right button. In the first case, if the other side has a file with the same name but different, GEMINUS always asks what to do before overwriting it; in the second it asks for confirmation, and the deletion is permanent.
 
 **Is my data sent over the internet?**
 No. GEMINUS works completely offline. No telemetry, no cloud, no network connection. Everything stays on your computer.
@@ -337,17 +341,17 @@ Very. GEMINUS reads the contents of both files from beginning to end: if they di
 ---
 ---
 
-## Manuale — Italiano
+## Manuale — italiano
 
 **[English](#english)** · **Italiano**
 
 ### Indice
 
 1. [Cosa È GEMINUS](#cosa-è-geminus)
-2. [Come Si Usa](#come-si-usa)
-3. [Dischi Lenti O Difettosi](#dischi-lenti-o-difettosi)
-4. [Formattare Un Disco](#formattare-un-disco)
-5. [Domande Frequenti](#domande-frequenti)
+2. [Come si usa](#come-si-usa)
+3. [Dischi lenti o difettosi](#dischi-lenti-o-difettosi)
+4. [Formattare un disco](#formattare-un-disco)
+5. [Domande frequenti](#domande-frequenti)
 
 ---
 
@@ -357,13 +361,13 @@ Very. GEMINUS reads the contents of both files from beginning to end: if they di
 
 GEMINUS è un'applicazione desktop che **confronta due dischi o due cartelle**. Mostra fianco a fianco quali file sono uguali, quali sono stati modificati, quali esistono solo da una parte.
 
-#### Dove Gira
+#### Dove gira
 
 Su Linux e su Windows, con le stesse funzioni. Su Windows serve la versione 10 22H2 o successiva, a 64 bit.
 
 Le poche cose che cambiano da un sistema all'altro sono segnalate lungo il manuale con **Su Linux** e **Su Windows**. Dove non c'è nessuna indicazione, vale per tutti e due.
 
-#### A Cosa Serve
+#### A cosa serve
 
 - Verificare che un backup sia completo e identico all'originale.
 - Trovare i file modificati fra due copie di una cartella.
@@ -371,7 +375,7 @@ Le poche cose che cambiano da un sistema all'altro sono segnalate lungo il manua
 - Copiare o spostare file e cartelle da una parte all'altra trascinandoli.
 - Cancellare dal backup quello che nell'originale non c'è più.
 
-#### Come Lavora
+#### Come lavora
 
 Quando clicchi **▶ Confronta**, GEMINUS ti chiede in che modo vuoi confrontare i dischi. Ci sono tre metodi:
 
@@ -379,7 +383,7 @@ Quando clicchi **▶ Confronta**, GEMINUS ti chiede in che modo vuoi confrontare
 - **Approfondito**. GEMINUS legge anche il contenuto dei file che sembrano uguali (stesso nome, stessa dimensione, stessa data), per essere sicuro che siano davvero identici dentro. I file diversi li riconosce subito senza leggerli. Lento, ma sicuro.
 - **Completo**. Come Approfondito, e in più controlla lo stato di salute fisica dei dischi prima di partire. Per farlo chiede un permesso: *su Linux* la password di amministratore, *su Windows* il consenso nella finestra del sistema.
 
-#### Quando Usare Quale Metodo
+#### Quando usare quale metodo
 
 Per uso quotidiano (vedere cos'è cambiato dopo una copia): **Veloce**.
 
@@ -393,11 +397,11 @@ GEMINUS è scritto in Rust col framework Tauri. È software libero distribuito s
 
 ---
 
-### Come Si Usa
+### Come si usa
 
-#### Confronto Base
+#### Confronto base
 
-1. Clicca sul blocco **Disco A** in alto a sinistra. Si apre il selettore cartella: `⏏ Dispositivi` elenca i dischi collegati, `🏠 Home` porta alla tua cartella personale. Scegli una cartella e premi **Scegli Questa Cartella**.
+1. Clicca sul blocco **Disco A** in alto a sinistra. Si apre il selettore cartella: `⏏ Dispositivi` elenca i dischi collegati, `🏠 Home` porta alla tua cartella personale. Scegli una cartella e premi **Scegli questa cartella**.
 2. Stessa cosa col blocco **Disco B** a destra.
 3. Clicca **▶ Confronta** al centro. GEMINUS ti chiede quale metodo usare: **Veloce**, **Approfondito** o **Completo**. Scegli, leggi la conferma, premi **Procedi**.
 
@@ -409,7 +413,7 @@ Se hai scelto **Completo**, GEMINUS chiede il permesso di controllare la salute 
 
 Il controllo della salute si appoggia a un programma esterno gratuito, che si installa una volta sola. Se non lo trova, GEMINUS te lo dice e ti spiega come installarlo nel modo del tuo sistema; puoi anche continuare senza, e allora il Completo vale come Approfondito. Confronto e copia non dipendono da quel programma: funzionano comunque.
 
-#### Cosa Vedi Dopo Il Confronto
+#### Cosa vedi dopo il confronto
 
 I due alberi affiancati mostrano il contenuto dei due dischi, riga per riga: dove un elemento manca da una parte, al suo posto compare la riga **(assente)**, così le due colonne restano allineate a qualsiasi profondità. Le righe sono colorate per stato: **azzurro** = solo in A, **verde** = solo in B, **arancione** = modificato, e un badge le etichetta una per una. La barra in basso riassume i conteggi.
 
@@ -417,7 +421,7 @@ Le cartelle riflettono lo stato di ciò che contengono: se anche un solo file de
 
 Dopo un confronto **Veloce** resta un avviso sopra gli alberi, e ha un motivo: quel confronto non ha letto il contenuto dei file, quindi lì "uguale" significa "stessa dimensione e stessa data".
 
-#### Filtri E Ricerca
+#### Filtri e ricerca
 
 I chip in alto filtrano per stato: `Tutti`, `Modificati`, `Solo in A`, `Solo in B`, `Uguali in A e B`, `Illeggibili`. La ricerca filtra per nome.
 
@@ -425,13 +429,17 @@ Il chip `Nascosti` mostra anche gli elementi che il tuo sistema considera nascos
 
 I numeri sui chip contano solo i file. Le cartelle si vedono colorate nell'albero ma non rientrano nei totali.
 
-#### Copiare O Spostare File
+#### Copiare o spostare file
 
 Trascina un file o una cartella da una colonna all'altra. La modalità (`Copia` o `Sposta`) si sceglie nella barra in alto.
 
 Il rilascio porta **sempre** l'elemento nella sua posizione speculare sull'altro lato: stessa cartella, stesso posto. Non conta su quale riga lo lasci cadere — GEMINUS allinea i due lati, non riorganizza il disco.
 
-Se dall'altra parte c'è già qualcosa con lo stesso nome, GEMINUS chiede cosa fare: **Sovrascrivi**, **Rinomina** o **Annulla**. Su una cartella, Sovrascrivi non la sostituisce: ne fonde il contenuto, rimpiazza i file con lo stesso nome e lascia stare il resto.
+**Più elementi insieme:** `Ctrl`+click aggiunge o toglie una riga dalla selezione, `Maiusc`+click prende tutte le righe fra l'ultima cliccata e questa. Si seleziona in una colonna sola. Trascinando una riga selezionata porti tutto il gruppo, ognuno nella sua posizione speculare; se nel gruppo c'è una cartella, quello che sta dentro di lei viaggia con lei. Si porta solo quello che vedi: cambiare filtro, cercare o chiudere una cartella toglie dalla selezione le righe che spariscono. `Esc` o un click semplice su un file la azzerano; un click semplice su una cartella la apre o la chiude e lascia la selezione com'è, così puoi prendere righe da più cartelle.
+
+Se dall'altra parte c'è già qualcosa con lo stesso nome, GEMINUS chiede solo quando c'è da perdere qualcosa. Un file che manca si copia; un file uguale (✓) si copia sopra senza domande, perché non cambia niente; una cartella che c'è già non viene sostituita: GEMINUS ci entra e ne completa il contenuto, con le stesse regole per i file che ha dentro.
+
+La domanda arriva solo per i file con lo stesso nome ma **diversi**, perché sovrascriverli cancella per sempre la versione che c'era. Per un file trascinato da solo: **Sovrascrivi**, **Rinomina** o **Annulla**. Per un gruppo o una cartella, prima di cominciare, una finestra sola li elenca tutti, anche quelli dentro le cartelle: **Sovrascrivi tutti**, **Salta questi** (restano come sono, tutto il resto passa), **Uno per uno** (per ciascuno Sovrascrivi, Rinomina o Annulla) o **Annulla** (non parte niente).
 
 Anche i file protetti da scrittura vengono rimpiazzati. L'unico caso in cui non ci riesce è quando è la cartella di destinazione a non lasciarsi scrivere, e allora te lo dice invece di far finta.
 
@@ -443,9 +451,9 @@ I collegamenti (🔗) non si trascinano. E se trascini una cartella che ne conti
 
 A fine operazione la barra di stato in basso dice com'è andata: copiato, spostato, saltato, annullato, o copia parziale col numero dei file rimasti indietro. Se qualcosa non è andato per intero — una cartella copiata a metà, collegamenti saltati, un'operazione fermata — si apre anche un riepilogo con i conti e la destinazione.
 
-In modalità `Sposta`, se qualche file di una cartella è rimasto indietro, **la cartella di partenza non viene rimossa**: sarebbe l'unico modo di perdere quello che non è passato. La ritrovi dov'era, con dentro quello che non ce l'ha fatta.
+In modalità `Sposta`, se qualche file di una cartella è rimasto indietro, **la cartella di partenza non viene rimossa**: sarebbe l'unico modo di perdere quello che non è passato. La ritrovi dov'era e intera, anche con i file che sono già arrivati dall'altra parte: dalla partenza non si toglie niente, e il riepilogo lo dice.
 
-#### Cancellare File
+#### Cancellare file
 
 **Tasto destro** su una riga → **Cancella**. GEMINUS chiede conferma dicendo il nome dell'elemento e che **verrà eliminato definitivamente**. Il bottone già pronto è Annulla: per cancellare devi scegliere tu.
 
@@ -459,7 +467,7 @@ Nell'uso normale la rete è il confronto stesso: un file cancellato per sbaglio 
 
 Sui collegamenti (🔗) la cancellazione rimuove il collegamento e non tocca il file o la cartella a cui punta.
 
-#### Quando Un File Dà Problemi
+#### Quando un file dà problemi
 
 Se durante una copia o uno spostamento un file non si riesce a leggere o scrivere, GEMINUS si ferma e apre una finestra che dice **dov'è l'elemento**, **cosa non è riuscito** (leggere dal disco di partenza, scrivere su quello di destinazione, creare una cartella, leggere il contenuto di una cartella) e **perché**: i permessi non lo consentono, lo spazio è esaurito, il disco di destinazione è in sola lettura, il file è aperto in un altro programma, il disco non risponde più, il disco segnala un errore fisico. In coda c'è anche il testo grezzo del sistema, per chi lo vuole leggere.
 
@@ -479,7 +487,7 @@ A test finito il risultato viene salvato come file di testo **nella cartella dei
 
 Anche qui serve il permesso, ma qui lo chiede direttamente il sistema — nel Completo era GEMINUS a chiedertelo prima con una sua finestra. Se lo rifiuti, la verifica non parte e non succede nient'altro. E se il programma esterno non è installato non c'è niente da avviare: la finestra ti spiega come installarlo, e da lì si torna indietro qualunque bottone premi.
 
-#### Annullare Un'Operazione
+#### Annullare un'operazione
 
 Durante la scansione e il confronto c'è sempre una finestra col bottone `Annulla`. Nelle copie e negli spostamenti compare quando c'è qualcosa da aspettare — una cartella o un file grande: per un file piccolo l'operazione è finita prima che serva fermarla.
 
@@ -487,39 +495,39 @@ L'annullamento è pulito: la copia a metà viene buttata via e il file che stava
 
 ---
 
-### Dischi Lenti O Difettosi
+### Dischi lenti o difettosi
 
-#### Cosa Sono I Settori Difettosi
+#### Cosa sono i settori difettosi
 
 Ogni disco è diviso fisicamente in piccole zone chiamate **settori**. Col tempo, alcune zone smettono di funzionare correttamente (settori difettosi, in inglese *bad sectors*). Quando GEMINUS prova a leggere un file che si trova su un settore difettoso, il disco può rispondere lentamente, dare errore, o non rispondere affatto.
 
-#### Messaggio "In Attesa Del Disco..."
+#### Messaggio "In attesa del disco..."
 
-Compare durante la lettura del contenuto dei file quando il disco non risponde da qualche secondo. **Non è un errore**: GEMINUS sta aspettando con pazienza. Se il disco si sblocca, la barra torna a "Lettura Contenuto Dei File..." e prosegue. Cosa fare: niente, lascia lavorare. Cosa NON fare: non chiudere la finestra, non scollegare il disco.
+Compare durante la lettura del contenuto dei file quando il disco non risponde da qualche secondo. **Non è un errore**: GEMINUS sta aspettando con pazienza. Se il disco si sblocca, la barra torna a "Lettura contenuto dei file..." e prosegue. Cosa fare: niente, lascia lavorare. Cosa NON fare: non chiudere la finestra, non scollegare il disco.
 
 Questo non capita in modalità Veloce: in Veloce GEMINUS non legge il contenuto dei file, quindi non resta mai in attesa del disco.
 
-#### Contatore "Illeggibili"
+#### Contatore "illeggibili"
 
 A fine confronto, nello status: `(N Illeggibili)`. Sono i file che GEMINUS non è riuscito a leggere: il disco non ha risposto entro il tempo limite, oppure ha dato errore, oppure i permessi non lo consentivano. GEMINUS li ha marcati come illeggibili e ha continuato col file successivo. Filtra l'albero col chip `Illeggibili` per vedere quali sono.
 
-#### Contatore "Saltati Per Disco Bloccato"
+#### Contatore "saltati per disco bloccato"
 
-Compare solo nei casi gravi: `(N Saltati Per Disco Bloccato)`. Significa che il disco si è bloccato così tante volte (8 file falliti) che GEMINUS ha smesso di insistere e ha saltato i file rimanenti per non sprecare tempo e risorse.
+Compare solo nei casi gravi: `(N saltati per disco bloccato)`. Significa che il disco si è bloccato così tante volte (8 file falliti) che GEMINUS ha smesso di insistere e ha saltato i file rimanenti per non sprecare tempo e risorse.
 
-#### Cosa Fare Quando Vedi Questi Numeri
+#### Cosa fare quando vedi questi numeri
 
-- **Pochi Illeggibili (1-3)**: probabilmente settori difettosi isolati. Fai un backup urgente dei file ancora leggibili su un altro disco.
-- **Molti Illeggibili o Saltati**: il disco è seriamente compromesso. Recupera tutto il salvabile, poi vai alla sezione [Formattare Un Disco](#formattare-un-disco) per riformattare il disco con controllo settori, oppure sostituiscilo se è in fine vita.
-- **Disco Con Molti Settori In Attesa Di Rimappatura** (decine o più): considera di riformattarlo col controllo dei settori attivo, così quelli difettosi vengono marcati e il sistema non li usa più. Come si fa, sui due sistemi, è nel capitolo [Formattare Un Disco](#formattare-un-disco).
+- **Pochi illeggibili (1-3)**: probabilmente settori difettosi isolati. Fai un backup urgente dei file ancora leggibili su un altro disco.
+- **Molti illeggibili o saltati**: il disco è seriamente compromesso. Recupera tutto il salvabile, poi vai alla sezione [Formattare un disco](#formattare-un-disco) per riformattare il disco con controllo settori, oppure sostituiscilo se è in fine vita.
+- **Disco con molti settori in attesa di rimappatura** (decine o più): considera di riformattarlo col controllo dei settori attivo, così quelli difettosi vengono marcati e il sistema non li usa più. Come si fa, sui due sistemi, è nel capitolo [Formattare un disco](#formattare-un-disco).
 
 ---
 
-### Formattare Un Disco
+### Formattare un disco
 
 > ⚠ **Attenzione**: formattare un disco cancella tutti i dati. Verifica DUE VOLTE quale disco stai formattando prima di procedere. Sbagliare disco significa perdere tutto.
 
-#### Prima Di Tutto — Salvare I Dati Recuperabili
+#### Prima di tutto — salvare i dati recuperabili
 
 **Prima di formattare, copia altrove tutto ciò che è ancora leggibile.** La formattazione cancella tutto, anche dai settori sani. Usa GEMINUS o il gestore file del sistema per copiare i dati su un altro disco. Solo quando sei sicuro di non avere più nulla da salvare, procedi.
 
@@ -541,7 +549,7 @@ Se invece vuoi solo controllare un disco malato **senza cancellare niente**, apr
 
 Qui si passa dal terminale, e i comandi vanno dati con la testa: identifica il disco prima di toccarlo.
 
-##### Passo 1 — Identificare Il Disco
+##### Passo 1 — identificare il disco
 
 Apri un terminale e dai:
 
@@ -551,7 +559,7 @@ lsblk -f
 
 Riconosci il tuo disco USB dalla dimensione e dall'etichetta. Esempio: una USB da 4TB potrebbe essere `/dev/sdb` con la sua partizione `/dev/sdb1`. **Mai usare `/dev/sda`** senza essere sicurissimi: di solito è il disco di sistema.
 
-##### Passo 2 — Smontare
+##### Passo 2 — smontare
 
 ```bash
 sudo umount /dev/sdX1
@@ -559,7 +567,7 @@ sudo umount /dev/sdX1
 
 Sostituisci `X` con la lettera reale (es. `sdb1`). Se il disco non era montato, ignora l'errore.
 
-##### Passo 3 — Formattare (Scegli Il Filesystem)
+##### Passo 3 — formattare (scegli il filesystem)
 
 **ext4 — raccomandato per uso Linux, con controllo settori:**
 
@@ -604,7 +612,7 @@ sudo mkfs.ntfs -Q -L "MioDisco" /dev/sdX1
 sudo mkfs.exfat -L "MioDisco" /dev/sdX1
 ```
 
-##### Passo 4 — Rimontare
+##### Passo 4 — rimontare
 
 Scollega fisicamente la USB e ricollegala: il gestore file la rimonterà in automatico. In alternativa:
 
@@ -613,7 +621,7 @@ sudo mkdir -p /mnt/miodisco
 sudo mount /dev/sdX1 /mnt/miodisco
 ```
 
-##### Passo 5 — Verifica
+##### Passo 5 — verifica
 
 ```bash
 df -h | grep sdX
@@ -623,10 +631,10 @@ Controlla che lo spazio totale sia quello atteso e che il filesystem sia quello 
 
 ---
 
-### Domande Frequenti
+### Domande frequenti
 
 **GEMINUS modifica i miei file?**
-Non da solo. Il confronto è in sola lettura: guarda e non tocca niente. I file cambiano solo quando lo chiedi tu, e sono due i modi: trascinare qualcosa da una colonna all'altra, o cancellare col tasto destro. Nel primo caso, se c'è un conflitto, GEMINUS chiede sempre cosa fare; nel secondo chiede conferma, e la cancellazione è definitiva.
+Non da solo. Il confronto è in sola lettura: guarda e non tocca niente. I file cambiano solo quando lo chiedi tu, e sono due i modi: trascinare qualcosa da una colonna all'altra, o cancellare col tasto destro. Nel primo caso, se dall'altra parte c'è un file con lo stesso nome ma diverso, GEMINUS chiede sempre cosa fare prima di sovrascriverlo; nel secondo chiede conferma, e la cancellazione è definitiva.
 
 **I miei dati vengono inviati su internet?**
 No. GEMINUS funziona completamente offline. Non c'è telemetria, non c'è cloud, non c'è connessione di rete. Tutto resta sul tuo computer.
@@ -643,7 +651,7 @@ Avvia il test interno del disco: si autodiagnostica il disco stesso, GEMINUS asp
 **Posso annullare durante un confronto lungo?**
 Sì. La finestra del confronto ha sempre un bottone **Annulla**. L'app si ferma in modo pulito, senza lasciare file a metà.
 
-**Perché alcune cartelle sono "Escluse"?**
+**Perché alcune cartelle sono "escluse"?**
 GEMINUS salta le cartelle che cambiano continuamente da sole, dove il confronto non direbbe niente di utile e costerebbe tempo: `.git`, `node_modules`, `target`, `.cargo`, `.rustup`, `.venv`, `.cache`, `__pycache__`, cestino. *Su Windows* salta anche le cartelle che il sistema tiene per sé (`$RECYCLE.BIN`, `System Volume Information`, `Config.Msi`), quelle che stanno nella radice di ogni unità: non sono tue, e confrontarle non dice niente sul tuo backup. Conta il nome: una cartella tua chiamata così verrebbe saltata comunque. Vale per il confronto, non per la copia: se trascini una cartella che ne contiene una di queste, viene copiata per intero — copiare una cartella deve darti la cartella, non una versione con dei pezzi in meno.
 
 **Quanto è affidabile il confronto Approfondito?**

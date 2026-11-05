@@ -21,6 +21,7 @@
 // File operations behind drag & drop: copy and move, single files and whole
 // directory trees.
 
+use std::collections::HashSet;
 use std::fs;
 use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
@@ -164,6 +165,9 @@ pub struct OpResult {
     pub final_dst: String,
     pub files_copied: u64,
     pub files_skipped: u64,
+    // Left alone because the user chose to keep the version already there: not a
+    // failure, but still something that did not arrive.
+    pub files_kept: u64,
     pub symlinks_skipped: u64,
 }
 
@@ -180,6 +184,7 @@ struct OpProgress {
 struct CopyStats {
     files_copied: u64,
     files_skipped: u64,
+    files_kept: u64,
     symlinks_skipped: u64,
     current_index: u64,
 }
@@ -187,6 +192,54 @@ struct CopyStats {
 #[tauri::command]
 pub fn check_exists(root: String, rel: String) -> bool {
     crate::sys::join_rel(Path::new(&root), &rel).symlink_metadata().is_ok()
+}
+
+#[derive(Serialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct Clash {
+    pub rel: String,
+    pub is_dir: bool,
+}
+
+// What a copy of `rel` would land on: every source file whose place is already
+// taken, looking inside folders that exist on both sides. A folder that exists
+// is not a clash by itself — the copy merges into it. A folder landing on
+// something that is not a folder is one. Links are left out because the copy
+// never carries them, and so are folders that cannot be read: the copy will
+// stop on those and ask anyway.
+#[tauri::command]
+pub fn find_clashes(src_root: String, dst_root: String, rel: String) -> Vec<Clash> {
+    let src_root = Path::new(&src_root);
+    let dst_root = Path::new(&dst_root);
+    let mut out = Vec::new();
+    let mut stack = vec![rel];
+    while let Some(r) = stack.pop() {
+        let src = crate::sys::join_rel(src_root, &r);
+        let dst = crate::sys::join_rel(dst_root, &r);
+        let src_meta = match fs::symlink_metadata(&src) {
+            Ok(m) => m,
+            Err(_) => continue,
+        };
+        let dst_meta = match fs::symlink_metadata(&dst) {
+            Ok(m) => m,
+            Err(_) => continue, // nothing there: no clash below either
+        };
+        if src_meta.file_type().is_symlink() {
+            continue;
+        }
+        if src_meta.is_dir() && dst_meta.is_dir() && !dst_meta.file_type().is_symlink() {
+            if let Ok(entries) = fs::read_dir(&src) {
+                for entry in entries.flatten() {
+                    let name = entry.file_name();
+                    stack.push(rel_child(&r, &name.to_string_lossy()));
+                }
+            }
+            continue;
+        }
+        out.push(Clash { rel: r, is_dir: src_meta.is_dir() });
+    }
+    out.sort_by(|a, b| a.rel.cmp(&b.rel));
+    out
 }
 
 #[tauri::command]
@@ -472,6 +525,7 @@ fn copy_dir_recursive(
     dst: &Path,
     src_rel: &str,
     dst_rel: &str,
+    keep: &HashSet<String>,
     stats: &mut CopyStats,
 ) -> Result<(), String> {
     if STOP_OP.load(Ordering::SeqCst) {
@@ -686,9 +740,21 @@ fn copy_dir_recursive(
         if file_type.is_symlink() {
             stats.symlinks_skipped += 1;
             continue;
+        } else if keep.contains(&child_src_rel) {
+            stats.files_kept += 1;
+            let _ = app.emit(
+                "op_file_done",
+                OpFileDone {
+                    src_rel: child_src_rel.clone(),
+                    dst_rel: child_dst_rel.clone(),
+                    is_dir: file_type.is_dir(),
+                    status: "skipped".to_string(),
+                },
+            );
+            continue;
         } else if file_type.is_dir() {
             if let Err(e) = copy_dir_recursive(
-                app, &child_src, &child_dst, &child_src_rel, &child_dst_rel, stats,
+                app, &child_src, &child_dst, &child_src_rel, &child_dst_rel, keep, stats,
             ) {
                 if e == "stopped" {
                     return Err(e);
@@ -747,6 +813,9 @@ pub async fn copy_item(
     src_rel: String,
     dst_rel: String,
     move_mode: bool,
+    // Source paths inside a folder whose destination copy stays as it is: the
+    // name clashes the user chose to skip.
+    keep: Option<Vec<String>>,
 ) -> Result<OpResult, CmdError> {
     STOP_OP.store(false, Ordering::SeqCst);
 
@@ -819,6 +888,7 @@ pub async fn copy_item(
                     final_dst: dst_path.to_string_lossy().into_owned(),
                     files_copied: stats.files_copied,
                     files_skipped: stats.files_skipped,
+                    files_kept: stats.files_kept,
                     symlinks_skipped: stats.symlinks_skipped,
                 })
             }
@@ -827,6 +897,7 @@ pub async fn copy_item(
                 final_dst: dst_path.to_string_lossy().into_owned(),
                 files_copied: 0,
                 files_skipped: stats.files_skipped,
+                files_kept: 0,
                 symlinks_skipped: 0,
             }),
             Err(_) => Ok(OpResult {
@@ -834,17 +905,20 @@ pub async fn copy_item(
                 final_dst: dst_path.to_string_lossy().into_owned(),
                 files_copied: stats.files_copied,
                 files_skipped: stats.files_skipped,
+                files_kept: stats.files_kept,
                 symlinks_skipped: stats.symlinks_skipped,
             }),
         }
     } else if src_meta.is_dir() {
-        match copy_dir_recursive(&app, &src_path, &dst_path, &src_rel, &dst_rel, &mut stats) {
+        let keep: HashSet<String> = keep.unwrap_or_default().into_iter().collect();
+        match copy_dir_recursive(&app, &src_path, &dst_path, &src_rel, &dst_rel, &keep, &mut stats) {
             Ok(()) => {
                 // Move-mode: the source folder goes only if nothing stayed
                 // behind. Skipped symlinks count as much as skipped files: a
                 // symlink is never copied, so removing the source would delete
-                // the only copy of it.
-                let left_behind = stats.files_skipped > 0 || stats.symlinks_skipped > 0;
+                // the only copy of it. A file kept by choice stayed behind too.
+                let left_behind =
+                    stats.files_skipped > 0 || stats.files_kept > 0 || stats.symlinks_skipped > 0;
                 if move_mode && !left_behind {
                     fs::remove_dir_all(&src_path)
                         .map_err(|e| CmdError::from_io("move_source_not_removed", &e))?;
@@ -861,6 +935,7 @@ pub async fn copy_item(
                     final_dst: dst_path.to_string_lossy().into_owned(),
                     files_copied: stats.files_copied,
                     files_skipped: stats.files_skipped,
+                    files_kept: stats.files_kept,
                     symlinks_skipped: stats.symlinks_skipped,
                 })
             }
@@ -869,6 +944,7 @@ pub async fn copy_item(
                 final_dst: dst_path.to_string_lossy().into_owned(),
                 files_copied: stats.files_copied,
                 files_skipped: stats.files_skipped,
+                files_kept: stats.files_kept,
                 symlinks_skipped: stats.symlinks_skipped,
             }),
         }

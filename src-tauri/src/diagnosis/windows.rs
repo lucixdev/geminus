@@ -303,7 +303,7 @@ fn first_line(text: &str) -> String {
     text.lines()
         .map(str::trim)
         .find(|l| !l.is_empty())
-        .unwrap_or("Extended Check Did Not Start")
+        .unwrap_or("Extended check did not start")
         .to_string()
 }
 

@@ -132,6 +132,7 @@ pub fn run() {
       diff::start_compare,
       diff::stop_compare,
       ops::check_exists,
+      ops::find_clashes,
       ops::copy_item,
       ops::stop_op,
       ops::submit_error_choice,

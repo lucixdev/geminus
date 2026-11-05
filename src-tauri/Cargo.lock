@@ -1170,7 +1170,7 @@ dependencies = [
 
 [[package]]
 name = "geminus"
-version = "1.0.1"
+version = "1.1.0"
 dependencies = [
  "blake3",
  "log",
