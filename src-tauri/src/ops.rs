@@ -1131,13 +1131,25 @@ pub struct LaunchArgs {
     pub b: Option<String>,
 }
 
+// A drive root from Explorer arrives as `E:\"`: the backslash escapes the
+// closing quote when the command line is split. Strip the stray quote and put
+// the root back together.
+fn clean_launch_path(raw: &str) -> String {
+    let p = raw.trim_end_matches('"');
+    let b = p.as_bytes();
+    if b.len() == 2 && b[1] == b':' {
+        return format!("{}\\", p);
+    }
+    p.to_string()
+}
+
 pub fn parse_launch_args(args: &[String]) -> LaunchArgs {
     let mut out = LaunchArgs::default();
     let mut i = 0;
     while i < args.len() {
         match args[i].as_str() {
-            "--disk-a" if i + 1 < args.len() => { out.a = Some(args[i + 1].clone()); i += 1; }
-            "--disk-b" if i + 1 < args.len() => { out.b = Some(args[i + 1].clone()); i += 1; }
+            "--disk-a" if i + 1 < args.len() => { out.a = Some(clean_launch_path(&args[i + 1])); i += 1; }
+            "--disk-b" if i + 1 < args.len() => { out.b = Some(clean_launch_path(&args[i + 1])); i += 1; }
             _ => {}
         }
         i += 1;
@@ -1423,5 +1435,33 @@ mod tests {
         let s = surviving_below(&dir, "never-existed");
         assert!(s.seen.is_empty() && s.unknown.is_empty());
         let _ = fs::remove_dir_all(&dir);
+    }
+}
+
+#[cfg(test)]
+mod launch_args_tests {
+    use super::*;
+
+    fn v(a: &[&str]) -> Vec<String> { a.iter().map(|x| x.to_string()).collect() }
+
+    #[test]
+    fn folders_for_both_disks() {
+        let r = parse_launch_args(&v(&["--disk-a", "C:\\Work", "--disk-b", "D:\\Backup"]));
+        assert_eq!(r.a.as_deref(), Some("C:\\Work"));
+        assert_eq!(r.b.as_deref(), Some("D:\\Backup"));
+    }
+
+    #[test]
+    fn drive_root_with_escaped_quote() {
+        let r = parse_launch_args(&v(&["--disk-a", "E:\""]));
+        assert_eq!(r.a.as_deref(), Some("E:\\"));
+        let r = parse_launch_args(&v(&["--disk-b", "E:"]));
+        assert_eq!(r.b.as_deref(), Some("E:\\"));
+    }
+
+    #[test]
+    fn missing_value_is_ignored() {
+        let r = parse_launch_args(&v(&["--disk-a"]));
+        assert!(r.a.is_none());
     }
 }
