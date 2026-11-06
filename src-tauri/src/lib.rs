@@ -102,6 +102,17 @@ pub fn run() {
   }
   configure_webkit_env();
   tauri::Builder::default()
+    // A second launch (the context menu asks for one) hands its folders to the
+    // window already open instead of opening another.
+    .plugin(tauri_plugin_single_instance::init(|app, argv, _cwd| {
+      use tauri::Emitter;
+      let parsed = ops::parse_launch_args(&argv[1.min(argv.len())..]);
+      let _ = app.emit("launch_args", parsed);
+      if let Some(win) = app.get_webview_window("main") {
+        let _ = win.unminimize();
+        let _ = win.set_focus();
+      }
+    }))
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(
@@ -138,6 +149,8 @@ pub fn run() {
       ops::submit_error_choice,
       ops::delete_item,
       ops::open_item,
+      ops::rename_item,
+      ops::get_launch_args,
       ops::browse_dir,
       ops::get_home_dir,
       ops::get_root_path,

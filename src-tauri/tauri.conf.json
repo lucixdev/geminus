@@ -12,8 +12,10 @@
     "windows": [
       {
         "title": "GEMINUS",
-        "width": 800,
-        "height": 600,
+        "width": 1100,
+        "height": 700,
+        "minWidth": 800,
+        "minHeight": 520,
         "resizable": true,
         "fullscreen": false,
         "dragDropEnabled": false
@@ -46,6 +48,11 @@
         "files": {
           "/usr/share/licenses/geminus/LICENSE": "../LICENSE"
         }
+      }
+    },
+    "windows": {
+      "nsis": {
+        "installerHooks": "windows/hooks.nsh"
       }
     },
     "icon": [

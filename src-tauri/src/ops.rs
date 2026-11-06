@@ -1014,7 +1014,11 @@ fn surviving_below(root: &Path, rel: &str) -> Surviving {
 }
 
 #[tauri::command]
-pub fn delete_item(root: String, rel: String) -> Result<DeleteOutcome, CmdError> {
+pub fn delete_item(
+    root: String,
+    rel: String,
+    to_trash: Option<bool>,
+) -> Result<DeleteOutcome, CmdError> {
     let root_path = PathBuf::from(&root);
     let p = crate::sys::join_rel(&root_path, &rel);
     let p = p.as_path();
@@ -1037,6 +1041,20 @@ pub fn delete_item(root: String, rel: String) -> Result<DeleteOutcome, CmdError>
         }
         Ok(m) => m,
     };
+
+    // The recycle bin first, where asked: nothing is lost, and where the disk
+    // has no bin the answer is a refusal the page turns into a question.
+    if to_trash.unwrap_or(false) {
+        return match trash::delete(p) {
+            Ok(()) => Ok(DeleteOutcome {
+                removed: true,
+                remaining: Vec::new(),
+                unreadable: Vec::new(),
+                error: None,
+            }),
+            Err(e) => Err(CmdError::with_detail("trash_failed", e.to_string())),
+        };
+    }
 
     // is_dir() is false for a link, even one pointing at a directory. Removing
     // it happens behind the boundary, because how you remove it depends on the
@@ -1071,6 +1089,66 @@ pub fn delete_item(root: String, rel: String) -> Result<DeleteOutcome, CmdError>
             })
         }
     }
+}
+
+// Renames an item in place: same folder, new name. The name is one path
+// segment — anything that would move it elsewhere is refused.
+#[tauri::command]
+pub fn rename_item(root: String, rel: String, new_name: String) -> Result<String, CmdError> {
+    let name = new_name.trim();
+    if name.is_empty()
+        || name == "."
+        || name == ".."
+        || name.contains('/')
+        || name.contains('\\')
+        || name.contains(':')
+        || name.contains('\0')
+    {
+        return Err(CmdError::plain("name_invalid"));
+    }
+    let root_path = PathBuf::from(&root);
+    let from = crate::sys::join_rel(&root_path, &rel);
+    let new_rel = match rel.rfind('/') {
+        Some(i) => format!("{}/{}", &rel[..i], name),
+        None => name.to_string(),
+    };
+    let to = crate::sys::join_rel(&root_path, &new_rel);
+    if fs::symlink_metadata(&from).is_err() {
+        return Err(CmdError::plain("item_missing"));
+    }
+    if new_rel != rel && fs::symlink_metadata(&to).is_ok() {
+        return Err(CmdError::plain("name_taken"));
+    }
+    fs::rename(&from, &to).map_err(|e| CmdError::from_io("rename_failed", &e))?;
+    Ok(new_rel)
+}
+
+// Folders handed to the program on the command line, by the system's own
+// context menu: `--disk-a <path>` and `--disk-b <path>`.
+#[derive(serde::Serialize, Default, Clone)]
+pub struct LaunchArgs {
+    pub a: Option<String>,
+    pub b: Option<String>,
+}
+
+pub fn parse_launch_args(args: &[String]) -> LaunchArgs {
+    let mut out = LaunchArgs::default();
+    let mut i = 0;
+    while i < args.len() {
+        match args[i].as_str() {
+            "--disk-a" if i + 1 < args.len() => { out.a = Some(args[i + 1].clone()); i += 1; }
+            "--disk-b" if i + 1 < args.len() => { out.b = Some(args[i + 1].clone()); i += 1; }
+            _ => {}
+        }
+        i += 1;
+    }
+    out
+}
+
+#[tauri::command]
+pub fn get_launch_args() -> LaunchArgs {
+    let args: Vec<String> = std::env::args().skip(1).collect();
+    parse_launch_args(&args)
 }
 
 // Hands an item to the program the system associates with it. How you ask is

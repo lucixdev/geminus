@@ -136,6 +136,10 @@ struct DiffNode {
     size_a: Option<u64>,
     #[serde(rename = "sB")]
     size_b: Option<u64>,
+    #[serde(rename = "mA")]
+    mod_a: Option<i64>,
+    #[serde(rename = "mB")]
+    mod_b: Option<i64>,
     #[serde(rename = "linkA")]
     link_a: bool,
     #[serde(rename = "linkB")]
@@ -826,6 +830,8 @@ fn build_tree(
 
         let size_a = map_a.get(*path).filter(|s| !s.is_dir).map(|s| s.size);
         let size_b = map_b.get(*path).filter(|s| !s.is_dir).map(|s| s.size);
+        let mod_a = map_a.get(*path).map(|s| s.modified);
+        let mod_b = map_b.get(*path).map(|s| s.modified);
         let link_a = map_a.get(*path).map(|s| s.is_symlink).unwrap_or(false);
         let link_b = map_b.get(*path).map(|s| s.is_symlink).unwrap_or(false);
         // Hidden only where every side that has it says so: hidden on one side
@@ -844,6 +850,8 @@ fn build_tree(
             s: status,
             size_a,
             size_b,
+            mod_a,
+            mod_b,
             link_a,
             link_b,
             h: hidden,
