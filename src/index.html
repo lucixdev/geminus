@@ -871,6 +871,38 @@ body.dark .picker-btn.primary{color:#000;}
   }
   .btn.primary,.picker-btn.primary,body.dark .btn.primary,body.dark .picker-btn.primary{color:AccentColorText;}
 }
+/* Scheduler dialog */
+.sched-dialog{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:101;}
+.sched-dialog.visible{display:flex;}
+.sched-box{background:var(--s);border:1px solid var(--bd);border-radius:var(--r-lg);box-shadow:0 8px 32px rgba(0,0,0,.28);
+  width:780px;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
+.sched-box .picker-header{border-bottom:1px solid var(--bd);}
+.sched-view{display:flex;flex-direction:column;min-height:0;flex:1;overflow:hidden;}
+.sched-view[hidden]{display:none;}
+.sched-note{padding:10px 16px;font-size:12px;color:var(--t2);background:var(--bg);border-bottom:1px solid var(--bd);}
+.sched-list{flex:1;overflow-y:auto;padding:8px 12px;min-height:160px;}
+.sched-job{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--bd);border-radius:var(--r);margin:6px 0;background:var(--s2);}
+.sched-job.off{opacity:.6;}
+.sj-main{flex:1;min-width:0;}
+.sj-name{font-size:14px;font-weight:600;}
+.sj-sub{font-size:12px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sj-st{display:inline-block;margin-top:4px;font-size:11px;padding:1px 8px;border-radius:10px;background:var(--s3);color:var(--t2);}
+.sj-ok{background:var(--ok-bg);color:var(--ok);}
+.sj-partial{background:var(--wn-bg);color:var(--wn);}
+.sj-failed{background:var(--wn-bg);color:var(--wn);}
+.sj-actions{display:flex;gap:4px;}
+.sj-actions .picker-btn{min-width:0;padding:4px 10px;}
+.sched-form{flex:1;overflow-y:auto;padding:12px 18px;display:grid;grid-template-columns:150px 1fr;gap:8px 12px;align-items:center;}
+.sf-l{font-size:13px;color:var(--t2);}
+.sf-group{grid-column:1/-1;font-size:12px;font-weight:600;color:var(--t3);margin-top:8px;border-bottom:1px solid var(--bd);padding-bottom:3px;}
+.sf-in{height:30px;background:var(--s);border:1px solid var(--bd2);border-radius:var(--r);padding:0 8px;color:var(--t);font:inherit;font-size:13px;min-width:0;width:100%;}
+.sf-in:focus{outline:none;border-bottom:2px solid var(--ac);}
+.sf-row{display:flex;gap:6px;}
+.sf-pick{min-width:0;padding:3px 12px;}
+.sf-days{display:flex;gap:6px;flex-wrap:wrap;}
+.sf-day{display:flex;align-items:center;gap:4px;font-size:13px;padding:3px 8px;border:1px solid var(--bd2);border-radius:var(--r);background:var(--s);}
+.sf-check{display:flex;align-items:center;gap:6px;font-size:13px;}
+.sched-box .picker-footer{padding:12px 16px;border-top:1px solid var(--bd);background:var(--bg);}
 </style>
 </head>
 <body id="body-root">
@@ -972,6 +1004,57 @@ body.dark .picker-btn.primary{color:#000;}
 </div>
 
 <!-- CONTEXT MENU (right click) -->
+<div class="sched-dialog" id="schedDialog">
+  <div class="sched-box">
+    <div class="picker-header">
+      <span class="picker-title" id="schedTitle" data-i18n="sched_title">Pianificazione</span>
+      <button class="picker-close" onclick="closeScheduler()">&times;</button>
+    </div>
+    <div class="sched-view" id="schedListView">
+      <div class="sched-note" data-i18n="sched_note">Le attività partono solo con GEMINUS aperto (anche ridotto a icona). Non cancellano mai nulla.</div>
+      <div class="sched-list" id="schedList"></div>
+      <div class="picker-footer">
+        <button class="picker-btn primary" onclick="schedEdit(null)" data-i18n="sched_new">Nuova attività</button>
+        <button class="picker-btn" onclick="closeScheduler()" data-i18n="btn_close">Chiudi</button>
+      </div>
+    </div>
+    <div class="sched-view" id="schedFormView" hidden>
+      <div class="sched-form">
+        <label class="sf-l" data-i18n="sched_f_name">Nome</label>
+        <input class="sf-in" id="sfName" spellcheck="false">
+        <label class="sf-l">Disco A</label>
+        <div class="sf-row"><input class="sf-in" id="sfPathA" readonly><button class="picker-btn sf-pick" onclick="schedPick('A')" data-i18n="sched_pick">Scegli…</button></div>
+        <label class="sf-l">Disco B</label>
+        <div class="sf-row"><input class="sf-in" id="sfPathB" readonly><button class="picker-btn sf-pick" onclick="schedPick('B')" data-i18n="sched_pick">Scegli…</button></div>
+        <label class="sf-l" data-i18n="sched_f_method">Confronto</label>
+        <select class="sf-in" id="sfMode"><option value="fast" data-i18n="sched_m_fast">Veloce (nomi, dimensioni, date)</option><option value="deep" data-i18n="sched_m_deep">Approfondito (legge il contenuto)</option></select>
+        <div class="sf-group" data-i18n="sched_f_rules">Regole sulle differenze</div>
+        <label class="sf-l" data-i18n="sched_r_onlya">Solo in A</label>
+        <select class="sf-in" id="sfOnlyA"><option value="copyAB" data-i18n="sched_a_copyab">Copia da A a B</option><option value="ignore" data-i18n="sched_a_ignore">Non fare nulla</option></select>
+        <label class="sf-l" data-i18n="sched_r_onlyb">Solo in B</label>
+        <select class="sf-in" id="sfOnlyB"><option value="copyBA" data-i18n="sched_a_copyba">Copia da B ad A</option><option value="ignore" data-i18n="sched_a_ignore">Non fare nulla</option></select>
+        <label class="sf-l" data-i18n="sched_r_diff">File diversi</label>
+        <select class="sf-in" id="sfDiff"><option value="newer" data-i18n="sched_a_newer">Vince il più recente</option><option value="aToB" data-i18n="sched_a_atob">Copia da A a B (sovrascrive B)</option><option value="bToA" data-i18n="sched_a_btoa">Copia da B ad A (sovrascrive A)</option><option value="ignore" data-i18n="sched_a_ignore">Non fare nulla</option></select>
+        <div class="sf-group" data-i18n="sched_f_when">Quando</div>
+        <label class="sf-l" data-i18n="sched_f_freq">Frequenza</label>
+        <select class="sf-in" id="sfKind" onchange="schedKindChanged()"><option value="daily" data-i18n="sched_k_daily">Ogni giorno</option><option value="weekly" data-i18n="sched_k_weekly">Ogni settimana</option><option value="hourly" data-i18n="sched_k_hourly">Ogni tot ore</option></select>
+        <label class="sf-l" id="sfTimeL" data-i18n="sched_f_time">Ora</label>
+        <input class="sf-in" id="sfTime" type="time" value="22:00">
+        <label class="sf-l" id="sfHoursL" data-i18n="sched_f_every">Ogni (ore)</label>
+        <input class="sf-in" id="sfHours" type="number" min="1" max="23" value="6">
+        <label class="sf-l" id="sfDaysL" data-i18n="sched_f_days">Giorni</label>
+        <div class="sf-days" id="sfDays"></div>
+        <label class="sf-l"></label>
+        <label class="sf-check"><input type="checkbox" id="sfEnabled" checked> <span data-i18n="sched_f_enabled">Attiva</span></label>
+      </div>
+      <div class="picker-footer">
+        <button class="picker-btn primary" onclick="schedSave()" data-i18n="sched_save">Salva</button>
+        <button class="picker-btn" onclick="schedBack()" data-i18n="btn_cancel">Annulla</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="ctx-menu" id="ctxMenu"></div>
 
 <!-- CONFIRM DIALOG (deletion) -->
@@ -1229,6 +1312,7 @@ body.dark .picker-btn.primary{color:#000;}
     <img src="titlebar-icon-light.svg" class="title-icon title-icon-light" alt="">
     <img src="titlebar-icon-dark.svg"  class="title-icon title-icon-dark"  alt="">
   </div>
+  <button class="theme-btn" id="schedBtn" onclick="openScheduler()" data-i18n="btn_sched">⏱ Pianificazione</button>
   <button class="theme-btn" id="helpBtn" onclick="openHelp()" data-i18n="btn_help">❓ Aiuto</button>
   <button class="theme-btn" id="langBtn" onclick="toggleLang()">🌐 IT</button>
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☾ Scuro</button>
@@ -1651,6 +1735,26 @@ const I18N = {
     status_batch_stopped: '⏹ Gruppo annullato: {done} di {n} elementi completati',
     status_batch_none: '↷ Niente da fare: tutti i {k} elementi erano già presenti',
     drag_group: '{n} elementi',
+    btn_sched: '⏱ Pianificazione', sched_title: 'Pianificazione',
+    sched_note: 'Le attività partono solo con GEMINUS aperto (anche ridotto a icona). Non cancellano mai nulla.',
+    sched_new: 'Nuova attività', btn_close: 'Chiudi', sched_save: 'Salva', sched_pick: 'Scegli…',
+    sched_empty: 'Nessuna attività. Creane una con "Nuova attività".', sched_never: 'Mai eseguita',
+    sched_next: 'prossima:', sched_run: 'Esegui ora', sched_edit: 'Modifica', sched_log: 'Registro',
+    sched_log_empty: 'Registro vuoto', sched_default_name: 'Backup A → B',
+    sched_f_name: 'Nome', sched_f_method: 'Confronto', sched_m_fast: 'Veloce (nomi, dimensioni, date)',
+    sched_m_deep: 'Approfondito (legge il contenuto)', sched_f_rules: 'Regole sulle differenze',
+    sched_r_onlya: 'Solo in A', sched_r_onlyb: 'Solo in B', sched_r_diff: 'File diversi',
+    sched_a_copyab: 'Copia da A a B', sched_a_copyba: 'Copia da B ad A', sched_a_ignore: 'Non fare nulla',
+    sched_a_newer: 'Vince il più recente', sched_a_atob: 'Copia da A a B (sovrascrive B)', sched_a_btoa: 'Copia da B ad A (sovrascrive A)',
+    sched_f_when: 'Quando', sched_f_freq: 'Frequenza', sched_k_daily: 'Ogni giorno', sched_k_weekly: 'Ogni settimana',
+    sched_k_hourly: 'Ogni tot ore', sched_f_time: 'Ora', sched_f_every: 'Ogni (ore)', sched_f_days: 'Giorni', sched_f_enabled: 'Attiva',
+    sched_d_daily: 'Ogni giorno alle {time}', sched_d_weekly: 'Ogni settimana ({days}) alle {time}', sched_d_hourly: 'Ogni {n} ore',
+    sched_s_ok: 'Completata', sched_s_partial: 'Parziale', sched_s_skipped: 'Saltata', sched_s_failed: 'Fallita',
+    sched_err_paths: 'Scegli sia il Disco A sia il Disco B.', sched_err_days: 'Scegli almeno un giorno.',
+    sched_running: 'Pianificazione "{name}" in corso…', sched_done: 'Pianificazione "{name}": {summary}',
+    day_mon: 'lun', day_tue: 'mar', day_wed: 'mer', day_thu: 'gio', day_fri: 'ven', day_sat: 'sab', day_sun: 'dom',
+    err_sched_invalid: 'Impostazioni non valide', err_sched_busy: 'Un\'altra attività è già in corso', err_sched_job_missing: 'Attività non trovata',
+
     col_name: 'Nome', col_date: 'Data modifica', col_type: 'Tipo', col_size: 'Dimensione',
     type_folder: 'Cartella', type_file: 'File', type_ext: 'File {ext}',
     ctx_rename: 'Rinomina', delete_msg_trash: '"{name}" verrà spostato nel Cestino.',
@@ -1912,6 +2016,26 @@ const I18N = {
     status_batch_stopped: '⏹ Group cancelled: {done} of {n} items done',
     status_batch_none: '↷ Nothing to do: all {k} items were already there',
     drag_group: '{n} items',
+    btn_sched: '⏱ Schedule', sched_title: 'Schedule',
+    sched_note: 'Tasks run only while GEMINUS is open (also minimised). They never delete anything.',
+    sched_new: 'New task', btn_close: 'Close', sched_save: 'Save', sched_pick: 'Choose…',
+    sched_empty: 'No tasks yet. Create one with "New task".', sched_never: 'Never run',
+    sched_next: 'next:', sched_run: 'Run now', sched_edit: 'Edit', sched_log: 'Log',
+    sched_log_empty: 'Log is empty', sched_default_name: 'Backup A → B',
+    sched_f_name: 'Name', sched_f_method: 'Comparison', sched_m_fast: 'Quick (names, sizes, dates)',
+    sched_m_deep: 'Deep (reads the contents)', sched_f_rules: 'Rules for differences',
+    sched_r_onlya: 'Only in A', sched_r_onlyb: 'Only in B', sched_r_diff: 'Different files',
+    sched_a_copyab: 'Copy from A to B', sched_a_copyba: 'Copy from B to A', sched_a_ignore: 'Do nothing',
+    sched_a_newer: 'The newer one wins', sched_a_atob: 'Copy from A to B (overwrites B)', sched_a_btoa: 'Copy from B to A (overwrites A)',
+    sched_f_when: 'When', sched_f_freq: 'Frequency', sched_k_daily: 'Every day', sched_k_weekly: 'Every week',
+    sched_k_hourly: 'Every few hours', sched_f_time: 'Time', sched_f_every: 'Every (hours)', sched_f_days: 'Days', sched_f_enabled: 'Enabled',
+    sched_d_daily: 'Every day at {time}', sched_d_weekly: 'Every week ({days}) at {time}', sched_d_hourly: 'Every {n} hours',
+    sched_s_ok: 'Completed', sched_s_partial: 'Partial', sched_s_skipped: 'Skipped', sched_s_failed: 'Failed',
+    sched_err_paths: 'Choose both Disk A and Disk B.', sched_err_days: 'Choose at least one day.',
+    sched_running: 'Scheduled task "{name}" running…', sched_done: 'Scheduled task "{name}": {summary}',
+    day_mon: 'Mon', day_tue: 'Tue', day_wed: 'Wed', day_thu: 'Thu', day_fri: 'Fri', day_sat: 'Sat', day_sun: 'Sun',
+    err_sched_invalid: 'Invalid settings', err_sched_busy: 'Another task is already running', err_sched_job_missing: 'Task not found',
+
     col_name: 'Name', col_date: 'Date modified', col_type: 'Type', col_size: 'Size',
     type_folder: 'Folder', type_file: 'File', type_ext: '{ext} file',
     ctx_rename: 'Rename', delete_msg_trash: '"{name}" will be moved to the Recycle Bin.',
@@ -5277,6 +5401,224 @@ document.addEventListener('keydown', (e) => {
     if (!one) { stk('status_pick_one'); return; }
     e.preventDefault();
     startRename(one);
+  }
+});
+
+// ══════════════════════════════════════════════════════════
+// SCHEDULER: jobs that run while GEMINUS is open (also minimised)
+// ══════════════════════════════════════════════════════════
+const SCHED_DAYS = ['mon','tue','wed','thu','fri','sat','sun'];
+let _jobs = [];
+let _schedEditing = null;      // job being edited, or null for a new one
+let _schedRunning = false;     // a scheduled run is in progress here
+
+// Next time a schedule fires after `fromMs`, in the user's local time (unix s).
+function computeNextRun(sc, fromMs) {
+  const from = new Date(fromMs);
+  if (sc.kind === 'hourly') return Math.floor((fromMs + Math.max(1, sc.everyHours || 1) * 3600e3) / 1000);
+  const [hh, mm] = (sc.time || '22:00').split(':').map(Number);
+  const wanted = sc.kind === 'weekly'
+    ? (sc.days || []).map(d => SCHED_DAYS.indexOf(d)).filter(i => i >= 0)   // 0 = Monday
+    : [0, 1, 2, 3, 4, 5, 6];
+  if (!wanted.length) return null;
+  for (let add = 0; add <= 7; add++) {
+    const d = new Date(from.getFullYear(), from.getMonth(), from.getDate() + add, hh, mm, 0, 0);
+    const wd = (d.getDay() + 6) % 7;
+    if (wanted.includes(wd) && d.getTime() > fromMs) return Math.floor(d.getTime() / 1000);
+  }
+  return null;
+}
+
+function schedDayName(d) { return t('day_' + d); }
+function schedDescribe(j) {
+  const sc = j.schedule || {};
+  if (sc.kind === 'hourly') return t('sched_d_hourly', { n: sc.everyHours });
+  if (sc.kind === 'weekly') return t('sched_d_weekly', { days: (sc.days || []).map(schedDayName).join(', '), time: sc.time });
+  return t('sched_d_daily', { time: sc.time });
+}
+function schedFmt(sec) {
+  if (!sec) return '—';
+  try { return new Date(sec * 1000).toLocaleString(lang === 'it' ? 'it-IT' : 'en-GB', { dateStyle: 'short', timeStyle: 'short' }); }
+  catch (_) { return '—'; }
+}
+
+async function schedReload() {
+  try { _jobs = await invoke('sched_list'); } catch (e) { _jobs = []; }
+}
+
+async function openScheduler() {
+  await schedReload();
+  schedBack();
+  document.getElementById('schedDialog').classList.add('visible');
+}
+function closeScheduler() { document.getElementById('schedDialog').classList.remove('visible'); }
+function schedBack() {
+  document.getElementById('schedFormView').hidden = true;
+  document.getElementById('schedListView').hidden = false;
+  renderSchedList();
+}
+
+function renderSchedList() {
+  const el = document.getElementById('schedList');
+  if (!_jobs.length) { el.innerHTML = `<div class="picker-empty">${_escHtml(t('sched_empty'))}</div>`; return; }
+  el.innerHTML = _jobs.map(j => {
+    const lr = j.lastRun;
+    const st = lr ? `<span class="sj-st sj-${_escAttr(lr.status)}" title="${_escHtml(lr.summary || '')}">${_escHtml(t('sched_s_' + lr.status))} · ${_escHtml(schedFmt(lr.at))}</span>` : `<span class="sj-st">${_escHtml(t('sched_never'))}</span>`;
+    const id = _escAttr(j.id);
+    return `<div class="sched-job${j.enabled ? '' : ' off'}">
+      <div class="sj-main">
+        <div class="sj-name">${_escHtml(j.name)}</div>
+        <div class="sj-sub">${_escHtml(j.pathA)} ⇄ ${_escHtml(j.pathB)}</div>
+        <div class="sj-sub">${_escHtml(schedDescribe(j))}${j.enabled && j.nextRun ? ' · ' + _escHtml(t('sched_next')) + ' ' + _escHtml(schedFmt(j.nextRun)) : ''}</div>
+        ${st}
+      </div>
+      <div class="sj-actions">
+        <button class="picker-btn" onclick="schedRunNow('${id}')" title="${_escAttr(t('sched_run'))}">&#9654;</button>
+        <button class="picker-btn" onclick="schedEdit('${id}')" title="${_escAttr(t('sched_edit'))}">&#9998;</button>
+        <button class="picker-btn" onclick="schedShowLog('${id}')" title="${_escAttr(t('sched_log'))}">&#128196;</button>
+        <button class="picker-btn" onclick="schedDelete('${id}')" title="${_escAttr(t('btn_delete'))}">&#128465;</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function schedEdit(id) {
+  const j = id ? _jobs.find(x => x.id === id) : null;
+  _schedEditing = j || null;
+  const d = j || {
+    name: t('sched_default_name'), pathA: pathAval || '', pathB: pathBval || '', mode: 'fast', enabled: true,
+    rules: { onlyA: 'copyAB', onlyB: 'copyBA', diff: 'newer' },
+    schedule: { kind: 'daily', time: '22:00', days: ['mon','tue','wed','thu','fri'], everyHours: 6 }
+  };
+  document.getElementById('sfName').value = d.name;
+  document.getElementById('sfPathA').value = d.pathA;
+  document.getElementById('sfPathB').value = d.pathB;
+  document.getElementById('sfMode').value = d.mode;
+  document.getElementById('sfOnlyA').value = d.rules.onlyA;
+  document.getElementById('sfOnlyB').value = d.rules.onlyB;
+  document.getElementById('sfDiff').value = d.rules.diff;
+  document.getElementById('sfKind').value = d.schedule.kind;
+  document.getElementById('sfTime').value = d.schedule.time || '22:00';
+  document.getElementById('sfHours').value = d.schedule.everyHours || 6;
+  document.getElementById('sfEnabled').checked = !!d.enabled;
+  document.getElementById('sfDays').innerHTML = SCHED_DAYS.map(k =>
+    `<label class="sf-day"><input type="checkbox" value="${k}" ${(d.schedule.days || []).includes(k) ? 'checked' : ''}><span>${_escHtml(schedDayName(k))}</span></label>`).join('');
+  schedKindChanged();
+  document.getElementById('schedListView').hidden = true;
+  document.getElementById('schedFormView').hidden = false;
+}
+
+function schedKindChanged() {
+  const k = document.getElementById('sfKind').value;
+  const show = (id, on) => { document.getElementById(id).style.display = on ? '' : 'none'; };
+  show('sfTime', k !== 'hourly'); show('sfTimeL', k !== 'hourly');
+  show('sfHours', k === 'hourly'); show('sfHoursL', k === 'hourly');
+  show('sfDays', k === 'weekly'); show('sfDaysL', k === 'weekly');
+}
+
+async function schedPick(side) {
+  const path = await openFolderPicker(side);
+  if (path) document.getElementById('sfPath' + side).value = path;
+}
+
+async function schedSave() {
+  const kind = document.getElementById('sfKind').value;
+  const job = {
+    id: _schedEditing ? _schedEditing.id : '',
+    name: document.getElementById('sfName').value.trim() || t('sched_default_name'),
+    enabled: document.getElementById('sfEnabled').checked,
+    pathA: document.getElementById('sfPathA').value,
+    pathB: document.getElementById('sfPathB').value,
+    deviceA: null, deviceB: null,
+    mode: document.getElementById('sfMode').value,
+    rules: { onlyA: document.getElementById('sfOnlyA').value, onlyB: document.getElementById('sfOnlyB').value, diff: document.getElementById('sfDiff').value },
+    schedule: {
+      kind, time: document.getElementById('sfTime').value || '22:00',
+      days: Array.from(document.querySelectorAll('#sfDays input:checked')).map(i => i.value),
+      everyHours: Math.max(1, Math.min(23, parseInt(document.getElementById('sfHours').value, 10) || 6))
+    },
+    lastRun: _schedEditing ? _schedEditing.lastRun || null : null,
+    nextRun: null
+  };
+  if (!job.pathA || !job.pathB) { showResultDialog(t('err_title'), [t('sched_err_paths')]); return; }
+  if (kind === 'weekly' && !job.schedule.days.length) { showResultDialog(t('err_title'), [t('sched_err_days')]); return; }
+  job.nextRun = job.enabled ? computeNextRun(job.schedule, Date.now()) : null;
+  try {
+    await invoke('sched_save', { job });
+  } catch (err) {
+    showResultDialog(t('err_title'), [errText(err)]);
+    return;
+  }
+  await schedReload();
+  schedBack();
+}
+
+async function schedDelete(id) {
+  try { await invoke('sched_delete', { id }); } catch (err) { showResultDialog(t('err_title'), [errText(err)]); }
+  await schedReload();
+  renderSchedList();
+}
+
+async function schedShowLog(id) {
+  let text = '';
+  try { text = await invoke('sched_log', { id }); } catch (err) { text = errText(err); }
+  const lines = String(text || t('sched_log_empty')).split('\n').slice(-40);
+  showResultDialog(t('sched_log'), lines);
+}
+
+// Runs one job here and now. The window's own operations are held off while it
+// runs: the engine is shared.
+async function schedRunNow(id, auto) {
+  if (_schedRunning || operating || comparing || _diagRunning) {
+    if (!auto) stk('status_busy');
+    return;
+  }
+  const job = _jobs.find(j => j.id === id);
+  _schedRunning = true;
+  operating = true;
+  stk('sched_running', { name: job ? job.name : id });
+  setTaskbarProgress('indeterminate');
+  let res = null, err = null;
+  try { res = await invoke('sched_run_now', { id }); } catch (e) { err = e; }
+  operating = false;
+  _schedRunning = false;
+  setTaskbarProgress('none');
+  await schedReload();
+  // The next time is counted from now, so a long run never fires twice in a row.
+  const fresh = _jobs.find(j => j.id === id);
+  if (fresh && fresh.enabled) {
+    fresh.nextRun = computeNextRun(fresh.schedule, Date.now());
+    try { await invoke('sched_save', { job: fresh }); await schedReload(); } catch (_) {}
+  }
+  if (document.getElementById('schedDialog').classList.contains('visible')) renderSchedList();
+  if (err) {
+    stk('err_compare', { err: errText(err) });
+    if (!auto) showResultDialog(t('err_title'), [errText(err)]);
+    return;
+  }
+  stk('sched_done', { name: job ? job.name : id, summary: res ? res.summary : '' });
+  if (!auto && res) showResultDialog(job ? job.name : t('sched_title'), [res.summary]);
+}
+
+// The clock: every half minute, whatever is due runs, one at a time. A job
+// that came due while GEMINUS was closed runs once when it opens.
+async function schedTick() {
+  if (_schedRunning || operating || comparing || _diagRunning) return;
+  const now = Math.floor(Date.now() / 1000);
+  const due = _jobs.find(j => j.enabled && j.nextRun && j.nextRun <= now);
+  if (due) await schedRunNow(due.id, true);
+}
+(async function schedStart() {
+  await schedReload();
+  setTimeout(schedTick, 8000);
+  setInterval(schedTick, 30000);
+})();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && document.getElementById('schedDialog').classList.contains('visible')
+      && !document.querySelector('.picker-dialog.visible, .result-dialog.visible, .confirm-dialog.visible')) {
+    e.preventDefault();
+    if (!document.getElementById('schedFormView').hidden) schedBack(); else closeScheduler();
   }
 });
 
