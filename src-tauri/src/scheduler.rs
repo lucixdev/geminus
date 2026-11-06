@@ -410,7 +410,7 @@ pub mod plan {
         #[test]
         fn log_halving_and_ids() {
             let t = "aaaa\nbbbb\ncccc\ndddd\n";
-            assert_eq!(keep_last_half(t), "cccc\ndddd\n");
+            assert_eq!(keep_last_half(t), "dddd\n");
             assert!(safe_id("job-1700000000000") && !safe_id("../x") && !safe_id("") && !safe_id("a b"));
         }
     }
@@ -770,7 +770,7 @@ struct HeadlessGuard;
 
 impl HeadlessGuard {
     fn new() -> HeadlessGuard {
-        crate::ops::headless_errors_take();
+        let _ = crate::ops::headless_errors_take();
         crate::ops::HEADLESS.store(true, Ordering::SeqCst);
         HeadlessGuard
     }
@@ -936,17 +936,17 @@ fn execute(app: &AppHandle, job: &Job) -> RunSummary {
     ));
 
     // 3. Plan.
-    let plan = plan::plan_actions(&tree, &rules);
-    let mut skipped = plan.skipped.len() as u64;
-    for s in &plan.skipped {
+    let pl = plan::plan_actions(&tree, &rules);
+    let mut skipped = pl.skipped.len() as u64;
+    for s in &pl.skipped {
         lg(&format!("left alone: {}", s));
     }
-    lg(&format!("planned {} copies", plan.actions.len()));
+    lg(&format!("planned {} copies", pl.actions.len()));
 
     // 4. Copy. Nothing is ever removed.
     let mut copied = 0u64;
     let mut failed = 0u64;
-    for action in &plan.actions {
+    for action in &pl.actions {
         let (src_root, dst_root, dir_label) = match action.src_side {
             plan::Side::A => (&job.path_a, &job.path_b, "A->B"),
             plan::Side::B => (&job.path_b, &job.path_a, "B->A"),

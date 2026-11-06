@@ -38,6 +38,18 @@ const PROGRESS_EVERY_BYTES: u64 = 1024 * 1024;
 
 static STOP_OP: AtomicBool = AtomicBool::new(false);
 
+// Set while an automatic job runs: nobody is there to answer, so a failing
+// file is skipped on the spot and its description kept for the job's log.
+pub(crate) static HEADLESS: AtomicBool = AtomicBool::new(false);
+static HEADLESS_ERRORS: Mutex<Vec<String>> = Mutex::new(Vec::new());
+
+pub(crate) fn headless_errors_take() -> Vec<String> {
+    match HEADLESS_ERRORS.lock() {
+        Ok(mut g) => std::mem::take(&mut *g),
+        Err(p) => std::mem::take(&mut *p.into_inner()),
+    }
+}
+
 // Single-shot channel carrying the user's answer to a per-file failure: the
 // copy thread parks on it while the frontend shows the dialog. One pending
 // question at a time, because one operation runs at a time.
@@ -127,6 +139,14 @@ fn ask_user_choice(
     cause: &str,
     reason: &str,
 ) -> ErrorChoice {
+    if HEADLESS.load(Ordering::SeqCst) {
+        let line = format!("{} ({}/{}) {}", src_rel, phase, cause, reason);
+        match HEADLESS_ERRORS.lock() {
+            Ok(mut g) => g.push(line),
+            Err(p) => p.into_inner().push(line),
+        }
+        return ErrorChoice::Skip;
+    }
     let (tx, rx) = mpsc::channel::<ErrorChoice>();
     {
         let mut guard = pending_error_tx().lock().expect("pending_error_tx lock poisoned");

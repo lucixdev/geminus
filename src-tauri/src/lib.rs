@@ -21,6 +21,7 @@
 mod diff;
 mod ops;
 mod diagnosis;
+mod scheduler;
 mod sys;
 
 use std::sync::{Arc, Mutex};
@@ -160,7 +161,12 @@ pub fn run() {
       diagnosis::check_smartctl,
       diagnosis::run_disk_diagnosis,
       diagnosis::run_deep_check,
-      diagnosis::cancel_deep_check
+      diagnosis::cancel_deep_check,
+      scheduler::sched_list,
+      scheduler::sched_save,
+      scheduler::sched_delete,
+      scheduler::sched_run_now,
+      scheduler::sched_log
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");

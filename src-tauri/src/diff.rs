@@ -221,6 +221,18 @@ pub async fn start_compare(
     Ok(())
 }
 
+// The same comparison `start_compare` runs, on the calling thread, for the
+// scheduler. Ends with the usual "compare_complete" / "compare_stopped" event.
+pub(crate) fn compare_blocking(app: &AppHandle, root_a: &Path, root_b: &Path, mode: CompareMode) {
+    let same_device = match (crate::sys::device_id(root_a), crate::sys::device_id(root_b)) {
+        (Some(a), Some(b)) => a == b,
+        _ => true,
+    };
+    STOP.store(false, Ordering::Relaxed);
+    LEAKED_THREADS.store(0, Ordering::Relaxed);
+    compare_paths(app, root_a, root_b, same_device, mode);
+}
+
 #[tauri::command]
 pub fn stop_compare() {
     STOP.store(true, Ordering::Relaxed);

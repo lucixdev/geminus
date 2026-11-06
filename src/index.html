@@ -1735,6 +1735,10 @@ const I18N = {
     status_batch_stopped: '⏹ Gruppo annullato: {done} di {n} elementi completati',
     status_batch_none: '↷ Niente da fare: tutti i {k} elementi erano già presenti',
     drag_group: '{n} elementi',
+    sched_sum_counts: 'copiati {c}, saltati {s}, errori {f}', sched_sum_path_missing: 'Disco {side} non trovato: esecuzione saltata',
+    sched_sum_device_changed: 'Il Disco {side} non è più la stessa unità: esecuzione saltata', sched_sum_compare_failed: 'Confronto non riuscito',
+    sched_sum_compare_stopped: 'Confronto interrotto', sched_sum_invalid_rules: 'Regole non valide',
+
     btn_sched: '⏱ Pianificazione', sched_title: 'Pianificazione',
     sched_note: 'Le attività partono solo con GEMINUS aperto (anche ridotto a icona). Non cancellano mai nulla.',
     sched_new: 'Nuova attività', btn_close: 'Chiudi', sched_save: 'Salva', sched_pick: 'Scegli…',
@@ -2016,6 +2020,10 @@ const I18N = {
     status_batch_stopped: '⏹ Group cancelled: {done} of {n} items done',
     status_batch_none: '↷ Nothing to do: all {k} items were already there',
     drag_group: '{n} items',
+    sched_sum_counts: 'copied {c}, skipped {s}, failed {f}', sched_sum_path_missing: 'Disk {side} not found: run skipped',
+    sched_sum_device_changed: 'Disk {side} is no longer the same drive: run skipped', sched_sum_compare_failed: 'Comparison failed',
+    sched_sum_compare_stopped: 'Comparison stopped', sched_sum_invalid_rules: 'Invalid rules',
+
     btn_sched: '⏱ Schedule', sched_title: 'Schedule',
     sched_note: 'Tasks run only while GEMINUS is open (also minimised). They never delete anything.',
     sched_new: 'New task', btn_close: 'Close', sched_save: 'Save', sched_pick: 'Choose…',
@@ -5429,6 +5437,17 @@ function computeNextRun(sc, fromMs) {
   return null;
 }
 
+// The engine sends counters or a reason key; the words are the page's.
+function schedSummary(str) {
+  if (!str) return '';
+  let m = /^copied (\d+), skipped (\d+), failed (\d+)/.exec(str);
+  if (m) return t('sched_sum_counts', { c: m[1], s: m[2], f: m[3] });
+  m = /^(path_missing|device_changed):([AB])$/.exec(str);
+  if (m) return t('sched_sum_' + m[1], { side: m[2] });
+  const known = ['compare_failed', 'compare_stopped', 'invalid_rules'];
+  if (known.includes(str)) return t('sched_sum_' + str);
+  return str;
+}
 function schedDayName(d) { return t('day_' + d); }
 function schedDescribe(j) {
   const sc = j.schedule || {};
@@ -5463,7 +5482,7 @@ function renderSchedList() {
   if (!_jobs.length) { el.innerHTML = `<div class="picker-empty">${_escHtml(t('sched_empty'))}</div>`; return; }
   el.innerHTML = _jobs.map(j => {
     const lr = j.lastRun;
-    const st = lr ? `<span class="sj-st sj-${_escAttr(lr.status)}" title="${_escHtml(lr.summary || '')}">${_escHtml(t('sched_s_' + lr.status))} · ${_escHtml(schedFmt(lr.at))}</span>` : `<span class="sj-st">${_escHtml(t('sched_never'))}</span>`;
+    const st = lr ? `<span class="sj-st sj-${_escAttr(lr.status)}" title="${_escHtml(schedSummary(lr.summary))}">${_escHtml(t('sched_s_' + lr.status))} · ${_escHtml(schedFmt(lr.at))}</span>` : `<span class="sj-st">${_escHtml(t('sched_never'))}</span>`;
     const id = _escAttr(j.id);
     return `<div class="sched-job${j.enabled ? '' : ' off'}">
       <div class="sj-main">
@@ -5596,8 +5615,8 @@ async function schedRunNow(id, auto) {
     if (!auto) showResultDialog(t('err_title'), [errText(err)]);
     return;
   }
-  stk('sched_done', { name: job ? job.name : id, summary: res ? res.summary : '' });
-  if (!auto && res) showResultDialog(job ? job.name : t('sched_title'), [res.summary]);
+  stk('sched_done', { name: job ? job.name : id, summary: res ? schedSummary(res.summary) : '' });
+  if (!auto && res) showResultDialog(job ? job.name : t('sched_title'), [schedSummary(res.summary)]);
 }
 
 // The clock: every half minute, whatever is due runs, one at a time. A job
