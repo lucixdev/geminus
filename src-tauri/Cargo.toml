@@ -39,9 +39,12 @@ tauri-build = { version = "2.5.6", features = [] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 log = "0.4"
-tauri = { version = "2.10.3", features = [] }
+tauri = { version = "2.10.3", features = ["image-png"] }
 tauri-plugin-log = "2"
 blake3 = "1"
+# Recycle bin / trash, on each system's own terms.
+trash = "5"
+tauri-plugin-single-instance = "2"
 
 # Official Microsoft bindings, for what only the system can answer: opening an
 # item with its associated program, which disk is behind a path, the elevated

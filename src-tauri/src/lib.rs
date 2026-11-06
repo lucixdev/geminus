@@ -21,6 +21,7 @@
 mod diff;
 mod ops;
 mod diagnosis;
+mod scheduler;
 mod sys;
 
 use std::sync::{Arc, Mutex};
@@ -102,6 +103,17 @@ pub fn run() {
   }
   configure_webkit_env();
   tauri::Builder::default()
+    // A second launch (the context menu asks for one) hands its folders to the
+    // window already open instead of opening another.
+    .plugin(tauri_plugin_single_instance::init(|app, argv, _cwd| {
+      use tauri::Emitter;
+      let parsed = ops::parse_launch_args(&argv[1.min(argv.len())..]);
+      let _ = app.emit("launch_args", parsed);
+      if let Some(win) = app.get_webview_window("main") {
+        let _ = win.unminimize();
+        let _ = win.set_focus();
+      }
+    }))
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(
@@ -112,6 +124,11 @@ pub fn run() {
       }
       let app_handle = app.handle().clone();
       if let Some(window) = app.get_webview_window("main") {
+        // The window's own icon (title bar, taskbar, Alt+Tab): set explicitly,
+        // so it never falls back to the generic one.
+        if let Ok(icon) = tauri::image::Image::from_bytes(include_bytes!("../icons/icon.png")) {
+          let _ = window.set_icon(icon);
+        }
         window.on_window_event(move |event| {
           if let tauri::WindowEvent::CloseRequested { api, .. } = event {
             api.prevent_close();
@@ -138,6 +155,8 @@ pub fn run() {
       ops::submit_error_choice,
       ops::delete_item,
       ops::open_item,
+      ops::rename_item,
+      ops::get_launch_args,
       ops::browse_dir,
       ops::get_home_dir,
       ops::get_root_path,
@@ -147,7 +166,12 @@ pub fn run() {
       diagnosis::check_smartctl,
       diagnosis::run_disk_diagnosis,
       diagnosis::run_deep_check,
-      diagnosis::cancel_deep_check
+      diagnosis::cancel_deep_check,
+      scheduler::sched_list,
+      scheduler::sched_save,
+      scheduler::sched_delete,
+      scheduler::sched_run_now,
+      scheduler::sched_log
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");

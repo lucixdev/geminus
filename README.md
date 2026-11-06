@@ -44,6 +44,17 @@ GEMINUS is an open source project born from a personal need. Anyone can contribu
 
 ---
 
+## What you can do
+
+- **See the differences** — two folders side by side: only in A, only in B, modified, identical, unreadable. Columns for name, date modified, type and size, sortable with a click.
+- **Copy, move, delete** — drag between the two sides (Ctrl = copy, Shift = move), or use the right-click menu and Ctrl+C / Ctrl+X / Ctrl+V. Deleted files go to the Recycle Bin (Shift+Delete deletes for good). F2 renames.
+- **Windows 11 look** — Segoe UI, system light/dark theme and accent colour, an Explorer-style folder picker with address bar and side pane.
+- **Remember** — the last two folders come back at start-up, and favourites (★) keep your usual A ↔ B pairs.
+- **Schedule** — tasks with rules for each kind of difference (copy A → B, B → A, the newer one wins, do nothing) that run while GEMINUS is open. They never delete anything and skip the run if the drive is not the one saved.
+- **From Explorer** — on Windows the installer adds "Set as Disk A / Disk B in GEMINUS" to the right-click menu of folders and drives.
+
+---
+
 ## Installation
 
 Ready-made packages are on the releases page — [Codeberg](https://codeberg.org/lucixdev/geminus/releases) or [GitHub](https://github.com/lucixdev/geminus/releases). GEMINUS lives in both places: Codeberg is home, GitHub is its mirror, and the two carry the same code.
@@ -66,6 +77,8 @@ Everything GEMINUS does, step by step, in English and Italian: [`MANUAL.md`](MAN
 
 ![GEMINUS dark theme, English](screenshots/screenshot-dark-en.png)
 ![GEMINUS light theme, English](screenshots/screenshot-light-en.png)
+![Folder picker, English](screenshots/screenshot-picker-en.png)
+![Schedule, English](screenshots/screenshot-schedule-en.png)
 
 ---
 
@@ -108,6 +121,17 @@ GEMINUS è un progetto open source nato da un'esigenza personale. Chiunque può 
 
 ---
 
+## Cosa puoi fare
+
+- **Vedere le differenze** — due cartelle affiancate: solo in A, solo in B, modificati, uguali, illeggibili. Colonne per nome, data di modifica, tipo e dimensione, ordinabili con un clic.
+- **Copiare, spostare, cancellare** — trascinando tra i due lati (Ctrl = copia, Maiusc = sposta), dal menu del tasto destro o con Ctrl+C / Ctrl+X / Ctrl+V. I file cancellati vanno nel Cestino (Maiusc+Canc cancella definitivamente). F2 rinomina.
+- **Aspetto Windows 11** — Segoe UI, tema chiaro/scuro e colore d'accento del sistema, selettore cartelle in stile Esplora file con barra indirizzi e pannello laterale.
+- **Ricordare** — le ultime due cartelle tornano all'avvio, e i preferiti (★) conservano le coppie A ↔ B di uso abituale.
+- **Pianificare** — attività con regole per ogni tipo di differenza (copia A → B, B → A, vince il più recente, niente) che partono con GEMINUS aperto. Non cancellano mai nulla e saltano l'esecuzione se l'unità non è quella salvata.
+- **Da Esplora file** — su Windows l'installer aggiunge "Imposta come Disco A / Disco B in GEMINUS" al tasto destro di cartelle e unità.
+
+---
+
 ## Installazione
 
 I pacchetti pronti stanno nella pagina dei rilasci — [Codeberg](https://codeberg.org/lucixdev/geminus/releases) o [GitHub](https://github.com/lucixdev/geminus/releases). GEMINUS vive in tutti e due i posti: Codeberg è la casa, GitHub è la copia, e portano lo stesso codice.
@@ -130,6 +154,8 @@ Tutto quello che GEMINUS fa, passo per passo, in italiano e in inglese: [`MANUAL
 
 ![GEMINUS tema scuro, inglese](screenshots/screenshot-dark-en.png)
 ![GEMINUS tema chiaro, inglese](screenshots/screenshot-light-en.png)
+![Selettore cartelle, inglese](screenshots/screenshot-picker-en.png)
+![Pianificazione, inglese](screenshots/screenshot-schedule-en.png)
 
 ---
 

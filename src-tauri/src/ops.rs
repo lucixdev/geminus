@@ -38,6 +38,18 @@ const PROGRESS_EVERY_BYTES: u64 = 1024 * 1024;
 
 static STOP_OP: AtomicBool = AtomicBool::new(false);
 
+// Set while an automatic job runs: nobody is there to answer, so a failing
+// file is skipped on the spot and its description kept for the job's log.
+pub(crate) static HEADLESS: AtomicBool = AtomicBool::new(false);
+static HEADLESS_ERRORS: Mutex<Vec<String>> = Mutex::new(Vec::new());
+
+pub(crate) fn headless_errors_take() -> Vec<String> {
+    match HEADLESS_ERRORS.lock() {
+        Ok(mut g) => std::mem::take(&mut *g),
+        Err(p) => std::mem::take(&mut *p.into_inner()),
+    }
+}
+
 // Single-shot channel carrying the user's answer to a per-file failure: the
 // copy thread parks on it while the frontend shows the dialog. One pending
 // question at a time, because one operation runs at a time.
@@ -127,6 +139,14 @@ fn ask_user_choice(
     cause: &str,
     reason: &str,
 ) -> ErrorChoice {
+    if HEADLESS.load(Ordering::SeqCst) {
+        let line = format!("{} ({}/{}) {}", src_rel, phase, cause, reason);
+        match HEADLESS_ERRORS.lock() {
+            Ok(mut g) => g.push(line),
+            Err(p) => p.into_inner().push(line),
+        }
+        return ErrorChoice::Skip;
+    }
     let (tx, rx) = mpsc::channel::<ErrorChoice>();
     {
         let mut guard = pending_error_tx().lock().expect("pending_error_tx lock poisoned");
@@ -1014,7 +1034,11 @@ fn surviving_below(root: &Path, rel: &str) -> Surviving {
 }
 
 #[tauri::command]
-pub fn delete_item(root: String, rel: String) -> Result<DeleteOutcome, CmdError> {
+pub fn delete_item(
+    root: String,
+    rel: String,
+    to_trash: Option<bool>,
+) -> Result<DeleteOutcome, CmdError> {
     let root_path = PathBuf::from(&root);
     let p = crate::sys::join_rel(&root_path, &rel);
     let p = p.as_path();
@@ -1037,6 +1061,20 @@ pub fn delete_item(root: String, rel: String) -> Result<DeleteOutcome, CmdError>
         }
         Ok(m) => m,
     };
+
+    // The recycle bin first, where asked: nothing is lost, and where the disk
+    // has no bin the answer is a refusal the page turns into a question.
+    if to_trash.unwrap_or(false) {
+        return match trash::delete(p) {
+            Ok(()) => Ok(DeleteOutcome {
+                removed: true,
+                remaining: Vec::new(),
+                unreadable: Vec::new(),
+                error: None,
+            }),
+            Err(e) => Err(CmdError::with_detail("trash_failed", e.to_string())),
+        };
+    }
 
     // is_dir() is false for a link, even one pointing at a directory. Removing
     // it happens behind the boundary, because how you remove it depends on the
@@ -1071,6 +1109,78 @@ pub fn delete_item(root: String, rel: String) -> Result<DeleteOutcome, CmdError>
             })
         }
     }
+}
+
+// Renames an item in place: same folder, new name. The name is one path
+// segment — anything that would move it elsewhere is refused.
+#[tauri::command]
+pub fn rename_item(root: String, rel: String, new_name: String) -> Result<String, CmdError> {
+    let name = new_name.trim();
+    if name.is_empty()
+        || name == "."
+        || name == ".."
+        || name.contains('/')
+        || name.contains('\\')
+        || name.contains(':')
+        || name.contains('\0')
+    {
+        return Err(CmdError::plain("name_invalid"));
+    }
+    let root_path = PathBuf::from(&root);
+    let from = crate::sys::join_rel(&root_path, &rel);
+    let new_rel = match rel.rfind('/') {
+        Some(i) => format!("{}/{}", &rel[..i], name),
+        None => name.to_string(),
+    };
+    let to = crate::sys::join_rel(&root_path, &new_rel);
+    if fs::symlink_metadata(&from).is_err() {
+        return Err(CmdError::plain("item_missing"));
+    }
+    if new_rel != rel && fs::symlink_metadata(&to).is_ok() {
+        return Err(CmdError::plain("name_taken"));
+    }
+    fs::rename(&from, &to).map_err(|e| CmdError::from_io("rename_failed", &e))?;
+    Ok(new_rel)
+}
+
+// Folders handed to the program on the command line, by the system's own
+// context menu: `--disk-a <path>` and `--disk-b <path>`.
+#[derive(serde::Serialize, Default, Clone)]
+pub struct LaunchArgs {
+    pub a: Option<String>,
+    pub b: Option<String>,
+}
+
+// A drive root from Explorer arrives as `E:\"`: the backslash escapes the
+// closing quote when the command line is split. Strip the stray quote and put
+// the root back together.
+fn clean_launch_path(raw: &str) -> String {
+    let p = raw.trim_end_matches('"');
+    let b = p.as_bytes();
+    if b.len() == 2 && b[1] == b':' {
+        return format!("{}\\", p);
+    }
+    p.to_string()
+}
+
+pub fn parse_launch_args(args: &[String]) -> LaunchArgs {
+    let mut out = LaunchArgs::default();
+    let mut i = 0;
+    while i < args.len() {
+        match args[i].as_str() {
+            "--disk-a" if i + 1 < args.len() => { out.a = Some(clean_launch_path(&args[i + 1])); i += 1; }
+            "--disk-b" if i + 1 < args.len() => { out.b = Some(clean_launch_path(&args[i + 1])); i += 1; }
+            _ => {}
+        }
+        i += 1;
+    }
+    out
+}
+
+#[tauri::command]
+pub fn get_launch_args() -> LaunchArgs {
+    let args: Vec<String> = std::env::args().skip(1).collect();
+    parse_launch_args(&args)
 }
 
 // Hands an item to the program the system associates with it. How you ask is
@@ -1345,5 +1455,33 @@ mod tests {
         let s = surviving_below(&dir, "never-existed");
         assert!(s.seen.is_empty() && s.unknown.is_empty());
         let _ = fs::remove_dir_all(&dir);
+    }
+}
+
+#[cfg(test)]
+mod launch_args_tests {
+    use super::*;
+
+    fn v(a: &[&str]) -> Vec<String> { a.iter().map(|x| x.to_string()).collect() }
+
+    #[test]
+    fn folders_for_both_disks() {
+        let r = parse_launch_args(&v(&["--disk-a", "C:\\Work", "--disk-b", "D:\\Backup"]));
+        assert_eq!(r.a.as_deref(), Some("C:\\Work"));
+        assert_eq!(r.b.as_deref(), Some("D:\\Backup"));
+    }
+
+    #[test]
+    fn drive_root_with_escaped_quote() {
+        let r = parse_launch_args(&v(&["--disk-a", "E:\""]));
+        assert_eq!(r.a.as_deref(), Some("E:\\"));
+        let r = parse_launch_args(&v(&["--disk-b", "E:"]));
+        assert_eq!(r.b.as_deref(), Some("E:\\"));
+    }
+
+    #[test]
+    fn missing_value_is_ignored() {
+        let r = parse_launch_args(&v(&["--disk-a"]));
+        assert!(r.a.is_none());
     }
 }

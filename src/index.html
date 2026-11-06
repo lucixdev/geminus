@@ -38,8 +38,8 @@ body{
   --wn:#E67E00;--wn-bg:#FBEBCC;
   --ok:#1E8E3E;--ok-bg:#D8F0E4;
   background:var(--bg);
-  font-family:'Courier New',monospace;
-  font-weight:700;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
+  font-weight:400;
   color:var(--t);
   height:100vh;
   display:flex;
@@ -72,7 +72,7 @@ body.dark{
 .title-icon-dark{display:none;}
 body.dark .title-icon-dark{display:block;}
 body.dark .title-icon-light{display:none;}
-.theme-btn{background:var(--s3);border:1px solid var(--bd);border-radius:6px;padding:3px 9px;font-size:13px;font-weight:700;color:var(--t2);cursor:default;font-family:'Courier New',monospace;margin-right:6px;}
+.theme-btn{background:var(--s3);border:1px solid var(--bd);border-radius:6px;padding:3px 9px;font-size:13px;font-weight:400;color:var(--t2);cursor:default;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;margin-right:6px;}
 .theme-btn:hover{color:var(--t);}
 
 /* ── TOOLBAR ── */
@@ -87,11 +87,11 @@ body.dark .title-icon-light{display:none;}
   flex-shrink:0;
 }
 .disk-block{display:flex;align-items:center;gap:8px;background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;flex:1;min-width:180px;}
-.disk-label{font-size:13px;font-weight:700;letter-spacing:0.14em;color:var(--t3);text-transform:uppercase;}
-.disk-path{font-size:13px;font-weight:700;color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.disk-label{font-size:13px;font-weight:400;letter-spacing:0.14em;color:var(--t3);text-transform:uppercase;}
+.disk-path{font-size:13px;font-weight:400;color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .disk-bar{height:3px;background:var(--s3);border-radius:2px;width:110px;margin-top:3px;}
 .disk-fill{height:3px;border-radius:2px;}
-.disk-sz{font-size:13px;font-weight:700;color:var(--t3);}
+.disk-sz{font-size:13px;font-weight:400;color:var(--t3);}
 .disk-deepcheck-btn{
   background:transparent;
   border:1px solid var(--bd);
@@ -102,18 +102,18 @@ body.dark .title-icon-light{display:none;}
   cursor:default;
   flex-shrink:0;
   transition:all 0.12s;
-  font-family:'Courier New',monospace;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
 }
 .disk-deepcheck-btn:hover{background:var(--s3);border-color:var(--ac);color:var(--ac);}
 .sep{color:var(--t3);font-size:18px;}
 
-.btn{background:var(--s2);border:1px solid var(--bd2);border-radius:7px;padding:7px 14px;font-size:13px;font-weight:700;font-family:'Courier New',monospace;color:var(--t);cursor:default;letter-spacing:0.05em;transition:all 0.12s;}
+.btn{background:var(--s2);border:1px solid var(--bd2);border-radius:7px;padding:7px 14px;font-size:13px;font-weight:400;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;color:var(--t);cursor:default;letter-spacing:0.05em;transition:all 0.12s;}
 .btn:hover{background:var(--s3);}
 .btn.primary{background:var(--ac);border-color:var(--ac);color:#fff;}
 .btn.primary:hover{opacity:0.85;}
 .btn.scanning{color:var(--wn);border-color:var(--wn);background:var(--wn-bg);}
 
-.searchbar{background:var(--s2);border:1px solid var(--bd);border-radius:7px;padding:5px 10px;font-size:13px;font-weight:700;font-family:'Courier New',monospace;color:var(--t);outline:none;width:140px;}
+.searchbar{background:var(--s2);border:1px solid var(--bd);border-radius:7px;padding:5px 10px;font-size:13px;font-weight:400;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;color:var(--t);outline:none;width:140px;}
 .searchbar:focus{border-color:var(--ac);}
 .searchbar::placeholder{color:var(--t3);font-weight:400;}
 
@@ -132,7 +132,7 @@ body.dark .title-icon-light{display:none;}
   flex-wrap:wrap;
   flex-shrink:0;
 }
-.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;border:1px solid var(--bd);background:transparent;font-size:12px;font-weight:700;color:var(--t);cursor:default;font-family:'Courier New',monospace;letter-spacing:0.04em;transition:all 0.12s;}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;border:1px solid var(--bd);background:transparent;font-size:12px;font-weight:400;color:var(--t);cursor:default;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;letter-spacing:0.04em;transition:all 0.12s;}
 .chip:hover{background:var(--s3);}
 .chip.on{background:var(--s);border-color:var(--bd2);color:var(--t);}
 .chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
@@ -145,19 +145,19 @@ body.dark .title-icon-light{display:none;}
 .col::-webkit-scrollbar-track{background:var(--s3);border-radius:6px;}
 .col::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:6px;}
 
-.col-head{position:sticky;top:0;z-index:2;background:var(--s2);border-bottom:1px solid var(--bd);padding:6px 12px;display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--t2);flex-shrink:0;}
+.col-head{position:sticky;top:0;z-index:2;background:var(--s2);border-bottom:1px solid var(--bd);padding:6px 12px;display:flex;align-items:center;gap:7px;font-size:13px;font-weight:400;color:var(--t2);flex-shrink:0;}
 .col-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.col-info{margin-left:auto;font-size:13px;font-weight:700;color:var(--t3);}
+.col-info{margin-left:auto;font-size:13px;font-weight:400;color:var(--t3);}
 
 /* ── FILE ROWS ── */
-.row{display:flex;align-items:center;gap:6px;padding:3px 10px;font-size:15px;font-weight:700;color:var(--t);cursor:default;border-bottom:1px solid var(--bd);min-height:32px;transition:background 0.08s;user-select:none;}
+.row{display:flex;align-items:center;gap:6px;padding:3px 10px;font-size:15px;font-weight:400;color:var(--t);cursor:default;border-bottom:1px solid var(--bd);min-height:32px;transition:background 0.08s;user-select:none;}
 .row:hover{background:var(--s2);}
 .row[draggable=true]{cursor:grab;}
 .row.drag-over{background:var(--ac-bg);border-left:2px solid var(--ac);}
 .row.dragging{opacity:0.3;}
 /* An outline, not a background: the background already carries the status. */
 .row.selected{box-shadow:inset 3px 0 0 var(--ac),inset 0 0 0 1px var(--ac);}
-.drag-ghost{position:fixed;top:-1000px;left:-1000px;padding:6px 12px;border-radius:7px;background:var(--ac);color:#fff;font-size:14px;font-weight:700;white-space:nowrap;pointer-events:none;}
+.drag-ghost{position:fixed;top:-1000px;left:-1000px;padding:6px 12px;border-radius:7px;background:var(--ac);color:#fff;font-size:14px;font-weight:400;white-space:nowrap;pointer-events:none;}
 .row.diff{background:var(--wn-bg);}
 .row.onlyA{background:var(--ac-bg);}
 .row.onlyB{background:var(--ok-bg);}
@@ -166,9 +166,9 @@ body.dark .title-icon-light{display:none;}
 .row-icon{font-size:15px;flex-shrink:0;width:16px;text-align:center;}
 .row-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--t);}
 .row-name.faded{color:var(--t3);font-style:italic;}
-.row-sz{font-size:13px;font-weight:700;color:var(--t3);flex-shrink:0;min-width:44px;text-align:right;}
+.row-sz{font-size:13px;font-weight:400;color:var(--t3);flex-shrink:0;min-width:44px;text-align:right;}
 
-.badge{font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;flex-shrink:0;letter-spacing:0.05em;}
+.badge{font-size:11px;font-weight:400;padding:2px 7px;border-radius:3px;flex-shrink:0;letter-spacing:0.05em;}
 .b-diff{background:var(--wn-bg);color:var(--wn);border:1px solid var(--wn);}
 .b-onlyA{background:var(--ac-bg);color:var(--ac-t);border:1px solid var(--ac);}
 .b-onlyB{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok);}
@@ -182,7 +182,7 @@ body.dark .title-icon-light{display:none;}
   border-bottom:1px solid var(--bd);
   padding:8px 14px;
   font-size:12px;
-  font-weight:700;
+  font-weight:400;
   color:var(--t);
   flex-shrink:0;
   display:flex;
@@ -204,7 +204,7 @@ body.dark .title-icon-light{display:none;}
   border-top:1px solid var(--bd);
   padding:8px 16px;
   font-size:12px;
-  font-weight:700;
+  font-weight:400;
   color:var(--t2);
   display:flex;
   justify-content:space-between;
@@ -224,7 +224,7 @@ body.dark .title-icon-light{display:none;}
 }
 .mode-label{
   font-size:13px;
-  font-weight:700;
+  font-weight:400;
   letter-spacing:0.14em;
   color:var(--t3);
   text-transform:uppercase;
@@ -250,15 +250,15 @@ body.dark .title-icon-light{display:none;}
   border-radius:6px;
   background:var(--s2);
   color:var(--t);
-  font-family:'Courier New',monospace;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
   font-size:13px;
-  font-weight:700;
+  font-weight:400;
   margin:8px 0 4px 0;
   outline:none;
 }
 .rename-input:focus{border-color:var(--ac);}
 .rename-error{font-size:13px;color:var(--wn);margin-bottom:8px;min-height:14px;}
-.rename-label{font-size:13px;color:var(--t2);font-weight:700;}
+.rename-label{font-size:13px;color:var(--t2);font-weight:400;}
 
 /* ── SCAN OVERLAY ── */
 .scan-overlay{
@@ -278,15 +278,15 @@ body.dark .title-icon-light{display:none;}
   min-width:480px;
   text-align:center;
 }
-.scan-box h2{font-size:15px;font-weight:700;color:var(--t);margin-bottom:12px;}
-.scan-box .scan-count{font-size:24px;font-weight:700;color:var(--ac);margin:8px 0;}
+.scan-box h2{font-size:15px;font-weight:600;color:var(--t);margin-bottom:12px;}
+.scan-box .scan-count{font-size:24px;font-weight:400;color:var(--ac);margin:8px 0;}
 .scan-box .scan-path{font-size:13px;color:var(--t3);margin-bottom:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:420px;}
 .scan-prog{height:4px;background:var(--s3);border-radius:2px;overflow:hidden;}
 .scan-prog-fill{height:4px;background:var(--ac);width:0%;animation:indeterminate 1.5s infinite;}
 @keyframes indeterminate{0%{transform:translateX(-100%);width:50%;}100%{transform:translateX(250%);width:50%;}}
 .scan-prog-fill.determinate{animation:none;transform:none;transition:width 0.3s ease;}
 .scan-prog-fill.stalled{background:var(--wn);}
-.scan-cancel-btn{margin-top:16px;background:var(--s3);border:1px solid var(--bd);border-radius:6px;padding:6px 18px;font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:var(--t);cursor:default;letter-spacing:0.05em;transition:all 0.12s;}
+.scan-cancel-btn{margin-top:16px;background:var(--s3);border:1px solid var(--bd);border-radius:6px;padding:6px 18px;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;font-size:13px;font-weight:400;color:var(--t);cursor:default;letter-spacing:0.05em;transition:all 0.12s;}
 .scan-cancel-btn:hover:not(:disabled){border-color:var(--wn);color:var(--wn);}
 .scan-cancel-btn:disabled{opacity:0.5;cursor:default;}
 
@@ -309,8 +309,8 @@ body.dark .title-icon-light{display:none;}
   max-width:720px;
   text-align:center;
 }
-.op-box h2{font-size:15px;font-weight:700;color:var(--t);margin-bottom:12px;}
-.op-box .op-count{font-size:13px;font-weight:700;color:var(--ac);margin:6px 0;}
+.op-box h2{font-size:15px;font-weight:600;color:var(--t);margin-bottom:12px;}
+.op-box .op-count{font-size:13px;font-weight:400;color:var(--ac);margin:6px 0;}
 .op-box .op-path{font-size:13px;color:var(--t3);margin-bottom:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:624px;}
 .op-prog{height:4px;background:var(--s3);border-radius:2px;overflow:hidden;}
 .op-prog-fill{height:4px;background:var(--ac);width:0%;transition:width 0.15s;}
@@ -333,17 +333,17 @@ body.dark .title-icon-light{display:none;}
   min-width:380px;
   max-width:480px;
 }
-.conflict-box h2{font-size:15px;font-weight:700;color:var(--t);margin-bottom:8px;}
-.conflict-box .conflict-msg{font-size:13px;font-weight:700;color:var(--t2);margin-bottom:14px;word-break:break-all;}
+.conflict-box h2{font-size:15px;font-weight:400;color:var(--t);margin-bottom:8px;}
+.conflict-box .conflict-msg{font-size:13px;font-weight:400;color:var(--t2);margin-bottom:14px;word-break:break-all;}
 .conflict-btns{display:flex;gap:8px;justify-content:space-between;margin-bottom:10px;}
-.conflict-btn{flex:1;background:var(--s2);border:1px solid var(--bd2);border-radius:7px;padding:9px 10px;font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:var(--t);cursor:default;letter-spacing:0.04em;transition:all 0.12s;}
+.conflict-btn{flex:1;background:var(--s2);border:1px solid var(--bd2);border-radius:7px;padding:9px 10px;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;font-size:13px;font-weight:400;color:var(--t);cursor:default;letter-spacing:0.04em;transition:all 0.12s;}
 .conflict-btn:hover{background:var(--s3);border-color:var(--ac);}
 .conflict-box.wide{max-width:600px;}
 .conflict-btns.wrap{flex-wrap:wrap;}
 .conflict-btns.wrap .conflict-btn{flex:1 1 40%;}
 .batch-list{max-height:180px;overflow-y:auto;margin-bottom:14px;padding:6px 10px;background:var(--s2);border:1px solid var(--bd);border-radius:7px;font-size:13px;color:var(--t2);word-break:break-all;}
 .batch-list div{padding:2px 0;}
-.op-box .op-batch{font-size:13px;font-weight:700;color:var(--t2);margin-top:4px;}
+.op-box .op-batch{font-size:13px;font-weight:400;color:var(--t2);margin-top:4px;}
 
 /* ── RESULT DIALOG ── */
 .result-dialog{
@@ -364,9 +364,9 @@ body.dark .title-icon-light{display:none;}
   max-width:480px;
   text-align:center;
 }
-.result-box h2{font-size:15px;font-weight:700;color:var(--t);margin-bottom:10px;}
-.result-box .result-lines{font-size:13px;font-weight:700;color:var(--t2);margin-bottom:14px;text-align:left;line-height:1.6;}
-.result-ok-btn{background:var(--ac);border:1px solid var(--ac);color:#fff;border-radius:7px;padding:7px 22px;font-family:'Courier New',monospace;font-size:13px;font-weight:700;cursor:default;letter-spacing:0.05em;}
+.result-box h2{font-size:15px;font-weight:400;color:var(--t);margin-bottom:10px;}
+.result-box .result-lines{font-size:13px;font-weight:400;color:var(--t2);margin-bottom:14px;text-align:left;line-height:1.6;}
+.result-ok-btn{background:var(--ac);border:1px solid var(--ac);color:#fff;border-radius:7px;padding:7px 22px;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;font-size:13px;font-weight:400;cursor:default;letter-spacing:0.05em;}
 .result-ok-btn:hover{opacity:0.85;}
 
 /* ── CONTEXT MENU (right click) ── */
@@ -379,11 +379,11 @@ body.dark .title-icon-light{display:none;}
   box-shadow:0 4px 14px rgba(0,0,0,0.22);
   min-width:180px;
   display:none;
-  font-family:'Courier New',monospace;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
 }
 .ctx-menu.visible{display:block;}
 .ctx-item{
-  padding:7px 12px;font-size:11px;font-weight:700;
+  padding:7px 12px;font-size:11px;font-weight:400;
   color:var(--t);cursor:default;border-radius:5px;
   letter-spacing:0.04em;user-select:none;
 }
@@ -414,16 +414,16 @@ body.dark .ctx-item.danger:hover{background:rgba(239,107,107,0.10);}
   font-size:18px;
   cursor:default;
   padding:0 6px;
-  font-family:'Courier New',monospace;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
 }
 .confirm-close:hover{color:var(--t);}
-.confirm-box h2{font-size:15px;font-weight:700;color:var(--t);margin-bottom:10px;}
-.confirm-box .confirm-msg{font-size:13px;font-weight:700;color:var(--t2);margin-bottom:16px;word-break:normal;overflow-wrap:break-word;line-height:1.5;}
+.confirm-box h2{font-size:15px;font-weight:400;color:var(--t);margin-bottom:10px;}
+.confirm-box .confirm-msg{font-size:13px;font-weight:400;color:var(--t2);margin-bottom:16px;word-break:normal;overflow-wrap:break-word;line-height:1.5;}
 .confirm-btns{display:flex;gap:8px;justify-content:flex-end;}
 .confirm-btn{
   background:var(--s2);border:1px solid var(--bd2);
   border-radius:7px;padding:8px 18px;
-  font-family:'Courier New',monospace;font-size:13px;font-weight:700;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;font-size:13px;font-weight:400;
   color:var(--t);cursor:default;letter-spacing:0.04em;
   transition:all 0.12s;
 }
@@ -444,11 +444,11 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
   border-radius:8px;padding:14px 18px;
   cursor:default;transition:all 0.12s;
   width:100%;color:var(--t);
-  font-family:'Courier New',monospace;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
 }
 .method-card:hover{border-color:var(--ac);background:var(--s3);}
 .method-card-label{
-  font-size:14px;font-weight:700;color:var(--t);
+  font-size:14px;font-weight:400;color:var(--t);
   letter-spacing:0.04em;margin-bottom:4px;
 }
 .method-card-desc{
@@ -474,26 +474,26 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
   display:flex;flex-direction:column;
 }
 .picker-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
-.picker-title{font-size:15px;font-weight:700;color:var(--t);flex:1;}
-.picker-close{background:none;border:none;color:var(--t2);font-size:18px;cursor:default;padding:0 6px;font-family:'Courier New',monospace;}
+.picker-title{font-size:15px;font-weight:400;color:var(--t);flex:1;}
+.picker-close{background:none;border:none;color:var(--t2);font-size:18px;cursor:default;padding:0 6px;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;}
 .picker-close:hover{color:var(--t);}
 .picker-actions{display:flex;gap:6px;margin-bottom:8px;}
-.picker-action-btn{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:5px 12px;font-family:'Courier New',monospace;font-size:12px;font-weight:700;color:var(--t);cursor:default;letter-spacing:0.04em;}
+.picker-action-btn{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:5px 12px;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;font-size:12px;font-weight:400;color:var(--t);cursor:default;letter-spacing:0.04em;}
 .picker-action-btn:hover{background:var(--s3);border-color:var(--ac);}
-.picker-breadcrumb{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:6px 10px;font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.picker-breadcrumb{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:6px 10px;font-size:12px;font-weight:400;color:var(--t2);margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .picker-crumb{color:var(--ac);cursor:default;}
 .picker-crumb:hover{text-decoration:underline;}
 .picker-crumb-sep{color:var(--t3);margin:0 4px;}
 .picker-list{flex:1;overflow-y:auto;border:1px solid var(--bd);border-radius:6px;background:var(--s2);}
 .picker-list::-webkit-scrollbar{width:4px;}
 .picker-list::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px;}
-.picker-item{display:flex;align-items:center;gap:8px;padding:6px 10px;font-size:13px;font-weight:700;color:var(--t);cursor:default;border-bottom:1px solid var(--bd);user-select:none;}
+.picker-item{display:flex;align-items:center;gap:8px;padding:6px 10px;font-size:13px;font-weight:400;color:var(--t);cursor:default;border-bottom:1px solid var(--bd);user-select:none;}
 .picker-item:hover{background:var(--s3);}
 .picker-item-icon{font-size:14px;flex-shrink:0;width:18px;text-align:center;}
 .picker-empty{padding:20px;text-align:center;color:var(--t3);font-size:13px;}
-.picker-path{font-size:12px;font-weight:700;color:var(--t2);margin-top:12px;margin-bottom:10px;word-break:break-all;}
+.picker-path{font-size:12px;font-weight:400;color:var(--t2);margin-top:12px;margin-bottom:10px;word-break:break-all;}
 .picker-footer{display:flex;gap:8px;justify-content:flex-end;}
-.picker-btn{background:var(--s2);border:1px solid var(--bd2);border-radius:7px;padding:7px 16px;font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:var(--t);cursor:default;letter-spacing:0.04em;}
+.picker-btn{background:var(--s2);border:1px solid var(--bd2);border-radius:7px;padding:7px 16px;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;font-size:13px;font-weight:400;color:var(--t);cursor:default;letter-spacing:0.04em;}
 .picker-btn:hover{background:var(--s3);}
 .picker-btn.primary{background:var(--ac);border-color:var(--ac);color:#fff;}
 .picker-btn.primary:hover{opacity:0.85;}
@@ -521,12 +521,12 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
   border-bottom:1px solid var(--bd);
   flex-shrink:0;
 }
-.help-title{flex:1;font-size:14px;font-weight:700;color:var(--t);letter-spacing:0.06em;}
-.help-version{font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.06em;margin-right:14px;}
+.help-title{flex:1;font-size:14px;font-weight:400;color:var(--t);letter-spacing:0.06em;}
+.help-version{font-size:12px;font-weight:400;color:var(--t3);letter-spacing:0.06em;margin-right:14px;}
 .help-close{
   background:none;border:none;
   color:var(--t2);font-size:18px;cursor:default;
-  padding:0 6px;font-family:'Courier New',monospace;
+  padding:0 6px;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
 }
 .help-close:hover{color:var(--t);}
 .help-tabs{
@@ -540,8 +540,8 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
   background:transparent;border:none;
   border-bottom:2px solid transparent;
   padding:9px 12px;
-  font-family:'Courier New',monospace;
-  font-size:12px;font-weight:700;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
+  font-size:12px;font-weight:400;
   color:var(--t2);cursor:default;
   letter-spacing:0.04em;white-space:nowrap;
   transition:color 0.12s;
@@ -566,7 +566,7 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
   background:var(--s2);border:1px solid var(--bd);
   border-radius:3px;padding:1px 5px;
   font-size:12px;color:var(--t);
-  font-family:'Courier New',monospace;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
 }
 .help-content pre{
   background:var(--s2);border:1px solid var(--bd);
@@ -577,13 +577,13 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
 }
 .help-content pre code{background:transparent;border:none;padding:0;}
 .help-content .help-action-row{margin-top:18px;font-size:12px;color:var(--t3);text-align:center;}
-.help-content .help-replay-link{color:var(--ac);cursor:default;text-decoration:underline;font-weight:700;}
+.help-content .help-replay-link{color:var(--ac);cursor:default;text-decoration:underline;font-weight:400;}
 .help-content .help-replay-link:hover{color:var(--ac-t);}
 .help-warn{
   background:var(--wn-bg);border:1px solid var(--wn);
   border-radius:6px;padding:10px 12px;
   font-size:13px;color:var(--wn);
-  margin:8px 0;font-weight:700;
+  margin:8px 0;font-weight:400;
 }
 
 /* ── ONBOARDING DIALOG (shown at every launch) ── */
@@ -608,11 +608,11 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
   border-bottom:1px solid var(--bd);
   flex-shrink:0;
 }
-.onboarding-title{flex:1;font-size:14px;font-weight:700;color:var(--t);letter-spacing:0.06em;}
+.onboarding-title{flex:1;font-size:14px;font-weight:400;color:var(--t);letter-spacing:0.06em;}
 .onboarding-close{
   background:none;border:none;
   color:var(--t2);font-size:18px;cursor:default;
-  padding:0 6px;font-family:'Courier New',monospace;
+  padding:0 6px;font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
 }
 .onboarding-close:hover{color:var(--t);}
 .onboarding-content{
@@ -621,21 +621,21 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
   text-align:center;
 }
 .onboarding-icon{font-size:42px;margin-bottom:12px;letter-spacing:0.05em;}
-.onboarding-step-title{font-size:16px;font-weight:700;color:var(--t);margin-bottom:12px;letter-spacing:0.04em;}
-.onboarding-step-text{font-size:13px;font-weight:700;color:var(--t2);line-height:1.6;}
+.onboarding-step-title{font-size:16px;font-weight:400;color:var(--t);margin-bottom:12px;letter-spacing:0.04em;}
+.onboarding-step-text{font-size:13px;font-weight:400;color:var(--t2);line-height:1.6;}
 .onboarding-steps-visual{
   display:flex;justify-content:space-around;align-items:center;
   margin:18px 0 14px 0;
 }
 .onboarding-step-card{
   display:flex;flex-direction:column;align-items:center;gap:6px;
-  flex:1;font-size:12px;font-weight:700;color:var(--t2);
+  flex:1;font-size:12px;font-weight:400;color:var(--t2);
 }
 .onboarding-step-card .num{
   width:28px;height:28px;border-radius:50%;
   background:var(--ac);color:#fff;
   display:flex;align-items:center;justify-content:center;
-  font-size:14px;font-weight:700;
+  font-size:14px;font-weight:400;
 }
 .onboarding-footer{
   display:flex;align-items:center;
@@ -652,7 +652,7 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
 .onboarding-btn{
   background:var(--s2);border:1px solid var(--bd2);
   border-radius:7px;padding:7px 16px;
-  font-family:'Courier New',monospace;font-size:13px;font-weight:700;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;font-size:13px;font-weight:400;
   color:var(--t);cursor:default;letter-spacing:0.04em;
   margin-left:6px;
 }
@@ -660,6 +660,249 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
 .onboarding-btn:disabled{opacity:0.4;}
 .onboarding-btn.primary{background:var(--ac);border-color:var(--ac);color:#fff;}
 .onboarding-btn.primary:hover{opacity:0.85;}
+/* ══════════════════════════════════════════════════════════════
+   WINDOWS 11 (FLUENT) SKIN
+   Overrides the rules above; ids and classes used by the script
+   are unchanged.
+   ══════════════════════════════════════════════════════════════ */
+body{
+  --t:#1A1A1A;--t2:#424242;--t3:#616161;
+  --bg:#F3F3F3;--s:#FFFFFF;--s2:#F9F9F9;--s3:#EDEDED;
+  --bd:#E5E5E5;--bd2:#D1D1D1;
+  --ac:#0067C0;--ac-bg:#E3EFFB;--ac-t:#005A9E;
+  --wn:#9D5D00;--wn-bg:#FFF4CE;
+  --ok:#0F7B0F;--ok-bg:#DFF6DD;
+  --r:4px;--r-lg:8px;
+  font-family:'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,'Noto Sans','Cantarell',sans-serif;
+  font-weight:400;font-size:13px;
+}
+body.dark{
+  --t:#FFFFFF;--t2:#CFCFCF;--t3:#9E9E9E;
+  --bg:#202020;--s:#2B2B2B;--s2:#272727;--s3:#323232;
+  --bd:#383838;--bd2:#4A4A4A;
+  --ac:#60CDFF;--ac-bg:#0F3A57;--ac-t:#99EBFF;
+  --wn:#FCE100;--wn-bg:#433519;
+  --ok:#6CCB5F;--ok-bg:#0F2E12;
+}
+button,input,select,textarea,.btn,.chip,.badge,.rename-input,.searchbar,.theme-btn,
+.disk-deepcheck-btn,.scan-cancel-btn{font-family:inherit;font-weight:400;}
+
+/* Menu bar (title area) */
+.titlebar{background:var(--bg);border-bottom:1px solid var(--bd);padding:4px 8px;gap:2px;}
+.title-icon{height:28px;}
+.theme-btn{background:transparent;border:1px solid transparent;border-radius:var(--r);padding:4px 10px;
+  font-size:13px;color:var(--t);margin-right:0;transition:background .1s;}
+.theme-btn:hover{background:var(--s3);color:var(--t);}
+.theme-btn:active{background:var(--bd);}
+
+/* Command bar */
+.toolbar{background:var(--s);border-bottom:1px solid var(--bd);padding:8px 12px;gap:8px;}
+.disk-block{background:var(--s);border:1px solid var(--bd2);border-radius:var(--r);padding:4px 10px;transition:border-color .1s,background .1s;}
+.disk-block:hover{background:var(--s3);border-bottom-color:var(--ac);}
+.disk-block>div:first-child{border-radius:var(--r)!important;}
+.disk-label{font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:none;color:var(--t3);}
+.disk-path{font-size:13px;font-weight:400;}
+.disk-sz{font-size:12px;font-weight:400;}
+.disk-bar,.disk-fill{height:4px;border-radius:2px;}
+.disk-deepcheck-btn{border-color:transparent;border-radius:var(--r);}
+.disk-deepcheck-btn:hover{background:var(--s3);border-color:transparent;color:var(--t);}
+.sep{color:var(--t3);font-size:16px;}
+
+.btn{background:var(--s);border:1px solid var(--bd2);border-radius:var(--r);padding:5px 16px;font-size:13px;
+  letter-spacing:0;box-shadow:0 1px 0 rgba(0,0,0,.04);}
+.btn:hover{background:var(--s3);}
+.btn:active{background:var(--bd);}
+.btn.primary{background:var(--ac);border-color:var(--ac);color:#fff;box-shadow:none;}
+body.dark .btn.primary{color:#000;}
+.btn.primary:hover{opacity:1;filter:brightness(1.1);}
+.btn.primary:active{filter:brightness(.9);}
+.btn.scanning{color:var(--wn);background:var(--wn-bg);border-color:var(--wn);}
+
+.searchbar{background:var(--s);border:1px solid var(--bd2);border-bottom-color:var(--t3);border-radius:var(--r);
+  padding:5px 10px;font-size:13px;width:160px;}
+.searchbar:focus{border-color:var(--bd2);border-bottom:2px solid var(--ac);padding-bottom:4px;}
+.searchbar::placeholder{font-weight:400;}
+
+/* Transfer mode: segmented control */
+.mode-bar{background:var(--bg);border-bottom:1px solid var(--bd);padding:5px 12px;gap:10px;}
+.mode-label{font-size:12px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--t2);}
+.mode-btns{gap:0;background:var(--s3);border-radius:var(--r);padding:2px;}
+.mode-chip{border:none!important;border-radius:3px;padding:3px 16px;font-size:12px;background:transparent;}
+.mode-chip:hover{background:var(--bd);}
+.mode-chip.on,#modeCopy.on,#modeMove.on{background:var(--s)!important;color:var(--t)!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.18);font-weight:600;}
+#modeCopy.on{box-shadow:0 1px 2px rgba(0,0,0,.18),inset 0 -2px 0 var(--ok);}
+#modeMove.on{box-shadow:0 1px 2px rgba(0,0,0,.18),inset 0 -2px 0 var(--wn);}
+
+/* Filters: pill toggles */
+.filterbar{background:var(--s);padding:6px 12px;gap:6px;}
+.chip{border:1px solid var(--bd2);border-radius:var(--r);padding:3px 10px;font-size:12px;letter-spacing:0;background:var(--s);}
+.chip:hover{background:var(--s3);}
+.chip.on{background:var(--ac-bg);border-color:var(--ac);color:var(--t);}
+
+.prog-track{height:3px;background:transparent;}
+.prog-fill{height:3px;}
+
+/* Explorer-style lists */
+.columns{background:var(--s);}
+.col{border-right:1px solid var(--bd);}
+.col::-webkit-scrollbar{width:14px;}
+.col::-webkit-scrollbar-track{background:transparent;border-radius:0;}
+.col::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:7px;border:4px solid transparent;background-clip:padding-box;}
+.col::-webkit-scrollbar-thumb:hover{background:var(--t3);background-clip:padding-box;border:4px solid transparent;}
+.col-head{background:var(--s);border-bottom:1px solid var(--bd);padding:6px 12px;font-size:12px;font-weight:600;color:var(--t2);}
+.col-dot{width:10px;height:10px;border-radius:2px;}
+.col-info{font-size:12px;font-weight:400;}
+.row{font-size:13px;font-weight:400;min-height:30px;padding:2px 10px;border-bottom:1px solid transparent;border-radius:var(--r);margin:1px 4px;}
+.row:hover{background:var(--s3);}
+.row.diff{background:var(--wn-bg);}
+.row.onlyA{background:var(--ac-bg);}
+.row.onlyB{background:var(--ok-bg);}
+.row.diff:hover,.row.onlyA:hover,.row.onlyB:hover{filter:brightness(.96);}
+.row.selected{box-shadow:inset 3px 0 0 var(--ac);outline:1px solid var(--ac);outline-offset:-1px;}
+.row-sz{font-size:12px;font-weight:400;color:var(--t3);}
+.badge{font-size:11px;font-weight:600;padding:1px 7px;border-radius:10px;letter-spacing:0;}
+.drag-ghost{border-radius:var(--r);font-weight:400;box-shadow:0 4px 12px rgba(0,0,0,.3);}
+
+.hint-box{font-size:12px;font-weight:400;letter-spacing:0;border-left:3px solid var(--ac);}
+.hint-box.warning{border-left-color:var(--wn);}
+.statusbar{background:var(--bg);font-size:12px;font-weight:400;padding:4px 12px;color:var(--t2);}
+
+/* Dialogs: Fluent surfaces */
+.scan-overlay,.op-overlay,.conflict-dialog{background:rgba(0,0,0,.4);}
+.scan-box,.op-box,.conflict-box,.result-box,.confirm-box,.picker-box,.help-box,.onboarding-box{
+  border-radius:var(--r-lg);border:1px solid var(--bd);box-shadow:0 8px 32px rgba(0,0,0,.28),0 0 2px rgba(0,0,0,.2);}
+.scan-box h2,.op-box h2,.conflict-box h2{font-size:16px;font-weight:600;}
+.scan-box .scan-count{font-weight:600;}
+.scan-prog,.op-prog,.scan-prog-fill,.op-prog-fill{height:4px;border-radius:2px;}
+.scan-cancel-btn{border-radius:var(--r);font-weight:400;letter-spacing:0;background:var(--s);border-color:var(--bd2);}
+.rename-input{border-radius:var(--r);font-weight:400;background:var(--s);}
+/* Context menu: Windows 11 flyout */
+.ctx-menu{background:var(--s);border:1px solid var(--bd);border-radius:var(--r-lg);padding:4px;min-width:220px;
+  box-shadow:0 8px 24px rgba(0,0,0,.28),0 0 2px rgba(0,0,0,.2);}
+.ctx-item{padding:6px 12px;font-size:13px;letter-spacing:0;border-radius:var(--r);margin:1px 0;}
+.ctx-item:hover{background:var(--s3);}
+.ctx-item.disabled{color:var(--t3);opacity:.55;pointer-events:none;}
+.ctx-sep{height:1px;background:var(--bd);margin:4px 8px;}
+.mode-hint{margin-left:auto;font-size:12px;color:var(--t3);}
+/* Folder picker: Explorer-style */
+.picker-box{width:860px;max-width:94vw;height:560px;max-height:90vh;padding:0;overflow:hidden;gap:0;}
+.picker-header{margin:0;padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg);}
+.picker-title{font-size:13px;font-weight:600;}
+.picker-close{font-size:20px;border-radius:var(--r);}
+.picker-close:hover{background:#C42B1C;color:#fff;}
+.picker-nav{display:flex;align-items:center;gap:4px;padding:8px 12px;background:var(--s);}
+.picker-nav-btn{background:transparent;border:1px solid transparent;border-radius:var(--r);width:30px;height:30px;
+  font-size:16px;color:var(--t);cursor:default;}
+.picker-nav-btn:hover:not(:disabled){background:var(--s3);}
+.picker-nav-btn:disabled{opacity:.35;}
+.picker-addr{flex:1;display:flex;align-items:center;min-width:0;height:30px;background:var(--s2);border:1px solid var(--bd2);
+  border-radius:var(--r);padding:0 6px;margin:0 4px;}
+.picker-addr:hover{background:var(--s3);}
+.picker-addr:focus-within{border-bottom:2px solid var(--ac);}
+.picker-breadcrumb{background:none;border:none;margin:0;padding:0;display:flex;align-items:center;flex:1;min-width:0;
+  overflow:hidden;white-space:nowrap;font-size:13px;color:var(--t);}
+.picker-crumb{color:var(--t);padding:2px 6px;border-radius:3px;}
+.picker-crumb:hover{background:var(--bd);text-decoration:none;}
+.picker-crumb-sep{color:var(--t3);margin:0;font-size:11px;}
+.picker-addr-input{flex:1;background:transparent;border:none;outline:none;color:var(--t);font:inherit;font-size:13px;min-width:0;}
+.picker-main{flex:1;display:flex;min-height:0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);}
+.picker-side{width:210px;flex-shrink:0;overflow-y:auto;padding:6px;background:var(--s);border-right:1px solid var(--bd);}
+.picker-side-group{font-size:11px;font-weight:600;color:var(--t3);padding:10px 10px 4px;}
+.picker-side-item{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:var(--r);font-size:13px;color:var(--t);cursor:default;
+  white-space:nowrap;overflow:hidden;}
+.picker-side-item span{overflow:hidden;text-overflow:ellipsis;}
+.picker-side-item:hover{background:var(--s3);}
+.picker-side-item.active{background:var(--ac-bg);box-shadow:inset 3px 0 0 var(--ac);}
+.picker-pane{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--s);}
+.picker-colhead{display:flex;padding:6px 12px;font-size:12px;color:var(--t2);border-bottom:1px solid var(--bd);}
+.picker-colhead span:first-child,.picker-item-name{flex:1;min-width:0;}
+.picker-colhead span:last-child,.picker-item-type{width:150px;flex-shrink:0;}
+.picker-list{border:none;border-radius:0;background:var(--s);padding:2px 4px;}
+.picker-list::-webkit-scrollbar{width:12px;}
+.picker-list::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:6px;border:3px solid transparent;background-clip:padding-box;}
+.picker-item{padding:3px 8px;border-bottom:none;border-radius:var(--r);margin:1px 0;font-size:13px;user-select:none;}
+.picker-item-name{display:flex;align-items:center;gap:8px;overflow:hidden;}
+.picker-item-name span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.picker-item-type{font-size:12px;color:var(--t2);}
+.picker-item:hover{background:var(--s3);}
+.picker-item.selected{background:var(--ac-bg);outline:1px solid var(--ac);outline-offset:-1px;}
+.picker-folderrow{display:flex;align-items:center;gap:10px;padding:10px 14px 0;background:var(--bg);font-size:13px;}
+.picker-folderrow label{min-width:60px;color:var(--t2);}
+.picker-path-input{flex:1;height:28px;background:var(--s);border:1px solid var(--bd2);border-radius:var(--r);padding:0 8px;
+  color:var(--t);font:inherit;font-size:13px;margin:0;}
+.picker-footer{padding:12px 14px;background:var(--bg);gap:8px;}
+.picker-btn{border-radius:var(--r);padding:5px 18px;font-size:13px;min-width:120px;}
+.picker-btn.primary{color:#fff;}
+body.dark .picker-btn.primary{color:#000;}
+.picker-btn.primary:hover{opacity:1;filter:brightness(1.1);}
+.picker-action-btn{border-radius:var(--r);background:transparent;border-color:transparent;font-size:12px;}
+.picker-action-btn:hover,.picker-action-btn.on{background:var(--s3);border-color:var(--bd2);}
+/* Columns: Name / Date / Type / Size, sortable */
+.col-head{flex-direction:column;align-items:stretch;gap:0;padding:0;}
+.col-title{display:flex;align-items:center;gap:7px;padding:6px 12px;}
+.col-cols{display:flex;align-items:center;gap:6px;padding:0 10px;border-top:1px solid var(--bd);font-size:12px;color:var(--t2);min-height:24px;}
+.hc{user-select:none;white-space:nowrap;padding:3px 0;}
+.hc[data-sort]:hover{color:var(--t);background:var(--s3);}
+.hc.sorted{color:var(--t);font-weight:600;}
+.hc.sorted::after{content:" " attr(data-arrow);font-size:9px;}
+.hc-ic{width:18px;flex-shrink:0;}
+.hc-name{flex:1;min-width:0;}
+.hc-dt,.row-dt{width:118px;flex-shrink:0;}
+.hc-ty,.row-ty{width:96px;flex-shrink:0;}
+.hc-sz{min-width:64px;text-align:right;flex-shrink:0;}
+.hc-bd{width:64px;flex-shrink:0;}
+.row-dt,.row-ty{font-size:12px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.row-sz{min-width:64px;}
+.badge{min-width:64px;text-align:center;}
+.row-icon{width:18px;}
+.fi{display:block;}
+.rename-inline{flex:1;min-width:0;height:22px;font:inherit;font-size:13px;color:var(--t);background:var(--s);border:1px solid var(--ac);border-radius:3px;padding:0 4px;outline:none;}
+@media (max-width:1100px){.hc-ty,.row-ty{display:none;}}
+@media (max-width:860px){.hc-dt,.row-dt{display:none;}}
+.ctx-item[title]{cursor:default;}
+
+/* Accent colour of Windows, where the engine knows it */
+@supports (color: AccentColor){
+  body,body.dark{
+    --ac:AccentColor;
+    --ac-bg:color-mix(in srgb,AccentColor 16%,var(--s));
+    --ac-t:color-mix(in srgb,AccentColor 75%,var(--t));
+  }
+  .btn.primary,.picker-btn.primary,body.dark .btn.primary,body.dark .picker-btn.primary{color:AccentColorText;}
+}
+/* Scheduler dialog */
+.sched-dialog{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:101;}
+.sched-dialog.visible{display:flex;}
+.sched-box{background:var(--s);border:1px solid var(--bd);border-radius:var(--r-lg);box-shadow:0 8px 32px rgba(0,0,0,.28);
+  width:780px;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
+.sched-box .picker-header{border-bottom:1px solid var(--bd);}
+.sched-view{display:flex;flex-direction:column;min-height:0;flex:1;overflow:hidden;}
+.sched-view[hidden]{display:none;}
+.sched-note{padding:10px 16px;font-size:12px;color:var(--t2);background:var(--bg);border-bottom:1px solid var(--bd);}
+.sched-list{flex:1;overflow-y:auto;padding:8px 12px;min-height:160px;}
+.sched-job{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--bd);border-radius:var(--r);margin:6px 0;background:var(--s2);}
+.sched-job.off{opacity:.6;}
+.sj-main{flex:1;min-width:0;}
+.sj-name{font-size:14px;font-weight:600;}
+.sj-sub{font-size:12px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sj-st{display:inline-block;margin-top:4px;font-size:11px;padding:1px 8px;border-radius:10px;background:var(--s3);color:var(--t2);}
+.sj-ok{background:var(--ok-bg);color:var(--ok);}
+.sj-partial{background:var(--wn-bg);color:var(--wn);}
+.sj-failed{background:var(--wn-bg);color:var(--wn);}
+.sj-actions{display:flex;gap:4px;}
+.sj-actions .picker-btn{min-width:0;padding:4px 10px;}
+.sched-form{flex:1;overflow-y:auto;padding:12px 18px;display:grid;grid-template-columns:150px 1fr;gap:8px 12px;align-items:center;}
+.sf-l{font-size:13px;color:var(--t2);}
+.sf-group{grid-column:1/-1;font-size:12px;font-weight:600;color:var(--t3);margin-top:8px;border-bottom:1px solid var(--bd);padding-bottom:3px;}
+.sf-in{height:30px;background:var(--s);border:1px solid var(--bd2);border-radius:var(--r);padding:0 8px;color:var(--t);font:inherit;font-size:13px;min-width:0;width:100%;}
+.sf-in:focus{outline:none;border-bottom:2px solid var(--ac);}
+.sf-row{display:flex;gap:6px;}
+.sf-pick{min-width:0;padding:3px 12px;}
+.sf-days{display:flex;gap:6px;flex-wrap:wrap;}
+.sf-day{display:flex;align-items:center;gap:4px;font-size:13px;padding:3px 8px;border:1px solid var(--bd2);border-radius:var(--r);background:var(--s);}
+.sf-check{display:flex;align-items:center;gap:6px;font-size:13px;}
+.sched-box .picker-footer{padding:12px 16px;border-top:1px solid var(--bd);background:var(--bg);}
 </style>
 </head>
 <body id="body-root">
@@ -667,7 +910,9 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
   // The saved theme is applied before the first paint, or the window flashes
   // light on its way to dark.
   try {
-    if (localStorage.getItem('theme') === 'dark') {
+    const _th = localStorage.getItem('theme');
+    const _sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (_th === 'dark' || (!_th && _sysDark)) {
       document.getElementById('body-root').classList.add('dark');
     }
   } catch(e) {}
@@ -759,6 +1004,57 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
 </div>
 
 <!-- CONTEXT MENU (right click) -->
+<div class="sched-dialog" id="schedDialog">
+  <div class="sched-box">
+    <div class="picker-header">
+      <span class="picker-title" id="schedTitle" data-i18n="sched_title">Pianificazione</span>
+      <button class="picker-close" onclick="closeScheduler()">&times;</button>
+    </div>
+    <div class="sched-view" id="schedListView">
+      <div class="sched-note" data-i18n="sched_note">Le attività partono solo con GEMINUS aperto (anche ridotto a icona). Non cancellano mai nulla.</div>
+      <div class="sched-list" id="schedList"></div>
+      <div class="picker-footer">
+        <button class="picker-btn primary" onclick="schedEdit(null)" data-i18n="sched_new">Nuova attività</button>
+        <button class="picker-btn" onclick="closeScheduler()" data-i18n="btn_close">Chiudi</button>
+      </div>
+    </div>
+    <div class="sched-view" id="schedFormView" hidden>
+      <div class="sched-form">
+        <label class="sf-l" data-i18n="sched_f_name">Nome</label>
+        <input class="sf-in" id="sfName" spellcheck="false">
+        <label class="sf-l">Disco A</label>
+        <div class="sf-row"><input class="sf-in" id="sfPathA" readonly><button class="picker-btn sf-pick" onclick="schedPick('A')" data-i18n="sched_pick">Scegli…</button></div>
+        <label class="sf-l">Disco B</label>
+        <div class="sf-row"><input class="sf-in" id="sfPathB" readonly><button class="picker-btn sf-pick" onclick="schedPick('B')" data-i18n="sched_pick">Scegli…</button></div>
+        <label class="sf-l" data-i18n="sched_f_method">Confronto</label>
+        <select class="sf-in" id="sfMode"><option value="fast" data-i18n="sched_m_fast">Veloce (nomi, dimensioni, date)</option><option value="deep" data-i18n="sched_m_deep">Approfondito (legge il contenuto)</option></select>
+        <div class="sf-group" data-i18n="sched_f_rules">Regole sulle differenze</div>
+        <label class="sf-l" data-i18n="sched_r_onlya">Solo in A</label>
+        <select class="sf-in" id="sfOnlyA"><option value="copyAB" data-i18n="sched_a_copyab">Copia da A a B</option><option value="ignore" data-i18n="sched_a_ignore">Non fare nulla</option></select>
+        <label class="sf-l" data-i18n="sched_r_onlyb">Solo in B</label>
+        <select class="sf-in" id="sfOnlyB"><option value="copyBA" data-i18n="sched_a_copyba">Copia da B ad A</option><option value="ignore" data-i18n="sched_a_ignore">Non fare nulla</option></select>
+        <label class="sf-l" data-i18n="sched_r_diff">File diversi</label>
+        <select class="sf-in" id="sfDiff"><option value="newer" data-i18n="sched_a_newer">Vince il più recente</option><option value="aToB" data-i18n="sched_a_atob">Copia da A a B (sovrascrive B)</option><option value="bToA" data-i18n="sched_a_btoa">Copia da B ad A (sovrascrive A)</option><option value="ignore" data-i18n="sched_a_ignore">Non fare nulla</option></select>
+        <div class="sf-group" data-i18n="sched_f_when">Quando</div>
+        <label class="sf-l" data-i18n="sched_f_freq">Frequenza</label>
+        <select class="sf-in" id="sfKind" onchange="schedKindChanged()"><option value="daily" data-i18n="sched_k_daily">Ogni giorno</option><option value="weekly" data-i18n="sched_k_weekly">Ogni settimana</option><option value="hourly" data-i18n="sched_k_hourly">Ogni tot ore</option></select>
+        <label class="sf-l" id="sfTimeL" data-i18n="sched_f_time">Ora</label>
+        <input class="sf-in" id="sfTime" type="time" value="22:00">
+        <label class="sf-l" id="sfHoursL" data-i18n="sched_f_every">Ogni (ore)</label>
+        <input class="sf-in" id="sfHours" type="number" min="1" max="23" value="6">
+        <label class="sf-l" id="sfDaysL" data-i18n="sched_f_days">Giorni</label>
+        <div class="sf-days" id="sfDays"></div>
+        <label class="sf-l"></label>
+        <label class="sf-check"><input type="checkbox" id="sfEnabled" checked> <span data-i18n="sched_f_enabled">Attiva</span></label>
+      </div>
+      <div class="picker-footer">
+        <button class="picker-btn primary" onclick="schedSave()" data-i18n="sched_save">Salva</button>
+        <button class="picker-btn" onclick="schedBack()" data-i18n="btn_cancel">Annulla</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="ctx-menu" id="ctxMenu"></div>
 
 <!-- CONFIRM DIALOG (deletion) -->
@@ -945,20 +1241,31 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
       <span class="picker-title" id="pickerTitle">Scegli cartella</span>
       <button class="picker-close" onclick="pickerCancel()">&times;</button>
     </div>
-    <div class="picker-actions">
-      <button class="picker-action-btn" onclick="pickerGoDevices()" data-i18n="picker_devices">&#9167; Dispositivi</button>
-      <button class="picker-action-btn" onclick="pickerGoHome()" data-i18n="picker_home">&#127968; Home</button>
-      <button class="picker-action-btn" id="pickerRootBtn" onclick="pickerGoRoot()" data-i18n="picker_root">/ Root</button>
-      <button class="picker-action-btn" onclick="pickerGoUp()"   data-i18n="picker_up">&#8593; Su</button>
-      <span style="width:12px;display:inline-block"></span>
+    <div class="picker-nav">
+      <button class="picker-nav-btn" id="pickerBackBtn" onclick="pickerBack()">&#8592;</button>
+      <button class="picker-nav-btn" id="pickerFwdBtn" onclick="pickerForward()">&#8594;</button>
+      <button class="picker-nav-btn" id="pickerUpBtn" onclick="pickerGoUp()">&#8593;</button>
+      <div class="picker-addr" id="pickerAddr" onclick="pickerEditAddr(event)">
+        <div class="picker-breadcrumb" id="pickerBreadcrumb"></div>
+        <input class="picker-addr-input" id="pickerAddrInput" spellcheck="false" hidden>
+      </div>
+      <button class="picker-nav-btn" id="pickerRefreshBtn" onclick="pickerRefresh()">&#10227;</button>
       <button class="picker-action-btn" id="pickerHiddenBtn" onclick="pickerToggleHidden(this)" data-i18n="picker_hidden">👁 Nascosti</button>
     </div>
-    <div class="picker-breadcrumb" id="pickerBreadcrumb"></div>
-    <div class="picker-list" id="pickerList"></div>
-    <div class="picker-path" id="pickerPath"></div>
+    <div class="picker-main">
+      <div class="picker-side" id="pickerSide"></div>
+      <div class="picker-pane">
+        <div class="picker-colhead"><span id="pickerColName">Nome</span><span id="pickerColType">Tipo</span></div>
+        <div class="picker-list" id="pickerList"></div>
+      </div>
+    </div>
+    <div class="picker-folderrow">
+      <label for="pickerPath" id="pickerFolderLbl">Cartella:</label>
+      <input class="picker-path-input" id="pickerPath" readonly>
+    </div>
     <div class="picker-footer">
-      <button class="picker-btn" onclick="pickerCancel()" data-i18n="btn_cancel">Annulla</button>
       <button class="picker-btn primary" onclick="pickerConfirm()" data-i18n="picker_select">Scegli questa cartella</button>
+      <button class="picker-btn" onclick="pickerCancel()" data-i18n="btn_cancel">Annulla</button>
     </div>
   </div>
 </div>
@@ -1005,6 +1312,7 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
     <img src="titlebar-icon-light.svg" class="title-icon title-icon-light" alt="">
     <img src="titlebar-icon-dark.svg"  class="title-icon title-icon-dark"  alt="">
   </div>
+  <button class="theme-btn" id="schedBtn" onclick="openScheduler()" data-i18n="btn_sched">⏱ Pianificazione</button>
   <button class="theme-btn" id="helpBtn" onclick="openHelp()" data-i18n="btn_help">❓ Aiuto</button>
   <button class="theme-btn" id="langBtn" onclick="toggleLang()">🌐 IT</button>
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☾ Scuro</button>
@@ -1012,7 +1320,7 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
 
 <!-- TOOLBAR -->
 <div class="toolbar">
-  <div class="disk-block" id="diskBlockA">
+  <div class="disk-block" id="diskBlockA" oncontextmenu="onDiskCtx(event,'A')">
     <div style="width:32px;height:32px;border-radius:6px;background:var(--ac-bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💾</div>
     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;" onclick="chooseDisk('A')">
       <span class="disk-label" data-i18n="disk_a">Disco A</span>
@@ -1023,7 +1331,7 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
     <button class="disk-deepcheck-btn" id="deepBtnA" onclick="openStandaloneDeepCheck('A')" style="display:none; font-size: 1.5em;">🩺</button>
   </div>
   <span class="sep">⇌</span>
-  <div class="disk-block" id="diskBlockB">
+  <div class="disk-block" id="diskBlockB" oncontextmenu="onDiskCtx(event,'B')">
     <div style="width:32px;height:32px;border-radius:6px;background:var(--ok-bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💾</div>
     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;" onclick="chooseDisk('B')">
       <span class="disk-label" data-i18n="disk_b">Disco B</span>
@@ -1033,6 +1341,7 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
     <span class="disk-sz" id="szB">—</span>
     <button class="disk-deepcheck-btn" id="deepBtnB" onclick="openStandaloneDeepCheck('B')" style="display:none; font-size: 1.5em;">🩺</button>
   </div>
+  <button class="btn" id="favBtn" onclick="openFavMenu(event)" title="Preferiti">&#9733;</button>
   <input class="searchbar" placeholder="🔍  cerca file..." data-i18n-placeholder="search_placeholder" id="srch" oninput="doSearch(this.value)">
   <button class="btn primary" id="cmpBtn" onclick="startCompare()" data-i18n="btn_compare">▶ Confronta</button>
 </div>
@@ -1044,6 +1353,7 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
     <button class="chip mode-chip on" id="modeCopy" onclick="setMode('copy')" data-i18n="mode_copy">Copia</button>
     <button class="chip mode-chip" id="modeMove" onclick="setMode('move')" data-i18n="mode_move">Sposta</button>
   </div>
+  <span class="mode-hint" data-i18n="mode_hint">Trascina: Ctrl = copia, Maiusc = sposta</span>
 </div>
 
 <!-- PROGRESS -->
@@ -1051,13 +1361,13 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
 
 <!-- FILTERBAR -->
 <div class="filterbar">
-  <button class="chip on" onclick="setF('all',this)"><div class="chip-dot" style="background:#888780"></div><span data-i18n="filter_all">Tutti</span><span style="font-weight:700;margin-left:3px" id="cnt-all">0</span></button>
-  <button class="chip" onclick="setF('diff',this)"><div class="chip-dot" style="background:#BA7517"></div><span data-i18n="filter_modified">Modificati</span><span style="font-weight:700;margin-left:3px" id="cnt-diff">0</span></button>
-  <button class="chip" onclick="setF('onlyA',this)"><div class="chip-dot" style="background:#185FA5"></div><span data-i18n="filter_only_a">Solo in A</span><span style="font-weight:700;margin-left:3px" id="cnt-onlyA">0</span></button>
-  <button class="chip" onclick="setF('onlyB',this)"><div class="chip-dot" style="background:#0F6E56"></div><span data-i18n="filter_only_b">Solo in B</span><span style="font-weight:700;margin-left:3px" id="cnt-onlyB">0</span></button>
-  <button class="chip" onclick="setF('same',this)"><div class="chip-dot" style="background:#888780"></div><span data-i18n="filter_same">Uguali in A e B</span><span style="font-weight:700;margin-left:3px" id="cnt-same">0</span></button>
+  <button class="chip on" onclick="setF('all',this)"><div class="chip-dot" style="background:#888780"></div><span data-i18n="filter_all">Tutti</span><span style="font-weight:400;margin-left:3px" id="cnt-all">0</span></button>
+  <button class="chip" onclick="setF('diff',this)"><div class="chip-dot" style="background:#BA7517"></div><span data-i18n="filter_modified">Modificati</span><span style="font-weight:400;margin-left:3px" id="cnt-diff">0</span></button>
+  <button class="chip" onclick="setF('onlyA',this)"><div class="chip-dot" style="background:#185FA5"></div><span data-i18n="filter_only_a">Solo in A</span><span style="font-weight:400;margin-left:3px" id="cnt-onlyA">0</span></button>
+  <button class="chip" onclick="setF('onlyB',this)"><div class="chip-dot" style="background:#0F6E56"></div><span data-i18n="filter_only_b">Solo in B</span><span style="font-weight:400;margin-left:3px" id="cnt-onlyB">0</span></button>
+  <button class="chip" onclick="setF('same',this)"><div class="chip-dot" style="background:#888780"></div><span data-i18n="filter_same">Uguali in A e B</span><span style="font-weight:400;margin-left:3px" id="cnt-same">0</span></button>
   <button class="chip" id="chip-hidden" onclick="toggleHidden(this)"><div class="chip-dot" style="background:#28A745"></div><span data-i18n="filter_hidden">Nascosti</span></button>
-  <button class="chip" id="chip-unreadable" onclick="setF('unreadable',this)"><div class="chip-dot" style="background:#B8860B"></div><span data-i18n="filter_unreadable">Illeggibili</span><span style="font-weight:700;margin-left:3px" id="cnt-unreadable">0</span></button>
+  <button class="chip" id="chip-unreadable" onclick="setF('unreadable',this)"><div class="chip-dot" style="background:#B8860B"></div><span data-i18n="filter_unreadable">Illeggibili</span><span style="font-weight:400;margin-left:3px" id="cnt-unreadable">0</span></button>
   <div style="flex:1"></div>
 </div>
 
@@ -1075,19 +1385,39 @@ body.dark .confirm-btn.danger:hover{background:rgba(239,107,107,0.10);}
 
 <!-- COLUMNS -->
 <div class="columns">
-  <div class="col" id="colA" ondragover="event.preventDefault()" ondrop="onDrop(event,'A',null,null,false)">
+  <div class="col" id="colA" ondragover="onColOver(event)" ondrop="onDrop(event,'A',null,null,false)">
     <div class="col-head">
-      <div class="col-dot" style="background:#185FA5"></div>
-      <span id="labelA" data-i18n="disk_a">Disco A</span>
-      <span class="col-info" id="infoA">—</span>
+      <div class="col-title">
+        <div class="col-dot" style="background:#185FA5"></div>
+        <span id="labelA" data-i18n="disk_a">Disco A</span>
+        <span class="col-info" id="infoA">—</span>
+      </div>
+      <div class="col-cols">
+        <span class="hc hc-ic"></span>
+        <span class="hc hc-name" data-sort="name" onclick="setSort('name')" data-i18n="col_name">Nome</span>
+        <span class="hc hc-dt" data-sort="date" onclick="setSort('date')" data-i18n="col_date">Data modifica</span>
+        <span class="hc hc-ty" data-sort="type" onclick="setSort('type')" data-i18n="col_type">Tipo</span>
+        <span class="hc hc-sz" data-sort="size" onclick="setSort('size')" data-i18n="col_size">Dimensione</span>
+        <span class="hc hc-bd"></span>
+      </div>
     </div>
     <div id="listA"></div>
   </div>
-  <div class="col" id="colB" ondragover="event.preventDefault()" ondrop="onDrop(event,'B',null,null,false)">
+  <div class="col" id="colB" ondragover="onColOver(event)" ondrop="onDrop(event,'B',null,null,false)">
     <div class="col-head">
-      <div class="col-dot" style="background:#0F6E56"></div>
-      <span id="labelB" data-i18n="disk_b">Disco B</span>
-      <span class="col-info" id="infoB">—</span>
+      <div class="col-title">
+        <div class="col-dot" style="background:#0F6E56"></div>
+        <span id="labelB" data-i18n="disk_b">Disco B</span>
+        <span class="col-info" id="infoB">—</span>
+      </div>
+      <div class="col-cols">
+        <span class="hc hc-ic"></span>
+        <span class="hc hc-name" data-sort="name" onclick="setSort('name')" data-i18n="col_name">Nome</span>
+        <span class="hc hc-dt" data-sort="date" onclick="setSort('date')" data-i18n="col_date">Data modifica</span>
+        <span class="hc hc-ty" data-sort="type" onclick="setSort('type')" data-i18n="col_type">Tipo</span>
+        <span class="hc hc-sz" data-sort="size" onclick="setSort('size')" data-i18n="col_size">Dimensione</span>
+        <span class="hc hc-bd"></span>
+      </div>
     </div>
     <div id="listB"></div>
   </div>
@@ -1108,6 +1438,9 @@ const { listen } = window.__TAURI__.event;
 let dark = false;
 let lang = 'it';
 let filt = 'all';
+let sortKey = null;   // null = the order the engine sent
+let sortDir = 1;
+let _clip = null;     // Ctrl+C / Ctrl+X: { side, items, move }
 let srch = '';
 let showHidden = false;
 let pickerShowHidden = false;
@@ -1150,6 +1483,29 @@ function toggleTheme() {
   document.getElementById('body-root').classList.toggle('dark', dark);
   document.getElementById('themeBtn').textContent = t(dark ? 'theme_light' : 'theme_dark');
   try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch(e) {}
+  syncWindowTheme();
+}
+
+// The native title bar follows the app theme; with no saved choice it follows
+// the system.
+function syncWindowTheme() {
+  let stored = null;
+  try { stored = localStorage.getItem('theme'); } catch(e) {}
+  try {
+    const r = window.__TAURI__.window.getCurrentWindow().setTheme(stored || null);
+    if (r && r.catch) r.catch(() => {});
+  } catch(e) {}
+}
+if (window.matchMedia) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (ev) => {
+    let stored = null;
+    try { stored = localStorage.getItem('theme'); } catch(e) {}
+    if (stored) return;
+    dark = ev.matches;
+    document.getElementById('body-root').classList.toggle('dark', dark);
+    const tb = document.getElementById('themeBtn');
+    if (tb) tb.textContent = t(dark ? 'theme_light' : 'theme_dark');
+  });
 }
 
 // ── HELP DIALOG ──
@@ -1283,6 +1639,10 @@ const I18N = {
     picker_hidden: '👁 Nascosti',
     picker_select: 'Scegli questa cartella', picker_empty: 'Cartella vuota',
     picker_current: 'Percorso corrente:',
+    picker_back: 'Indietro', picker_forward: 'Avanti', picker_up_title: 'Livello superiore', picker_refresh: 'Aggiorna',
+    picker_col_name: 'Nome', picker_col_type: 'Tipo', picker_folder_label: 'Cartella:',
+    picker_quick: 'Accesso rapido', picker_home_label: 'Home', picker_thispc: 'Questo PC',
+    picker_type_folder: 'Cartella di file', picker_type_drive: 'Unità',
     mode_label: 'Modalità trasferimento', mode_copy: 'Copia', mode_move: 'Sposta',
     filter_all: 'Tutti', filter_modified: 'Modificati',
     filter_only_a: 'Solo in A', filter_only_b: 'Solo in B',
@@ -1375,6 +1735,46 @@ const I18N = {
     status_batch_stopped: '⏹ Gruppo annullato: {done} di {n} elementi completati',
     status_batch_none: '↷ Niente da fare: tutti i {k} elementi erano già presenti',
     drag_group: '{n} elementi',
+    sched_sum_counts: 'copiati {c}, saltati {s}, errori {f}', sched_sum_path_missing: 'Disco {side} non trovato: esecuzione saltata',
+    sched_sum_device_changed: 'Il Disco {side} non è più la stessa unità: esecuzione saltata', sched_sum_compare_failed: 'Confronto non riuscito',
+    sched_sum_compare_stopped: 'Confronto interrotto', sched_sum_invalid_rules: 'Regole non valide',
+
+    btn_sched: '⏱ Pianificazione', sched_title: 'Pianificazione',
+    sched_note: 'Le attività partono solo con GEMINUS aperto (anche ridotto a icona). Non cancellano mai nulla.',
+    sched_new: 'Nuova attività', btn_close: 'Chiudi', sched_save: 'Salva', sched_pick: 'Scegli…',
+    sched_empty: 'Nessuna attività. Creane una con "Nuova attività".', sched_never: 'Mai eseguita',
+    sched_next: 'prossima:', sched_run: 'Esegui ora', sched_edit: 'Modifica', sched_log: 'Registro',
+    sched_log_empty: 'Registro vuoto', sched_default_name: 'Backup A → B',
+    sched_f_name: 'Nome', sched_f_method: 'Confronto', sched_m_fast: 'Veloce (nomi, dimensioni, date)',
+    sched_m_deep: 'Approfondito (legge il contenuto)', sched_f_rules: 'Regole sulle differenze',
+    sched_r_onlya: 'Solo in A', sched_r_onlyb: 'Solo in B', sched_r_diff: 'File diversi',
+    sched_a_copyab: 'Copia da A a B', sched_a_copyba: 'Copia da B ad A', sched_a_ignore: 'Non fare nulla',
+    sched_a_newer: 'Vince il più recente', sched_a_atob: 'Copia da A a B (sovrascrive B)', sched_a_btoa: 'Copia da B ad A (sovrascrive A)',
+    sched_f_when: 'Quando', sched_f_freq: 'Frequenza', sched_k_daily: 'Ogni giorno', sched_k_weekly: 'Ogni settimana',
+    sched_k_hourly: 'Ogni tot ore', sched_f_time: 'Ora', sched_f_every: 'Ogni (ore)', sched_f_days: 'Giorni', sched_f_enabled: 'Attiva',
+    sched_d_daily: 'Ogni giorno alle {time}', sched_d_weekly: 'Ogni settimana ({days}) alle {time}', sched_d_hourly: 'Ogni {n} ore',
+    sched_s_ok: 'Completata', sched_s_partial: 'Parziale', sched_s_skipped: 'Saltata', sched_s_failed: 'Fallita',
+    sched_err_paths: 'Scegli sia il Disco A sia il Disco B.', sched_err_days: 'Scegli almeno un giorno.',
+    sched_running: 'Pianificazione "{name}" in corso…', sched_done: 'Pianificazione "{name}": {summary}',
+    day_mon: 'lun', day_tue: 'mar', day_wed: 'mer', day_thu: 'gio', day_fri: 'ven', day_sat: 'sab', day_sun: 'dom',
+    err_sched_invalid: 'Impostazioni non valide', err_sched_busy: 'Un\'altra attività è già in corso', err_sched_job_missing: 'Attività non trovata',
+
+    col_name: 'Nome', col_date: 'Data modifica', col_type: 'Tipo', col_size: 'Dimensione',
+    type_folder: 'Cartella', type_file: 'File', type_ext: 'File {ext}',
+    ctx_rename: 'Rinomina', delete_msg_trash: '"{name}" verrà spostato nel Cestino.',
+    delete_msg_nobin: 'Il Cestino non è disponibile su questa unità. "{name}" verrà eliminato definitivamente. Continuare?',
+    err_trash_failed: 'Impossibile spostare nel Cestino', err_name_invalid: 'Nome non valido',
+    err_name_taken: 'Esiste già un elemento con questo nome', err_rename_failed: 'Impossibile rinominare',
+    status_renamed: 'Rinominato in "{name}"', status_clip_copy: '{n} elementi pronti da copiare — Ctrl+V per incollare nell\'altro disco',
+    status_clip_cut: '{n} elementi pronti da spostare — Ctrl+V per incollare nell\'altro disco',
+    status_paste_nothing: 'Niente da incollare: seleziona e premi Ctrl+C', status_pick_one: 'Seleziona un solo elemento',
+    fav_add: 'Aggiungi la coppia attuale ai preferiti', fav_remove: 'Rimuovi {name}', status_fav_saved: 'Coppia salvata nei preferiti',
+
+    ctx_open: 'Apri', ctx_copy_to_A: 'Copia in Disco A', ctx_copy_to_B: 'Copia in Disco B',
+    ctx_move_to_A: 'Sposta in Disco A', ctx_move_to_B: 'Sposta in Disco B',
+    ctx_copy_path: 'Copia percorso', ctx_change: 'Cambia cartella…', ctx_compare: 'Confronta',
+    ctx_health: 'Controlla salute unità', status_path_copied: 'Percorso copiato negli appunti',
+    mode_hint: 'Trascina: Ctrl = copia, Maiusc = sposta',
     op_batch_item: 'Elemento {i} di {n}',
     batch_conflict_title: 'File diversi già presenti',
     batch_conflict_msg: '{k} file esistono già in {toDisk} con un contenuto diverso. Sovrascriverli cancella per sempre la versione che c\'è ora:',
@@ -1529,6 +1929,10 @@ const I18N = {
     picker_hidden: '👁 Hidden',
     picker_select: 'Select this folder', picker_empty: 'Empty folder',
     picker_current: 'Current path:',
+    picker_back: 'Back', picker_forward: 'Forward', picker_up_title: 'Up one level', picker_refresh: 'Refresh',
+    picker_col_name: 'Name', picker_col_type: 'Type', picker_folder_label: 'Folder:',
+    picker_quick: 'Quick access', picker_home_label: 'Home', picker_thispc: 'This PC',
+    picker_type_folder: 'File folder', picker_type_drive: 'Drive',
     mode_label: 'Transfer mode', mode_copy: 'Copy', mode_move: 'Move',
     filter_all: 'All', filter_modified: 'Modified',
     filter_only_a: 'Only in A', filter_only_b: 'Only in B',
@@ -1616,6 +2020,46 @@ const I18N = {
     status_batch_stopped: '⏹ Group cancelled: {done} of {n} items done',
     status_batch_none: '↷ Nothing to do: all {k} items were already there',
     drag_group: '{n} items',
+    sched_sum_counts: 'copied {c}, skipped {s}, failed {f}', sched_sum_path_missing: 'Disk {side} not found: run skipped',
+    sched_sum_device_changed: 'Disk {side} is no longer the same drive: run skipped', sched_sum_compare_failed: 'Comparison failed',
+    sched_sum_compare_stopped: 'Comparison stopped', sched_sum_invalid_rules: 'Invalid rules',
+
+    btn_sched: '⏱ Schedule', sched_title: 'Schedule',
+    sched_note: 'Tasks run only while GEMINUS is open (also minimised). They never delete anything.',
+    sched_new: 'New task', btn_close: 'Close', sched_save: 'Save', sched_pick: 'Choose…',
+    sched_empty: 'No tasks yet. Create one with "New task".', sched_never: 'Never run',
+    sched_next: 'next:', sched_run: 'Run now', sched_edit: 'Edit', sched_log: 'Log',
+    sched_log_empty: 'Log is empty', sched_default_name: 'Backup A → B',
+    sched_f_name: 'Name', sched_f_method: 'Comparison', sched_m_fast: 'Quick (names, sizes, dates)',
+    sched_m_deep: 'Deep (reads the contents)', sched_f_rules: 'Rules for differences',
+    sched_r_onlya: 'Only in A', sched_r_onlyb: 'Only in B', sched_r_diff: 'Different files',
+    sched_a_copyab: 'Copy from A to B', sched_a_copyba: 'Copy from B to A', sched_a_ignore: 'Do nothing',
+    sched_a_newer: 'The newer one wins', sched_a_atob: 'Copy from A to B (overwrites B)', sched_a_btoa: 'Copy from B to A (overwrites A)',
+    sched_f_when: 'When', sched_f_freq: 'Frequency', sched_k_daily: 'Every day', sched_k_weekly: 'Every week',
+    sched_k_hourly: 'Every few hours', sched_f_time: 'Time', sched_f_every: 'Every (hours)', sched_f_days: 'Days', sched_f_enabled: 'Enabled',
+    sched_d_daily: 'Every day at {time}', sched_d_weekly: 'Every week ({days}) at {time}', sched_d_hourly: 'Every {n} hours',
+    sched_s_ok: 'Completed', sched_s_partial: 'Partial', sched_s_skipped: 'Skipped', sched_s_failed: 'Failed',
+    sched_err_paths: 'Choose both Disk A and Disk B.', sched_err_days: 'Choose at least one day.',
+    sched_running: 'Scheduled task "{name}" running…', sched_done: 'Scheduled task "{name}": {summary}',
+    day_mon: 'Mon', day_tue: 'Tue', day_wed: 'Wed', day_thu: 'Thu', day_fri: 'Fri', day_sat: 'Sat', day_sun: 'Sun',
+    err_sched_invalid: 'Invalid settings', err_sched_busy: 'Another task is already running', err_sched_job_missing: 'Task not found',
+
+    col_name: 'Name', col_date: 'Date modified', col_type: 'Type', col_size: 'Size',
+    type_folder: 'Folder', type_file: 'File', type_ext: '{ext} file',
+    ctx_rename: 'Rename', delete_msg_trash: '"{name}" will be moved to the Recycle Bin.',
+    delete_msg_nobin: 'The Recycle Bin is not available on this drive. "{name}" will be permanently deleted. Continue?',
+    err_trash_failed: 'Could not move to the Recycle Bin', err_name_invalid: 'Invalid name',
+    err_name_taken: 'An item with this name already exists', err_rename_failed: 'Could not rename',
+    status_renamed: 'Renamed to "{name}"', status_clip_copy: '{n} items ready to copy — Ctrl+V to paste into the other disk',
+    status_clip_cut: '{n} items ready to move — Ctrl+V to paste into the other disk',
+    status_paste_nothing: 'Nothing to paste: select and press Ctrl+C', status_pick_one: 'Select a single item',
+    fav_add: 'Add the current pair to favourites', fav_remove: 'Remove {name}', status_fav_saved: 'Pair saved to favourites',
+
+    ctx_open: 'Open', ctx_copy_to_A: 'Copy to Disk A', ctx_copy_to_B: 'Copy to Disk B',
+    ctx_move_to_A: 'Move to Disk A', ctx_move_to_B: 'Move to Disk B',
+    ctx_copy_path: 'Copy path', ctx_change: 'Change folder…', ctx_compare: 'Compare',
+    ctx_health: 'Check drive health', status_path_copied: 'Path copied to clipboard',
+    mode_hint: 'Drag: Ctrl = copy, Shift = move',
     op_batch_item: 'Item {i} of {n}',
     batch_conflict_title: 'Different files already there',
     batch_conflict_msg: '{k} files already exist in {toDisk} with different content. Overwriting them deletes the version there now for good:',
@@ -2295,22 +2739,84 @@ function setStaticI18n(elId, key) {
 async function chooseDisk(side) {
     const path = await openFolderPicker(side);
     if (!path) return;
+    setDisk(side, path);
+}
+
+// One place where a disk is set, whoever asked: the picker, a favourite, the
+// saved paths, or the system's context menu.
+function setDisk(side, path) {
     exp = {};
     if (side === 'A') {
         pathAval = path;
         setDynText('pathA', path);
         setDynText('labelA', baseNameOf(path));
-        setDynText('statusMsg', t('status_disk_chosen', { side: 'A', path }));
     } else {
         pathBval = path;
         setDynText('pathB', path);
         setDynText('labelB', baseNameOf(path));
-        setDynText('statusMsg', t('status_disk_chosen', { side: 'B', path }));
     }
+    setDynText('statusMsg', t('status_disk_chosen', { side, path }));
     // Reveal the 🩺 button: the extended check of this disk starts from there.
     const deepBtn = document.getElementById('deepBtn' + side);
     deepBtn.style.display = '';
     deepBtn.title = t('deep_btn_tooltip', { side });
+    saveLastPaths();
+}
+
+function saveLastPaths() {
+  try { localStorage.setItem('lastPaths', JSON.stringify({ a: pathAval || null, b: pathBval || null })); } catch(e) {}
+}
+
+async function folderExists(path) {
+  try { await invoke('browse_dir', { path }); return true; } catch(e) { return false; }
+}
+
+async function restoreLastPaths() {
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem('lastPaths') || 'null'); } catch(e) {}
+  if (saved) {
+    if (saved.a && await folderExists(saved.a)) setDisk('A', saved.a);
+    if (saved.b && await folderExists(saved.b)) setDisk('B', saved.b);
+  }
+  // Folders handed over by the system's context menu win over the saved ones.
+  try {
+    const la = await invoke('get_launch_args');
+    if (la && la.a) setDisk('A', la.a);
+    if (la && la.b) setDisk('B', la.b);
+  } catch(e) {}
+}
+
+// ── FAVOURITES (saved A ↔ B pairs) ──
+function loadFavs() {
+  try { const f = JSON.parse(localStorage.getItem('favorites') || '[]'); return Array.isArray(f) ? f : []; } catch(e) { return []; }
+}
+function saveFavs(f) {
+  try { localStorage.setItem('favorites', JSON.stringify(f)); } catch(e) {}
+}
+function favName(f) { return baseNameOf(f.a) + ' ⇄ ' + baseNameOf(f.b); }
+
+function openFavMenu(e) {
+  e.stopPropagation();
+  const favs = loadFavs();
+  _ctxTarget = { fav: true };
+  const items = [];
+  favs.forEach(f => items.push({ label: favName(f), title: f.a + '  ⇄  ' + f.b,
+    handler: () => { setDisk('A', f.a); setDisk('B', f.b); } }));
+  if (favs.length) items.push('sep');
+  items.push({ labelKey: 'fav_add', disabled: !(pathAval && pathBval), handler: () => {
+    const all = loadFavs();
+    if (!all.some(f => f.a === pathAval && f.b === pathBval)) all.push({ a: pathAval, b: pathBval });
+    saveFavs(all);
+    stk('status_fav_saved');
+  } });
+  if (favs.length) {
+    items.push('sep');
+    favs.forEach(f => items.push({ label: t('fav_remove', { name: favName(f) }), danger: true,
+      handler: () => saveFavs(loadFavs().filter(x => !(x.a === f.a && x.b === f.b))) }));
+  }
+  buildCtxMenu(items);
+  const r = e.currentTarget.getBoundingClientRect();
+  showCtxMenu(r.left, r.bottom + 2);
 }
 
 // ── FILTERS ──
@@ -2361,17 +2867,82 @@ function updateHint() {
 }
 
 // ── FILE ICONS ──
-function getIcon(isDir, name) {
-  if (isDir) return '📁';
-  const e = (name || '').split('.').pop().toLowerCase();
-  if (['jpg','jpeg','png','gif','webp'].includes(e)) return '🖼';
-  if (['mp4','mkv','avi','mov'].includes(e)) return '🎬';
-  if (e === 'pdf') return '📄';
-  if (['xlsx','csv'].includes(e)) return '📊';
-  if (['sh','py','js','rs'].includes(e)) return '⌨';
-  if (e === 'iso') return '💿';
-  if (['docx','doc'].includes(e)) return '📝';
-  return '📃';
+const _ICON_DIR = '<svg class="fi" viewBox="0 0 24 24" width="18" height="18"><path d="M2 6a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2v1H2z" fill="#E8B23A"/><path d="M2 9h20v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" fill="#FFCA4F"/></svg>';
+const _ICON_DIR_OPEN = '<svg class="fi" viewBox="0 0 24 24" width="18" height="18"><path d="M2 6a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2v1H2z" fill="#E8B23A"/><path d="M5 10h18l-2.5 9a1.5 1.5 0 0 1-1.4 1H4a2 2 0 0 1-2-2z" fill="#FFD76E"/></svg>';
+const _FILE_KINDS = [
+  [['jpg','jpeg','png','gif','webp','bmp','svg','ico','tif','tiff','heic'], '#2EA44F'],
+  [['mp4','mkv','avi','mov','wmv','webm','m4v'], '#8250DF'],
+  [['mp3','wav','flac','ogg','m4a','aac'], '#D9488B'],
+  [['pdf'], '#D1242F'],
+  [['xlsx','xls','csv','ods'], '#1A7F37'],
+  [['docx','doc','odt','rtf'], '#0969DA'],
+  [['pptx','ppt','odp'], '#D4571A'],
+  [['zip','rar','7z','tar','gz','bz2','xz'], '#BF8700'],
+  [['iso','img','vhd','vmdk'], '#57606A'],
+  [['sh','py','js','ts','rs','c','h','cpp','java','go','json','html','css','xml','yml','yaml','bat','ps1'], '#0A7EA4'],
+  [['exe','msi','dll','appimage','deb','rpm'], '#6E7781']
+];
+function extOf(name) {
+  const i = (name || '').lastIndexOf('.');
+  return i > 0 ? name.slice(i + 1).toLowerCase() : '';
+}
+function getIcon(isDir, name, open) {
+  if (isDir) return open ? _ICON_DIR_OPEN : _ICON_DIR;
+  const e = extOf(name);
+  let color = '#8C959F';
+  for (const [exts, c] of _FILE_KINDS) if (exts.includes(e)) { color = c; break; }
+  return '<svg class="fi" viewBox="0 0 24 24" width="18" height="18"><path d="M6 2h8l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" fill="#fff" stroke="#9AA3AD"/><path d="M14 2v5h5" fill="#E1E5EA" stroke="#9AA3AD"/><rect x="7.5" y="12.5" width="9" height="6" rx="1" fill="' + color + '"/></svg>';
+}
+
+// "Type" column: what Explorer would call the kind of file.
+function typeLabel(nd) {
+  if (nd.t === 'd') return t('type_folder');
+  const e = extOf(nd.n);
+  return e ? t('type_ext', { ext: e.toUpperCase() }) : t('type_file');
+}
+function formatDate(sec) {
+  if (!sec) return '';
+  try {
+    return new Date(sec * 1000).toLocaleString(lang === 'it' ? 'it-IT' : 'en-GB', { dateStyle: 'short', timeStyle: 'short' });
+  } catch (_) { return ''; }
+}
+// Full path on screen, for the tooltip: the system's own separator.
+function fullPathOf(side, rel) {
+  const root = side === 'A' ? pathAval : pathBval;
+  if (!root) return rel;
+  const sep = root.includes('\\') ? '\\' : '/';
+  return root.replace(/[\\/]+$/, '') + sep + rel.split('/').join(sep);
+}
+
+function sortNodes(nodes) {
+  if (!sortKey) return nodes;
+  const val = (n) => {
+    switch (sortKey) {
+      case 'size': return Math.max(n.sA || 0, n.sB || 0);
+      case 'date': return Math.max(n.mA || 0, n.mB || 0);
+      case 'type': return n.t === 'd' ? '' : extOf(n.n);
+      default:     return n.n.toLowerCase();
+    }
+  };
+  return nodes.slice().sort((a, b) => {
+    if (a.t !== b.t) return a.t === 'd' ? -1 : 1;   // folders stay on top, as in Explorer
+    const va = val(a), vb = val(b);
+    let c = va < vb ? -1 : va > vb ? 1 : 0;
+    if (c) return c * sortDir;
+    return a.n.toLowerCase().localeCompare(b.n.toLowerCase());
+  });
+}
+function setSort(key) {
+  if (sortKey === key) sortDir = -sortDir; else { sortKey = key; sortDir = 1; }
+  paintSortHeaders();
+  render();
+}
+function paintSortHeaders() {
+  document.querySelectorAll('.hc[data-sort]').forEach(h => {
+    const on = h.dataset.sort === sortKey;
+    h.classList.toggle('sorted', on);
+    h.dataset.arrow = on ? (sortDir === 1 ? '▲' : '▼') : '';
+  });
 }
 
 function badge(s) {
@@ -2397,12 +2968,13 @@ function buildRows(nodes, depth, side, parentPath) {
   parentPath = parentPath || '';
   let h = '';
   const pl = (depth * 14) + 10;
-  for (const nd of nodes) {
+  for (const nd of sortNodes(nodes)) {
     if (!hasMatch(nd)) continue;
     const isDir = nd.t === 'd';
     const absent = side === 'A' ? nd.s === 'onlyB' : nd.s === 'onlyA';
     const sz = side === 'A' ? nd.sA : nd.sB;
     const rowCls = absent ? 'absent ' + nd.s : nd.s;
+    const mt = side === 'A' ? nd.mA : nd.mB;
     const sideIsLink = side === 'A' ? nd.linkA : nd.linkB;
     const canCtx = !absent;
     const canDrag = !absent && !sideIsLink;
@@ -2412,7 +2984,7 @@ function buildRows(nodes, depth, side, parentPath) {
     const safeRel = _escAttr(relPath);
     const ic = sideIsLink
       ? '🔗'
-      : (isDir ? (exp[relPath] ? '📂' : '📁') : getIcon(false, nd.n));
+      : getIcon(isDir, nd.n, !!exp[relPath]);
     const bytesArg = sz == null ? 'null' : sz;
     const ctxAttr = canCtx
       ? `oncontextmenu="onCtx(event,'${safeRel}','${side}',${isDir},'${safeName}')"`
@@ -2424,7 +2996,8 @@ function buildRows(nodes, depth, side, parentPath) {
     const selected = canDrag && side === selSide && selSet.has(relPath);
     if (selected) _selSeen.add(relPath);
     const selAttr = canDrag ? `data-rel="${_escHtml(relPath)}"` : '';
-    h += `<div class="row ${rowCls}${selected ? ' selected' : ''}" style="padding-left:${pl}px" ${drag} ${selAttr}
+    const tip = absent ? '' : `title="${_escHtml(fullPathOf(side, relPath))}"`;
+    h += `<div class="row ${rowCls}${selected ? ' selected' : ''}" style="padding-left:${pl}px" ${drag} ${selAttr} ${tip}
       onclick="onRowClick(event,'${safeRel}','${side}',${isDir},${canDrag})"
       ${ctxAttr}
       ${dblAttr}
@@ -2433,6 +3006,8 @@ function buildRows(nodes, depth, side, parentPath) {
       ondrop="onDrop(event,'${side}','${safeRel}',${isDir},${absent})">
       <span class="row-icon">${absent ? '·' : ic}</span>
       <span class="row-name${absent ? ' faded' : ''}">${absent ? t('row_absent') : _escHtml(nd.n)}</span>
+      <span class="row-dt">${absent ? '' : formatDate(mt)}</span>
+      <span class="row-ty">${absent ? '' : _escHtml(typeLabel(nd))}</span>
       <span class="row-sz">${sz != null ? formatSize(sz) : ''}</span>
       ${badge(nd.s)}
     </div>`;
@@ -2589,9 +3164,11 @@ function setSubtreeOnlyOneSide(node, newStatus) {
   const removedSide = newStatus === 'onlyA' ? 'B' : 'A';
   if (removedSide === 'A') {
     node.sA = null;
+    node.mA = null;
     node.linkA = false;
   } else {
     node.sB = null;
+    node.mB = null;
     node.linkB = false;
   }
   if (!node.ch) return;
@@ -2779,8 +3356,12 @@ function onRowClick(e, relPath, side, isDir, selectable) {
   if (_dragInProgress) return;
   const ctrl = e.ctrlKey || e.metaKey;
   if (!ctrl && !e.shiftKey) {
+    // A plain click selects the row, as in Explorer; a folder also opens.
+    if (selectable) {
+      selSide = side; selSet = new Set([relPath]); selAnchor = relPath;
+      paintSelection();
+    } else if (selSet.size) clearSelection();
     if (isDir) tog(relPath, isDir);
-    else if (selSet.size) clearSelection();
     return;
   }
   // A modifier click never opens a folder: the selection would jump under it.
@@ -2905,13 +3486,28 @@ function onDS(e, relPath, side, isDir, bytes) {
   }
 }
 
+// Windows rules: Ctrl forces copy, Shift forces move, nothing follows the
+// transfer mode chosen in the bar. The cursor shows which one will happen.
+function dragMovesFor(e) {
+  if (e.shiftKey) return true;
+  if (e.ctrlKey) return false;
+  return currentMode === 'move';
+}
+function setDropEffect(e) {
+  try { e.dataTransfer.dropEffect = dragMovesFor(e) ? 'move' : 'copy'; } catch (_) {}
+}
+function onColOver(e) {
+  e.preventDefault();
+  setDropEffect(e);
+}
 function onDOV(e) {
   e.preventDefault();
+  setDropEffect(e);
   e.currentTarget.classList.add('drag-over');
 }
 function onDLV(e) { e.currentTarget.classList.remove('drag-over'); }
 
-async function onDrop(e, toSide, targetRelPath, targetIsDir, targetAbsent) {
+async function onDrop(e, toSide, targetRelPath, targetIsDir, targetAbsent, forceMove) {
   e.preventDefault();
   e.stopPropagation();
   document.querySelectorAll('.row.drag-over').forEach(r => r.classList.remove('drag-over'));
@@ -2922,7 +3518,7 @@ async function onDrop(e, toSide, targetRelPath, targetIsDir, targetAbsent) {
   const dragInfo = dragged;
   dragged = null;
   _dragInProgress = false;
-  const moveMode = (currentMode === 'move');
+  const moveMode = (typeof forceMove === 'boolean') ? forceMove : dragMovesFor(e);
 
   if (dragInfo.group) {
     await runBatch(dragInfo.group, dragInfo.side, toSide, moveMode);
@@ -3355,6 +3951,7 @@ function cancelConflict() {
 
 // ── OP OVERLAY ──
 function showOpOverlay(title, firstPath) {
+  setTaskbarProgress('normal', 0);
   setDynText('opLabel', title);
   document.getElementById('opCount').textContent = '—';
   document.getElementById('opPath').textContent = firstPath;
@@ -3365,6 +3962,7 @@ function showOpOverlay(title, firstPath) {
   document.getElementById('opOverlay').classList.add('visible');
 }
 function hideOpOverlay() {
+  setTaskbarProgress('none');
   document.getElementById('opOverlay').classList.remove('visible');
 }
 async function cancelOp() {
@@ -3984,7 +4582,17 @@ async function startCompare() {
   }
 }
 
+// Progress on the taskbar button (Windows); elsewhere the call fails quietly.
+function setTaskbarProgress(status, pct) {
+  try {
+    const r = window.__TAURI__.window.getCurrentWindow().setProgressBar(
+      pct == null ? { status } : { status, progress: pct });
+    if (r && r.catch) r.catch(() => {});
+  } catch(e) {}
+}
+
 function showScanOverlay(side, path) {
+  setTaskbarProgress('indeterminate');
   setDynText('scanLabel', t('scan_disk', { side }));
   document.getElementById('scanCount').textContent = '0';
   document.getElementById('scanPath').textContent = path;
@@ -3995,6 +4603,7 @@ function showScanOverlay(side, path) {
 }
 
 function hideScanOverlay() {
+  setTaskbarProgress('none');
   document.getElementById('scanOverlay').classList.remove('visible');
 }
 
@@ -4071,6 +4680,7 @@ async function initScannerListeners() {
     document.getElementById('scanCount').textContent = cnt + totalSuffix;
     document.getElementById('scanPath').textContent = p.currentPath;
     updateProgressBar(p);
+    if (p.total > 0) setTaskbarProgress('normal', Math.min(100, Math.floor(100 * p.count / p.total)));
   });
 
   await listen('compare_complete', (event) => {
@@ -4120,6 +4730,7 @@ async function initScannerListeners() {
     const p = event.payload;
     const pct = p.bytesTotal > 0 ? Math.floor(100 * p.bytesDone / p.bytesTotal) : 0;
     document.getElementById('opProgFill').style.width = pct + '%';
+    setTaskbarProgress('normal', pct);
     const doneMB = (p.bytesDone / (1024*1024)).toFixed(1);
     const totalMB = (p.bytesTotal / (1024*1024)).toFixed(1);
     document.getElementById('opCount').textContent =
@@ -4149,29 +4760,59 @@ async function initScannerListeners() {
 // CONTEXT MENU + CONFIRM DELETE DIALOG
 // ══════════════════════════════════════════════════════════
 
-// One entry: the menu is built from this list, not by hand in the page.
-const CTX_MENU_ITEMS = [
-  { id: 'delete', labelKey: 'btn_delete', danger: true, handler: askDeleteConfirm }
-];
-
 let _ctxTarget = null;
 let _confirmTarget = null;
 
-function buildCtxMenu() {
+// The menu is built from a list of entries every time it opens: what it offers
+// depends on what was clicked. An entry is { labelKey, handler, danger, disabled }
+// or the string 'sep' for a divider.
+function buildCtxMenu(items) {
   const menu = document.getElementById('ctxMenu');
   menu.innerHTML = '';
-  CTX_MENU_ITEMS.forEach(item => {
+  (items || []).forEach(item => {
+    if (item === 'sep') {
+      const sep = document.createElement('div');
+      sep.className = 'ctx-sep';
+      menu.appendChild(sep);
+      return;
+    }
     const el = document.createElement('div');
-    el.className = 'ctx-item' + (item.danger ? ' danger' : '');
-    el.setAttribute('data-i18n', item.labelKey);
-    el.textContent = t(item.labelKey);
-    el.onclick = () => {
-      const target = _ctxTarget;
-      hideCtxMenu();
-      item.handler(target);
-    };
+    el.className = 'ctx-item' + (item.danger ? ' danger' : '') + (item.disabled ? ' disabled' : '');
+    el.textContent = item.label || t(item.labelKey);
+    if (item.title) el.title = item.title;
+    if (!item.disabled) {
+      el.onclick = () => {
+        const target = _ctxTarget;
+        hideCtxMenu();
+        item.handler(target);
+      };
+    }
     menu.appendChild(el);
   });
+}
+
+async function ctxTransfer(ctx, move) {
+  if (operating) { stk('status_busy'); return; }
+  const to = ctx.side === 'A' ? 'B' : 'A';
+  const found = findNode(ctx.relPath);
+  const sz = found ? (ctx.side === 'A' ? found.node.sA : found.node.sB) : null;
+  dragged = { relPath: ctx.relPath, side: ctx.side, isDir: ctx.isDir, bytes: sz == null ? null : sz, group: null };
+  await onDrop({ preventDefault() {}, stopPropagation() {} }, to, null, null, false, move);
+}
+
+async function ctxCopyPath(ctx) {
+  const root = ctx.root || '';
+  const sep = root.includes('\\') ? '\\' : '/';
+  const full = ctx.relPath ? root.replace(/[\\/]+$/, '') + sep + ctx.relPath.split('/').join(sep) : root;
+  try { await navigator.clipboard.writeText(full); stk('status_path_copied'); } catch (_) {}
+}
+
+async function ctxOpen(ctx) {
+  try {
+    await invoke('open_item', { root: ctx.root, rel: ctx.relPath || '' });
+  } catch (err) {
+    showResultDialog(t('err_title'), [errText(err)]);
+  }
 }
 
 function onCtx(e, relPath, side, isDir, name) {
@@ -4189,7 +4830,40 @@ function onCtx(e, relPath, side, isDir, name) {
     }
   }
   const root = side === 'A' ? pathAval : pathBval;
+  const other = side === 'A' ? pathBval : pathAval;
+  const to = side === 'A' ? 'B' : 'A';
   _ctxTarget = { relPath, side, isDir, name, root };
+  const noOther = !other;
+  buildCtxMenu([
+    { labelKey: 'ctx_open', handler: ctxOpen },
+    'sep',
+    { labelKey: 'ctx_copy_to_' + to, handler: c => ctxTransfer(c, false), disabled: noOther },
+    { labelKey: 'ctx_move_to_' + to, handler: c => ctxTransfer(c, true), disabled: noOther },
+    'sep',
+    { labelKey: 'ctx_copy_path', handler: ctxCopyPath },
+    'sep',
+    { labelKey: 'ctx_rename', handler: startRename },
+    { labelKey: 'btn_delete', danger: true, handler: askDeleteConfirm }
+  ]);
+  showCtxMenu(e.clientX, e.clientY);
+}
+
+// Right click on a drive block: what Windows offers on a drive in Explorer.
+function onDiskCtx(e, side) {
+  e.preventDefault();
+  e.stopPropagation();
+  const root = side === 'A' ? pathAval : pathBval;
+  _ctxTarget = { relPath: '', side, isDir: true, name: root, root };
+  const has = !!root;
+  buildCtxMenu([
+    { labelKey: 'ctx_open', handler: ctxOpen, disabled: !has },
+    { labelKey: 'ctx_change', handler: c => chooseDisk(c.side) },
+    'sep',
+    { labelKey: 'ctx_compare', handler: () => startCompare(), disabled: !(pathAval && pathBval) },
+    { labelKey: 'ctx_health', handler: c => openStandaloneDeepCheck(c.side), disabled: !has },
+    'sep',
+    { labelKey: 'ctx_copy_path', handler: ctxCopyPath, disabled: !has }
+  ]);
   showCtxMenu(e.clientX, e.clientY);
 }
 
@@ -4219,7 +4893,7 @@ window.addEventListener('blur', () => hideCtxMenu());
 
 // The engine's own context menu is blocked everywhere except on a real row.
 document.addEventListener('contextmenu', (e) => {
-  if (!e.target.closest('.row[draggable=true]')) {
+  if (!e.target.closest('.row[draggable=true]') && !e.target.closest('.disk-block')) {
     e.preventDefault();
     hideCtxMenu();
   }
@@ -4229,7 +4903,10 @@ function askDeleteConfirm(ctx) {
   if (operating) { stk('status_busy'); return; }
   _confirmTarget = ctx;
   setDynText('confirmTitle', t('delete_title'));
-  setDynText('confirmMsg', t('delete_msg', { name: ctx.name }));
+  // The bin first; the permanent way only when asked for (Shift+Del) or when
+  // the disk has no bin.
+  const key = ctx.noBin ? 'delete_msg_nobin' : (ctx.permanent ? 'delete_msg' : 'delete_msg_trash');
+  setDynText('confirmMsg', t(key, { name: ctx.name }));
   document.getElementById('confirmDialog').classList.add('visible');
   setTimeout(() => document.getElementById('confirmCancelBtn').focus(), 30);
 }
@@ -4263,9 +4940,14 @@ async function confirmDelete() {
   operating = true;
   let outcome;
   try {
-    outcome = await invoke('delete_item', { root: target.root, rel: target.relPath });
+    outcome = await invoke('delete_item', { root: target.root, rel: target.relPath, toTrash: !target.permanent });
   } catch (err) {
     operating = false;
+    if (err && err.code === 'trash_failed' && !target.permanent) {
+      // No bin on this disk: ask again, this time about deleting for good.
+      askDeleteConfirm({ ...target, permanent: true, noBin: true });
+      return;
+    }
     showResultDialog(t('err_title'), [errText(err)]);
     return;
   }
@@ -4332,14 +5014,25 @@ function _escAttr(s) {
     .replace(/[\r\n]/g,''));
 }
 
+const _PK_ICON_FOLDER = '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M2 6a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2v1H2z" fill="#E8B23A"/><path d="M2 9h20v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" fill="#FFCA4F"/></svg>';
+const _PK_ICON_DRIVE = '<svg viewBox="0 0 24 24" width="20" height="20"><rect x="2" y="8" width="20" height="9" rx="2" fill="#9AA5B1"/><rect x="2" y="8" width="20" height="3" rx="1.5" fill="#C5CDD6"/><circle cx="18" cy="14" r="1.2" fill="#3BB54A"/></svg>';
+const _PK_ICON_PC = '<svg viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="4" width="18" height="12" rx="1.5" fill="#4EA3E0"/><rect x="5" y="6" width="14" height="8" fill="#BFE0FA"/><rect x="9" y="17" width="6" height="2" fill="#8A949E"/></svg>';
+const _PK_ICON_HOME = '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#6FA8DC"/></svg>';
+
+let _pickerHist = [];      // entries: { dev: true } or { path }
+let _pickerHistIdx = -1;
+let _pickerSel = null;     // the folder selected in the list, if any
+let _pickerDevices = [];
+
 async function openFolderPicker(side) {
   return new Promise(async (resolve) => {
     _pickerResolver = resolve;
     setDynText('pickerTitle', t('disk_dialog_title', { side }));
-    // Where there is no single root the button has nowhere to go: it hides,
-    // and Devices is the way up to the drives.
+    pickerLabels();
+    // Where there is no single root the entry has nowhere to go and is left out.
     try { _pickerRoot = await invoke('get_root_path'); } catch(e) { _pickerRoot = null; }
-    document.getElementById('pickerRootBtn').style.display = _pickerRoot ? '' : 'none';
+    try { _pickerDevices = await invoke('list_devices'); } catch(e) { _pickerDevices = []; }
+    _pickerHist = []; _pickerHistIdx = -1;
     let start;
     try { start = await invoke('get_home_dir'); } catch(e) { start = _pickerRoot; }
     if (start) await pickerNavigate(start); else await pickerGoDevices();
@@ -4347,8 +5040,57 @@ async function openFolderPicker(side) {
   });
 }
 
-async function pickerNavigate(path) {
-  _pickerInDevicesView = false;
+function pickerLabels() {
+  document.getElementById('pickerBackBtn').title = t('picker_back');
+  document.getElementById('pickerFwdBtn').title = t('picker_forward');
+  document.getElementById('pickerUpBtn').title = t('picker_up_title');
+  document.getElementById('pickerRefreshBtn').title = t('picker_refresh');
+  document.getElementById('pickerColName').textContent = t('picker_col_name');
+  document.getElementById('pickerColType').textContent = t('picker_col_type');
+  document.getElementById('pickerFolderLbl').textContent = t('picker_folder_label');
+}
+
+// One history entry per place visited; Back and Forward walk it like Explorer.
+function pickerPush(entry) {
+  _pickerHist = _pickerHist.slice(0, _pickerHistIdx + 1);
+  _pickerHist.push(entry);
+  _pickerHistIdx = _pickerHist.length - 1;
+}
+
+function pickerUpdateNavButtons() {
+  document.getElementById('pickerBackBtn').disabled = _pickerHistIdx <= 0;
+  document.getElementById('pickerFwdBtn').disabled = _pickerHistIdx >= _pickerHist.length - 1;
+  document.getElementById('pickerUpBtn').disabled = _pickerInDevicesView;
+}
+
+function pickerRenderSide() {
+  const cur = _pickerInDevicesView ? null : _pickerPath;
+  const item = (icon, label, action, active) =>
+    `<div class="picker-side-item${active ? ' active' : ''}" onclick="${action}">${icon}<span>${_escHtml(label)}</span></div>`;
+  let h = `<div class="picker-side-group">${_escHtml(t('picker_quick'))}</div>`;
+  h += item(_PK_ICON_HOME, t('picker_home_label'), 'pickerGoHome()', false);
+  if (_pickerRoot) h += item(_PK_ICON_FOLDER, _pickerRoot, 'pickerGoRoot()', cur === _pickerRoot);
+  h += `<div class="picker-side-group">${_escHtml(t('picker_devices_label'))}</div>`;
+  h += item(_PK_ICON_PC, t('picker_thispc'), 'pickerGoDevices()', _pickerInDevicesView);
+  for (const d of _pickerDevices) {
+    const active = cur && (cur === d.path || cur.startsWith(d.path.replace(/[\\/]+$/, '') + '/') || cur.startsWith(d.path));
+    h += item(_PK_ICON_DRIVE, d.name, `pickerNavigate('${_escAttr(d.path)}')`, !!active);
+  }
+  document.getElementById('pickerSide').innerHTML = h;
+}
+
+function pickerSetFolderField(text) {
+  document.getElementById('pickerPath').value = text || '';
+}
+
+function pickerSelect(el, path, name) {
+  document.querySelectorAll('#pickerList .picker-item.selected').forEach(n => n.classList.remove('selected'));
+  el.classList.add('selected');
+  _pickerSel = path;
+  pickerSetFolderField(name);
+}
+
+async function pickerNavigate(path, noPush) {
   let r;
   try {
     r = await invoke('browse_dir', { path });
@@ -4356,30 +5098,83 @@ async function pickerNavigate(path) {
     console.error('browse_dir failed:', e);
     return;
   }
+  _pickerInDevicesView = false;
+  if (!noPush) pickerPush({ path });
   _pickerPath = r.path;
   _pickerParent = r.parent;
-  // Breadcrumb: the backend hands over the trail already cut the way this
-  // system cuts paths.
-  const crumbs = document.getElementById('pickerBreadcrumb');
-  crumbs.innerHTML = r.crumbs.map((c, i) =>
-    (i ? `<span class="picker-crumb-sep">&rsaquo;</span>` : '') +
-    `<span class="picker-crumb" onclick="pickerNavigate('${_escAttr(c.path)}')">${_escHtml(c.label)}</span>`
-  ).join('');
-  // The list shows folders only.
+  _pickerSel = null;
+  // Address bar: the backend hands over the trail already cut the way this
+  // system cuts paths. Every segment is a button, with a chevron between.
+  pickerSetCrumbs([{ label: t('picker_thispc'), dev: true }].concat(r.crumbs));
   const list = document.getElementById('pickerList');
   const dirs = r.entries.filter(e => e.is_dir && (pickerShowHidden || !e.is_hidden));
   if (dirs.length === 0) {
     list.innerHTML = `<div class="picker-empty">${_escHtml(t('picker_empty'))}</div>`;
   } else {
-    list.innerHTML = dirs.map(e => {
-      return `<div class="picker-item" onclick="pickerNavigate('${_escAttr(e.path)}')">
-        <span class="picker-item-icon">📁</span>
-        <span>${_escHtml(e.name)}</span>
-      </div>`;
-    }).join('');
+    const type = _escHtml(t('picker_type_folder'));
+    list.innerHTML = dirs.map(e =>
+      `<div class="picker-item" onclick="pickerSelect(this,'${_escAttr(e.path)}','${_escAttr(e.name)}')" ondblclick="pickerNavigate('${_escAttr(e.path)}')">
+        <span class="picker-item-name">${_PK_ICON_FOLDER}<span>${_escHtml(e.name)}</span></span>
+        <span class="picker-item-type">${type}</span>
+      </div>`).join('');
   }
-  // The path shown under the list.
-  document.getElementById('pickerPath').textContent = t('picker_current') + ' ' + r.path;
+  pickerSetFolderField(baseNameOf(r.path) || r.path);
+  pickerRenderSide();
+  pickerUpdateNavButtons();
+}
+
+function pickerSetCrumbs(crumbs) {
+  document.getElementById('pickerBreadcrumb').innerHTML = crumbs.map((c, i) =>
+    (i ? '<span class="picker-crumb-sep">&rsaquo;</span>' : '') +
+    (c.dev
+      ? `<span class="picker-crumb" onclick="event.stopPropagation();pickerGoDevices()">${_escHtml(c.label)}</span>`
+      : `<span class="picker-crumb" onclick="event.stopPropagation();pickerNavigate('${_escAttr(c.path)}')">${_escHtml(c.label)}</span>`)
+  ).join('');
+}
+
+// Click on the empty part of the address bar turns it into a text field.
+function pickerEditAddr(e) {
+  if (e.target.closest('.picker-crumb') || _pickerInDevicesView) return;
+  const inp = document.getElementById('pickerAddrInput');
+  document.getElementById('pickerBreadcrumb').hidden = true;
+  inp.hidden = false;
+  inp.value = _pickerPath || '';
+  inp.focus(); inp.select();
+}
+function pickerEndEditAddr() {
+  document.getElementById('pickerAddrInput').hidden = true;
+  document.getElementById('pickerBreadcrumb').hidden = false;
+}
+(function() {
+  const inp = document.getElementById('pickerAddrInput');
+  inp.addEventListener('keydown', async (e) => {
+    e.stopPropagation();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const v = inp.value.trim();
+      pickerEndEditAddr();
+      if (v) await pickerNavigate(v);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      pickerEndEditAddr();
+    }
+  });
+  inp.addEventListener('blur', pickerEndEditAddr);
+})();
+
+async function pickerBack() {
+  if (_pickerHistIdx <= 0) return;
+  _pickerHistIdx--;
+  await pickerShowEntry(_pickerHist[_pickerHistIdx]);
+}
+async function pickerForward() {
+  if (_pickerHistIdx >= _pickerHist.length - 1) return;
+  _pickerHistIdx++;
+  await pickerShowEntry(_pickerHist[_pickerHistIdx]);
+}
+async function pickerShowEntry(entry) {
+  if (entry.dev) await pickerGoDevices(true);
+  else await pickerNavigate(entry.path, true);
 }
 
 async function pickerGoHome() {
@@ -4389,7 +5184,9 @@ async function pickerGoHome() {
 }
 
 async function pickerGoUp() {
-  if (!_pickerParent) return;
+  // From a drive's top folder, up is the list of drives, as in Explorer.
+  if (_pickerInDevicesView) return;
+  if (!_pickerParent) { await pickerGoDevices(); return; }
   await pickerNavigate(_pickerParent);
 }
 
@@ -4397,31 +5194,28 @@ async function pickerGoRoot() {
   if (_pickerRoot) await pickerNavigate(_pickerRoot);
 }
 
-async function pickerGoDevices() {
+// "This PC": every drive as a tile-like row.
+async function pickerGoDevices(noPush) {
+  try { _pickerDevices = await invoke('list_devices'); } catch (e) { _pickerDevices = []; }
   _pickerInDevicesView = true;
-  _pickerParent = null;   // the drive list has nothing above it
-  let items = [];
-  try {
-    items = await invoke('list_devices');
-  } catch (e) {
-    items = [];
-  }
-
-  const crumbs = document.getElementById('pickerBreadcrumb');
-  crumbs.innerHTML = `<span class="picker-crumb">${_escHtml(t('picker_devices_label'))}</span>`;
-
+  _pickerParent = null;
+  _pickerSel = null;
+  if (!noPush) pickerPush({ dev: true });
+  pickerSetCrumbs([{ label: t('picker_thispc'), dev: true }]);
   const list = document.getElementById('pickerList');
-  if (items.length === 0) {
+  if (_pickerDevices.length === 0) {
     list.innerHTML = `<div class="picker-empty">${_escHtml(t('picker_no_devices'))}</div>`;
   } else {
-    list.innerHTML = items.map(e => {
-      return `<div class="picker-item" onclick="pickerNavigate('${_escAttr(e.path)}')">
-        <span class="picker-item-icon">📁</span>
-        <span>${_escHtml(e.name)}</span>
-      </div>`;
-    }).join('');
+    const type = _escHtml(t('picker_type_drive'));
+    list.innerHTML = _pickerDevices.map(e =>
+      `<div class="picker-item" onclick="pickerSelect(this,'${_escAttr(e.path)}','${_escAttr(e.name)}')" ondblclick="pickerNavigate('${_escAttr(e.path)}')">
+        <span class="picker-item-name">${_PK_ICON_DRIVE}<span>${_escHtml(e.name)}</span></span>
+        <span class="picker-item-type">${type}</span>
+      </div>`).join('');
   }
-  document.getElementById('pickerPath').textContent = '';
+  pickerSetFolderField('');
+  pickerRenderSide();
+  pickerUpdateNavButtons();
 }
 
 function pickerToggleHidden(el) {
@@ -4432,18 +5226,20 @@ function pickerToggleHidden(el) {
 
 function pickerRefresh() {
   if (_pickerInDevicesView) {
-    pickerGoDevices();
+    pickerGoDevices(true);
   } else if (_pickerPath) {
-    pickerNavigate(_pickerPath);
+    pickerNavigate(_pickerPath, true);
   }
 }
 
 function pickerConfirm() {
   // The drive list is not a folder: confirming there would hand back whichever
   // path was open before it.
-  if (_pickerInDevicesView) return;
+  // A folder selected in the list is the choice; with none selected, the folder shown.
+  const choice = _pickerSel || (_pickerInDevicesView ? null : _pickerPath);
+  if (!choice) return;
   document.getElementById('pickerDialog').classList.remove('visible');
-  if (_pickerResolver) { _pickerResolver(_pickerPath); _pickerResolver = null; }
+  if (_pickerResolver) { _pickerResolver(choice); _pickerResolver = null; }
 }
 
 function pickerCancel() {
@@ -4469,6 +5265,382 @@ function stk(key, params) {
   st(t(key, params));
 }
 
+// ── RENAME (F2 / context menu): edited in the row, as in Explorer ──
+function startRename(ctx) {
+  if (operating) { stk('status_busy'); return; }
+  const row = visibleSelectable(ctx.side).find(r => r.dataset.rel === ctx.relPath);
+  if (!row) return;
+  const nameEl = row.querySelector('.row-name');
+  if (!nameEl) return;
+  const old = ctx.name;
+  const inp = document.createElement('input');
+  inp.className = 'rename-inline';
+  inp.value = old;
+  inp.spellcheck = false;
+  row.draggable = false;
+  nameEl.replaceWith(inp);
+  let done = false;
+  const finish = async (commit) => {
+    if (done) return;
+    done = true;
+    const val = inp.value.trim();
+    if (!commit || !val || val === old) { render(); return; }
+    try {
+      const newRel = await invoke('rename_item', { root: ctx.root, rel: ctx.relPath, newName: val });
+      applyRenameToTree(ctx.relPath, ctx.side, val);
+      render();
+      stk('status_renamed', { name: val });
+    } catch (err) {
+      render();
+      showResultDialog(t('err_title'), [errText(err)]);
+    }
+  };
+  inp.addEventListener('keydown', (e) => {
+    e.stopPropagation();
+    if (e.key === 'Enter') { e.preventDefault(); finish(true); }
+    else if (e.key === 'Escape') { e.preventDefault(); finish(false); }
+  });
+  inp.addEventListener('click', (e) => e.stopPropagation());
+  inp.addEventListener('dblclick', (e) => e.stopPropagation());
+  inp.addEventListener('blur', () => finish(true));
+  inp.focus();
+  const dot = !ctx.isDir ? old.lastIndexOf('.') : -1;
+  inp.setSelectionRange(0, dot > 0 ? dot : old.length);
+}
+
+// The renamed item is a new name on this side only. Where the other side holds
+// the old name, that one stays behind as present on its side only.
+function projectSide(node, side) {
+  const absent = (side === 'A' && node.s === 'onlyB') || (side === 'B' && node.s === 'onlyA');
+  if (absent) return null;
+  const c = { ...node, s: side === 'A' ? 'onlyA' : 'onlyB' };
+  if (side === 'A') { c.sB = null; c.mB = null; c.linkB = false; }
+  else { c.sA = null; c.mA = null; c.linkA = false; }
+  c.ch = (node.ch || []).map(x => projectSide(x, side)).filter(Boolean);
+  return c;
+}
+
+function applyRenameToTree(relPath, side, newName) {
+  const found = findNode(relPath);
+  if (!found) return;
+  const { node, parentArray, index } = found;
+  const onlyHere = (node.s === 'onlyA' && side === 'A') || (node.s === 'onlyB' && side === 'B');
+  if (onlyHere) {
+    node.n = newName;
+    cleanupExpansion(relPath);
+    parentArray.sort((x, y) => x.n.toLowerCase().localeCompare(y.n.toLowerCase()));
+  } else {
+    const clone = projectSide(node, side);
+    clone.n = newName;
+    setSubtreeOnlyOneSide(node, side === 'A' ? 'onlyB' : 'onlyA');
+    parentArray.splice(index + 1, 0, clone);
+    parentArray.sort((x, y) => x.n.toLowerCase().localeCompare(y.n.toLowerCase()));
+  }
+  propagateStatusUp(parentRelPath(relPath));
+}
+
+// ── KEYBOARD, as in Explorer ──
+function singleSelected() {
+  if (!selSide || selSet.size !== 1) return null;
+  const items = selectedItems();
+  if (items.length !== 1) return null;
+  const it = items[0];
+  return { relPath: it.relPath, side: selSide, isDir: it.isDir,
+           name: it.relPath.split('/').pop(), root: selSide === 'A' ? pathAval : pathBval };
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.defaultPrevented) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  const typing = tag === 'input' || tag === 'textarea';
+  const ctrl = e.ctrlKey || e.metaKey;
+  const k = e.key;
+  if (ctrl && !e.altKey && k.toLowerCase() === 'f') {
+    if (document.querySelector('.visible')) return;
+    e.preventDefault();
+    const sr = document.getElementById('srch');
+    sr.focus(); sr.select();
+    return;
+  }
+  if (typing) return;
+  if (document.querySelector('.visible')) return;   // a dialog or the menu owns the keys
+
+  if (k === 'F5') { e.preventDefault(); startCompare(); return; }
+
+  if (ctrl && k.toLowerCase() === 'a') {
+    const side = selSide || 'A';
+    const rows = visibleSelectable(side);
+    if (!rows.length) return;
+    e.preventDefault();
+    selSide = side;
+    selSet = new Set(rows.map(r => r.dataset.rel));
+    paintSelection();
+    return;
+  }
+  if (ctrl && (k.toLowerCase() === 'c' || k.toLowerCase() === 'x')) {
+    if (!selSide || !selSet.size) return;
+    const items = selectedItems();
+    if (!items.length) return;
+    e.preventDefault();
+    _clip = { side: selSide, items, move: k.toLowerCase() === 'x' };
+    stk(_clip.move ? 'status_clip_cut' : 'status_clip_copy', { n: items.length });
+    return;
+  }
+  if (ctrl && k.toLowerCase() === 'v') {
+    if (!_clip) { stk('status_paste_nothing'); return; }
+    e.preventDefault();
+    if (operating) { stk('status_busy'); return; }
+    const to = _clip.side === 'A' ? 'B' : 'A';
+    if (!(to === 'A' ? pathAval : pathBval)) { stk('status_choose_both'); return; }
+    const clip = _clip;
+    if (clip.move) _clip = null;
+    runBatch(clip.items, clip.side, to, clip.move);
+    return;
+  }
+  if (k === 'Delete') {
+    const one = singleSelected();
+    if (!one) { if (selSet.size > 1) stk('status_pick_one'); return; }
+    e.preventDefault();
+    askDeleteConfirm({ ...one, permanent: e.shiftKey });
+    return;
+  }
+  if (k === 'F2') {
+    const one = singleSelected();
+    if (!one) { stk('status_pick_one'); return; }
+    e.preventDefault();
+    startRename(one);
+  }
+});
+
+// ══════════════════════════════════════════════════════════
+// SCHEDULER: jobs that run while GEMINUS is open (also minimised)
+// ══════════════════════════════════════════════════════════
+const SCHED_DAYS = ['mon','tue','wed','thu','fri','sat','sun'];
+let _jobs = [];
+let _schedEditing = null;      // job being edited, or null for a new one
+let _schedRunning = false;     // a scheduled run is in progress here
+
+// Next time a schedule fires after `fromMs`, in the user's local time (unix s).
+function computeNextRun(sc, fromMs) {
+  const from = new Date(fromMs);
+  if (sc.kind === 'hourly') return Math.floor((fromMs + Math.max(1, sc.everyHours || 1) * 3600e3) / 1000);
+  const [hh, mm] = (sc.time || '22:00').split(':').map(Number);
+  const wanted = sc.kind === 'weekly'
+    ? (sc.days || []).map(d => SCHED_DAYS.indexOf(d)).filter(i => i >= 0)   // 0 = Monday
+    : [0, 1, 2, 3, 4, 5, 6];
+  if (!wanted.length) return null;
+  for (let add = 0; add <= 7; add++) {
+    const d = new Date(from.getFullYear(), from.getMonth(), from.getDate() + add, hh, mm, 0, 0);
+    const wd = (d.getDay() + 6) % 7;
+    if (wanted.includes(wd) && d.getTime() > fromMs) return Math.floor(d.getTime() / 1000);
+  }
+  return null;
+}
+
+// The engine sends counters or a reason key; the words are the page's.
+function schedSummary(str) {
+  if (!str) return '';
+  let m = /^copied (\d+), skipped (\d+), failed (\d+)/.exec(str);
+  if (m) return t('sched_sum_counts', { c: m[1], s: m[2], f: m[3] });
+  m = /^(path_missing|device_changed):([AB])$/.exec(str);
+  if (m) return t('sched_sum_' + m[1], { side: m[2] });
+  const known = ['compare_failed', 'compare_stopped', 'invalid_rules'];
+  if (known.includes(str)) return t('sched_sum_' + str);
+  return str;
+}
+function schedDayName(d) { return t('day_' + d); }
+function schedDescribe(j) {
+  const sc = j.schedule || {};
+  if (sc.kind === 'hourly') return t('sched_d_hourly', { n: sc.everyHours });
+  if (sc.kind === 'weekly') return t('sched_d_weekly', { days: (sc.days || []).map(schedDayName).join(', '), time: sc.time });
+  return t('sched_d_daily', { time: sc.time });
+}
+function schedFmt(sec) {
+  if (!sec) return '—';
+  try { return new Date(sec * 1000).toLocaleString(lang === 'it' ? 'it-IT' : 'en-GB', { dateStyle: 'short', timeStyle: 'short' }); }
+  catch (_) { return '—'; }
+}
+
+async function schedReload() {
+  try { _jobs = await invoke('sched_list'); } catch (e) { _jobs = []; }
+}
+
+async function openScheduler() {
+  await schedReload();
+  schedBack();
+  document.getElementById('schedDialog').classList.add('visible');
+}
+function closeScheduler() { document.getElementById('schedDialog').classList.remove('visible'); }
+function schedBack() {
+  document.getElementById('schedFormView').hidden = true;
+  document.getElementById('schedListView').hidden = false;
+  renderSchedList();
+}
+
+function renderSchedList() {
+  const el = document.getElementById('schedList');
+  if (!_jobs.length) { el.innerHTML = `<div class="picker-empty">${_escHtml(t('sched_empty'))}</div>`; return; }
+  el.innerHTML = _jobs.map(j => {
+    const lr = j.lastRun;
+    const st = lr ? `<span class="sj-st sj-${_escAttr(lr.status)}" title="${_escHtml(schedSummary(lr.summary))}">${_escHtml(t('sched_s_' + lr.status))} · ${_escHtml(schedFmt(lr.at))}</span>` : `<span class="sj-st">${_escHtml(t('sched_never'))}</span>`;
+    const id = _escAttr(j.id);
+    return `<div class="sched-job${j.enabled ? '' : ' off'}">
+      <div class="sj-main">
+        <div class="sj-name">${_escHtml(j.name)}</div>
+        <div class="sj-sub">${_escHtml(j.pathA)} ⇄ ${_escHtml(j.pathB)}</div>
+        <div class="sj-sub">${_escHtml(schedDescribe(j))}${j.enabled && j.nextRun ? ' · ' + _escHtml(t('sched_next')) + ' ' + _escHtml(schedFmt(j.nextRun)) : ''}</div>
+        ${st}
+      </div>
+      <div class="sj-actions">
+        <button class="picker-btn" onclick="schedRunNow('${id}')" title="${_escAttr(t('sched_run'))}">&#9654;</button>
+        <button class="picker-btn" onclick="schedEdit('${id}')" title="${_escAttr(t('sched_edit'))}">&#9998;</button>
+        <button class="picker-btn" onclick="schedShowLog('${id}')" title="${_escAttr(t('sched_log'))}">&#128196;</button>
+        <button class="picker-btn" onclick="schedDelete('${id}')" title="${_escAttr(t('btn_delete'))}">&#128465;</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function schedEdit(id) {
+  const j = id ? _jobs.find(x => x.id === id) : null;
+  _schedEditing = j || null;
+  const d = j || {
+    name: t('sched_default_name'), pathA: pathAval || '', pathB: pathBval || '', mode: 'fast', enabled: true,
+    rules: { onlyA: 'copyAB', onlyB: 'copyBA', diff: 'newer' },
+    schedule: { kind: 'daily', time: '22:00', days: ['mon','tue','wed','thu','fri'], everyHours: 6 }
+  };
+  document.getElementById('sfName').value = d.name;
+  document.getElementById('sfPathA').value = d.pathA;
+  document.getElementById('sfPathB').value = d.pathB;
+  document.getElementById('sfMode').value = d.mode;
+  document.getElementById('sfOnlyA').value = d.rules.onlyA;
+  document.getElementById('sfOnlyB').value = d.rules.onlyB;
+  document.getElementById('sfDiff').value = d.rules.diff;
+  document.getElementById('sfKind').value = d.schedule.kind;
+  document.getElementById('sfTime').value = d.schedule.time || '22:00';
+  document.getElementById('sfHours').value = d.schedule.everyHours || 6;
+  document.getElementById('sfEnabled').checked = !!d.enabled;
+  document.getElementById('sfDays').innerHTML = SCHED_DAYS.map(k =>
+    `<label class="sf-day"><input type="checkbox" value="${k}" ${(d.schedule.days || []).includes(k) ? 'checked' : ''}><span>${_escHtml(schedDayName(k))}</span></label>`).join('');
+  schedKindChanged();
+  document.getElementById('schedListView').hidden = true;
+  document.getElementById('schedFormView').hidden = false;
+}
+
+function schedKindChanged() {
+  const k = document.getElementById('sfKind').value;
+  const show = (id, on) => { document.getElementById(id).style.display = on ? '' : 'none'; };
+  show('sfTime', k !== 'hourly'); show('sfTimeL', k !== 'hourly');
+  show('sfHours', k === 'hourly'); show('sfHoursL', k === 'hourly');
+  show('sfDays', k === 'weekly'); show('sfDaysL', k === 'weekly');
+}
+
+async function schedPick(side) {
+  const path = await openFolderPicker(side);
+  if (path) document.getElementById('sfPath' + side).value = path;
+}
+
+async function schedSave() {
+  const kind = document.getElementById('sfKind').value;
+  const job = {
+    id: _schedEditing ? _schedEditing.id : '',
+    name: document.getElementById('sfName').value.trim() || t('sched_default_name'),
+    enabled: document.getElementById('sfEnabled').checked,
+    pathA: document.getElementById('sfPathA').value,
+    pathB: document.getElementById('sfPathB').value,
+    deviceA: null, deviceB: null,
+    mode: document.getElementById('sfMode').value,
+    rules: { onlyA: document.getElementById('sfOnlyA').value, onlyB: document.getElementById('sfOnlyB').value, diff: document.getElementById('sfDiff').value },
+    schedule: {
+      kind, time: document.getElementById('sfTime').value || '22:00',
+      days: Array.from(document.querySelectorAll('#sfDays input:checked')).map(i => i.value),
+      everyHours: Math.max(1, Math.min(23, parseInt(document.getElementById('sfHours').value, 10) || 6))
+    },
+    lastRun: _schedEditing ? _schedEditing.lastRun || null : null,
+    nextRun: null
+  };
+  if (!job.pathA || !job.pathB) { showResultDialog(t('err_title'), [t('sched_err_paths')]); return; }
+  if (kind === 'weekly' && !job.schedule.days.length) { showResultDialog(t('err_title'), [t('sched_err_days')]); return; }
+  job.nextRun = job.enabled ? computeNextRun(job.schedule, Date.now()) : null;
+  try {
+    await invoke('sched_save', { job });
+  } catch (err) {
+    showResultDialog(t('err_title'), [errText(err)]);
+    return;
+  }
+  await schedReload();
+  schedBack();
+}
+
+async function schedDelete(id) {
+  try { await invoke('sched_delete', { id }); } catch (err) { showResultDialog(t('err_title'), [errText(err)]); }
+  await schedReload();
+  renderSchedList();
+}
+
+async function schedShowLog(id) {
+  let text = '';
+  try { text = await invoke('sched_log', { id }); } catch (err) { text = errText(err); }
+  const lines = String(text || t('sched_log_empty')).split('\n').slice(-40);
+  showResultDialog(t('sched_log'), lines);
+}
+
+// Runs one job here and now. The window's own operations are held off while it
+// runs: the engine is shared.
+async function schedRunNow(id, auto) {
+  if (_schedRunning || operating || comparing || _diagRunning) {
+    if (!auto) stk('status_busy');
+    return;
+  }
+  const job = _jobs.find(j => j.id === id);
+  _schedRunning = true;
+  operating = true;
+  stk('sched_running', { name: job ? job.name : id });
+  setTaskbarProgress('indeterminate');
+  let res = null, err = null;
+  try { res = await invoke('sched_run_now', { id }); } catch (e) { err = e; }
+  operating = false;
+  _schedRunning = false;
+  setTaskbarProgress('none');
+  await schedReload();
+  // The next time is counted from now, so a long run never fires twice in a row.
+  const fresh = _jobs.find(j => j.id === id);
+  if (fresh && fresh.enabled) {
+    fresh.nextRun = computeNextRun(fresh.schedule, Date.now());
+    try { await invoke('sched_save', { job: fresh }); await schedReload(); } catch (_) {}
+  }
+  if (document.getElementById('schedDialog').classList.contains('visible')) renderSchedList();
+  if (err) {
+    stk('err_compare', { err: errText(err) });
+    if (!auto) showResultDialog(t('err_title'), [errText(err)]);
+    return;
+  }
+  stk('sched_done', { name: job ? job.name : id, summary: res ? schedSummary(res.summary) : '' });
+  if (!auto && res) showResultDialog(job ? job.name : t('sched_title'), [schedSummary(res.summary)]);
+}
+
+// The clock: every half minute, whatever is due runs, one at a time. A job
+// that came due while GEMINUS was closed runs once when it opens.
+async function schedTick() {
+  if (_schedRunning || operating || comparing || _diagRunning) return;
+  const now = Math.floor(Date.now() / 1000);
+  const due = _jobs.find(j => j.enabled && j.nextRun && j.nextRun <= now);
+  if (due) await schedRunNow(due.id, true);
+}
+(async function schedStart() {
+  await schedReload();
+  setTimeout(schedTick, 8000);
+  setInterval(schedTick, 30000);
+})();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && document.getElementById('schedDialog').classList.contains('visible')
+      && !document.querySelector('.picker-dialog.visible, .result-dialog.visible, .confirm-dialog.visible')) {
+    e.preventDefault();
+    if (!document.getElementById('schedFormView').hidden) schedBack(); else closeScheduler();
+  }
+});
+
 // ── INIT ──
 dark = document.getElementById('body-root').classList.contains('dark');
 lang = document.documentElement.getAttribute('lang') || 'it';
@@ -4478,8 +5650,15 @@ initScannerListeners();
 // Which system this runs on is asked once at startup, and only to choose the
 // wording of the diagnosis windows.
 invoke('check_smartctl').then(s => { _smartSystem = s.system; }).catch(() => {});
-buildCtxMenu();
 render();
+paintSortHeaders();
+syncWindowTheme();
+restoreLastPaths();
+listen('launch_args', (ev) => {
+  const la = ev.payload || {};
+  if (la.a) setDisk('A', la.a);
+  if (la.b) setDisk('B', la.b);
+});
 updateHint();
 openOnboarding();
 

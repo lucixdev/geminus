@@ -30,6 +30,7 @@
 
 1. [About GEMINUS](#about-geminus)
 2. [How to use](#how-to-use)
+   - [Schedule](#schedule)
 3. [Slow or faulty disks](#slow-or-faulty-disks)
 4. [Formatting a disk](#formatting-a-disk)
 5. [Frequently asked questions](#frequently-asked-questions)
@@ -80,19 +81,30 @@ GEMINUS is written in Rust on the Tauri framework. It is free software distribut
 
 ### How to use
 
+#### Look and feel
+
+GEMINUS has a Windows 11 look (Segoe UI font). The theme follows the system, light or dark, and its accent color. The theme button stays there to force one or the other.
+
 #### Basic compare
 
-1. Click on the **Drive A** block in the top left. The folder picker opens: `⏏ Devices` lists the connected disks, `🏠 Home` takes you to your personal folder. Pick a folder and press **Select this folder**.
+1. Click on the **Drive A** block in the top left. The folder picker opens, in the style of File Explorer: pick a folder and press **Select this folder**. GEMINUS remembers the last paths of A and B and offers them again at the next start.
 2. Same with the **Drive B** block on the right.
 3. Click **▶ Compare** in the center. GEMINUS asks which method to use: **Quick**, **Deep** or **Full**. Choose, read the confirmation, press **Proceed**.
-
-The list that appears under `⏏ Devices` is not a folder and cannot be confirmed: go into a disk and choose in there. With no external disks connected that list is empty: the root and your personal folder are not in there, they have buttons of their own.
-
-*On Linux* the picker also has `/ Root`, the root of the filesystem. *On Windows* that button isn't there, because a single root doesn't exist: the disks are the drives (`C:`, `D:`, …) and you find them under `⏏ Devices`.
 
 If you chose **Full**, GEMINUS asks for permission to check the disks' health — *on Linux* the administrator password, *on Windows* your consent in the system's own window. If you don't grant it, you can carry on with the Deep Comparison alone or go back to the method selection.
 
 The health check relies on a free external program, installed once and for all. If it isn't there, GEMINUS tells you and explains how to install it the way your system does it; you can also carry on without, and then Full counts as Deep. Comparing and copying don't depend on that program: they work either way.
+
+#### The folder picker
+
+It works like File Explorer:
+
+- **Back**, **Forward**, **Up** and **Refresh** buttons.
+- **Address bar** made of clickable segments: click a segment to jump there, click the empty part to type a path.
+- **Side panel** with Quick access, This PC and the drives. *On Linux* the root of the filesystem is there too; *on Windows* there is no single root, the drives (`C:`, `D:`, …) are under This PC.
+- **Name** and **Type** columns. A click selects, a double click goes in. The **Folder** field shows what will be chosen.
+
+This PC and the list of drives are not folders and cannot be confirmed: go into a drive and choose in there.
 
 #### What you see after the compare
 
@@ -110,9 +122,13 @@ The `Hidden` chip also shows the items your system considers hidden: *on Linux* 
 
 The numbers on the chips count only files. Folders appear colored in the tree but are not part of the totals.
 
+#### Columns, sorting and icons
+
+Both lists show **Name**, **Size**, **Date modified** and **Type**. One click on a header sorts by that column (Name, Size, Date, Type); click again to reverse. Each file has an icon for its type. Long names are cut: hover over one to see the full path in a tooltip.
+
 #### Copy or move files
 
-Drag a file or a folder from one column to the other. The mode (`Copy` or `Move`) is chosen in the toolbar.
+Drag a file or a folder from one column to the other. It works like Windows: with `Ctrl` held it **copies**, with `Shift` it **moves**; with no key it follows the mode (`Copy` or `Move`) chosen in the toolbar.
 
 Dropping **always** puts the item in its mirror position on the other side: same folder, same place. It doesn't matter which row you drop it on — GEMINUS aligns the two sides, it doesn't rearrange the disk.
 
@@ -136,17 +152,79 @@ In `Move` mode, if any file of a folder was left behind, **the source folder is 
 
 #### Delete files
 
-**Right click** on a row → **Delete**. GEMINUS asks for confirmation, naming the item and saying it **will be permanently deleted**. The button already primed is Cancel: to delete, you have to choose it yourself.
+Select one or more rows and press `Del`, or right click → **Recycle Bin**. The item goes to the system's Recycle Bin (*on Linux*, the Trash) and can be restored from there.
+
+`Shift`+`Del` deletes **permanently**: no Recycle Bin, no undo. The same happens if the drive has no Recycle Bin (some USB drives and network shares): GEMINUS tells you, and deletes permanently only after you confirm. The confirmation names the item and says it **will be permanently deleted**. The button already primed is Cancel: to delete, you have to choose it yourself.
 
 On a folder, deleting takes away **everything inside**, subfolders included, in one go. The confirmation names the folder, it doesn't list the contents: look at what's in there before you confirm.
 
 It can also stop halfway — a protected file, a folder that will not be touched. GEMINUS says so, and the view is rebuilt on what is actually still on the disk: what you see afterwards is the real situation, not the one from before.
 
-And permanently means permanently: **no recycle bin, no undo**. It's a choice, not an oversight — the system's recycle bin, from here, moved nothing and warned about nothing, and a recycle bin inside the app would have promised a safety it couldn't keep. Better a clear confirmation than a net that doesn't hold.
-
-In normal use the net is the comparison itself: a file deleted from the backup by mistake still exists in the source, and one comparison plus one drag puts it back. What doesn't come back is what you delete from the side where it was the only copy: before confirming, look at which column you're on.
+In normal use the net is the comparison itself: a file deleted from the backup by mistake still exists in the source, and one comparison plus one drag puts it back. What doesn't come back is what you delete permanently from the side where it was the only copy: before confirming, look at which column you're on.
 
 On links (🔗), deleting removes the link and doesn't touch the file or folder it points to.
+
+#### Context menus
+
+Right click on a **file or folder**: Open, Copy / Move to the other drive, Rename, Copy path, Recycle Bin (or Delete).
+
+Right click on a **Drive A / B block**: Open, Change folder, Compare, Check drive health, Copy path.
+
+#### Keyboard shortcuts
+
+| Keys | Action |
+|---|---|
+| `Ctrl`+`C` / `Ctrl`+`X` / `Ctrl`+`V` | Copy / move the selection to the other drive |
+| `Del` | Recycle Bin |
+| `Shift`+`Del` | Delete permanently |
+| `F5` | Repeat the comparison |
+| `F2` | Rename |
+| `Ctrl`+`F` | Search |
+| `Ctrl`+`A` | Select all |
+| `Esc` | Clear the selection |
+
+#### Favorites
+
+The **★ Favorites** menu saves the current A↔B pair under a name, loads a saved pair back, or removes it.
+
+#### Schedule
+
+The **⏱ Schedule** button at the top opens the window of scheduled tasks: GEMINUS compares two folders by itself at the times you choose and, if you want, aligns them by copying.
+
+The window lists the tasks, each with its **name**, its **disks** (A and B), **when** it runs, its **next run** and the **outcome of the last run**. Each task has four buttons: **Run now**, **Edit**, **Log** and **Delete**. The **Log** button opens the task's log, where every run is written down.
+
+**New task** asks for:
+
+- **Name** of the task.
+- **Drive A** and **Drive B**, chosen with the usual folder picker.
+- **Comparison**: **Quick** or **Deep**. **Full** cannot be scheduled, because it needs the administrator's permission.
+- **Rules for differences**, one for each case:
+  - *Only in A*: copy from A to B / do nothing.
+  - *Only in B*: copy from B to A / do nothing.
+  - *Different files*: the most recent wins / copy A→B (overwrites B) / copy B→A (overwrites A) / do nothing.
+- **When**: every day at a time, every week on chosen days at a time, or every N hours (from 1 to 23).
+
+What to know before you rely on it:
+
+- **GEMINUS must be open.** Tasks start only while the program is running, even minimized to an icon. If a due time goes by while the app is closed, the task runs once when you open it.
+- **A task never deletes anything.** It only copies; the *do nothing* rules leave the differences as they are.
+- **It checks the disks first.** Before copying, GEMINUS verifies that the disks are the ones saved with the task (the name or identifier of the drive). If they don't match, the run is skipped and the log says so. This helps with USB drives that change letter when you plug them in.
+- **A bad file doesn't stop the run.** A file that gives an error is skipped and noted in the log; the others carry on.
+- **The window stays busy during a run.** While a scheduled task is running, you can't start other comparisons or copies from the window.
+
+#### Taskbar progress
+
+During comparisons and copies the progress also shows on the GEMINUS button in the Windows taskbar.
+
+#### Windows Explorer integration (Windows only)
+
+The installer adds two entries to the right click menu of any folder or drive in File Explorer: **Set as Drive A in GEMINUS** and **Set as Drive B in GEMINUS**. If GEMINUS is already open it reuses the window. From the command line:
+
+```
+geminus.exe --disk-a <path> --disk-b <path>
+```
+
+Dragging from File Explorer onto the GEMINUS window is **not** supported: use the menu entries or the picker.
 
 #### When a file has trouble
 
@@ -315,7 +393,7 @@ Check that the total space matches expectations and that the filesystem is the r
 ### Frequently asked questions
 
 **Does GEMINUS modify my files?**
-Not on its own. The compare is read-only: it looks and touches nothing. Files change only when you ask, and there are two ways: dragging something from one column to the other, or deleting with the right button. In the first case, if the other side has a file with the same name but different, GEMINUS always asks what to do before overwriting it; in the second it asks for confirmation, and the deletion is permanent.
+Not on its own. The compare is read-only: it looks and touches nothing. Files change only when you ask, and there are two ways: dragging something from one column to the other, or deleting with the right button. In the first case, if the other side has a file with the same name but different, GEMINUS always asks what to do before overwriting it; in the second it asks for confirmation, and the item goes to the Recycle Bin unless you chose permanent deletion.
 
 **Is my data sent over the internet?**
 No. GEMINUS works completely offline. No telemetry, no cloud, no network connection. Everything stays on your computer.
@@ -338,6 +416,15 @@ GEMINUS skips the folders that keep changing by themselves, where comparing woul
 **How reliable is the Deep comparison?**
 Very. GEMINUS reads the contents of both files from beginning to end: if they differ by even one byte, it sees it. The case where two different files are declared identical is so improbable that it won't happen in any human lifetime.
 
+**Where do deleted files go?**
+To the system's Recycle Bin (*on Linux*, the Trash), where you can restore them. Only `Shift`+`Del`, or a drive without a Recycle Bin and after your confirmation, deletes for good.
+
+**Can I drag files from File Explorer into GEMINUS?**
+No. Use the right click entries "Set as Drive A / B in GEMINUS" or the folder picker.
+
+**Can I schedule with the program closed?**
+No, for now the app has to be open (minimized is fine). If a due time passes while it is closed, the task runs once when you open it. See [Schedule](#schedule).
+
 ---
 ---
 
@@ -349,6 +436,7 @@ Very. GEMINUS reads the contents of both files from beginning to end: if they di
 
 1. [Cosa È GEMINUS](#cosa-è-geminus)
 2. [Come si usa](#come-si-usa)
+   - [Pianificazione](#pianificazione)
 3. [Dischi lenti o difettosi](#dischi-lenti-o-difettosi)
 4. [Formattare un disco](#formattare-un-disco)
 5. [Domande frequenti](#domande-frequenti)
@@ -399,19 +487,30 @@ GEMINUS è scritto in Rust col framework Tauri. È software libero distribuito s
 
 ### Come si usa
 
+#### Aspetto
+
+GEMINUS ha un aspetto in stile Windows 11 (font Segoe UI). Il tema segue il sistema, chiaro o scuro, e il suo colore d'accento. Il pulsante tema resta per forzare l'uno o l'altro.
+
 #### Confronto base
 
-1. Clicca sul blocco **Disco A** in alto a sinistra. Si apre il selettore cartella: `⏏ Dispositivi` elenca i dischi collegati, `🏠 Home` porta alla tua cartella personale. Scegli una cartella e premi **Scegli questa cartella**.
+1. Clicca sul blocco **Disco A** in alto a sinistra. Si apre il selettore cartella, in stile Esplora file: scegli una cartella e premi **Scegli questa cartella**. GEMINUS ricorda gli ultimi percorsi di A e B e te li ripropone al prossimo avvio.
 2. Stessa cosa col blocco **Disco B** a destra.
 3. Clicca **▶ Confronta** al centro. GEMINUS ti chiede quale metodo usare: **Veloce**, **Approfondito** o **Completo**. Scegli, leggi la conferma, premi **Procedi**.
-
-L'elenco che appare sotto `⏏ Dispositivi` non è una cartella e non si può confermare: entra in un disco e scegli lì dentro. Se non ci sono dischi esterni collegati quell'elenco resta vuoto: la radice e la tua cartella personale non stanno lì, hanno i loro pulsanti.
-
-*Su Linux* il selettore ha anche `/ Root`, la radice del sistema. *Su Windows* quel pulsante non c'è, perché una radice unica non esiste: i dischi sono le unità (`C:`, `D:`, …) e le trovi sotto `⏏ Dispositivi`.
 
 Se hai scelto **Completo**, GEMINUS chiede il permesso di controllare la salute dei dischi — *su Linux* la password di amministratore, *su Windows* il consenso nella finestra del sistema. Se non lo dai, puoi continuare col solo Confronto Approfondito o tornare alla scelta del metodo.
 
 Il controllo della salute si appoggia a un programma esterno gratuito, che si installa una volta sola. Se non lo trova, GEMINUS te lo dice e ti spiega come installarlo nel modo del tuo sistema; puoi anche continuare senza, e allora il Completo vale come Approfondito. Confronto e copia non dipendono da quel programma: funzionano comunque.
+
+#### Il selettore cartella
+
+Funziona come Esplora file:
+
+- Pulsanti **Indietro**, **Avanti**, **Su** e **Aggiorna**.
+- **Barra degli indirizzi** a segmenti cliccabili: clicca un segmento per saltarci, clicca la parte vuota per digitare un percorso.
+- **Pannello laterale** con Accesso rapido, Questo PC e le unità. *Su Linux* c'è anche la radice del sistema; *su Windows* una radice unica non esiste, le unità (`C:`, `D:`, …) stanno sotto Questo PC.
+- Colonne **Nome** e **Tipo**. Un clic seleziona, un doppio clic entra. Il campo **Cartella** mostra cosa verrà scelto.
+
+Questo PC e l'elenco delle unità non sono cartelle e non si possono confermare: entra in un'unità e scegli lì dentro.
 
 #### Cosa vedi dopo il confronto
 
@@ -429,9 +528,13 @@ Il chip `Nascosti` mostra anche gli elementi che il tuo sistema considera nascos
 
 I numeri sui chip contano solo i file. Le cartelle si vedono colorate nell'albero ma non rientrano nei totali.
 
+#### Colonne, ordinamento e icone
+
+Le due liste mostrano **Nome**, **Dimensione**, **Data modifica** e **Tipo**. Un clic sull'intestazione ordina per quella colonna (Nome, Dimensione, Data, Tipo); un secondo clic inverte l'ordine. Ogni file ha l'icona del suo tipo. I nomi lunghi sono tagliati: passandoci sopra, un tooltip mostra il percorso completo.
+
 #### Copiare o spostare file
 
-Trascina un file o una cartella da una colonna all'altra. La modalità (`Copia` o `Sposta`) si sceglie nella barra in alto.
+Trascina un file o una cartella da una colonna all'altra. Funziona come in Windows: con `Ctrl` premuto **copia**, con `Maiusc` **sposta**; senza tasti segue la modalità (`Copia` o `Sposta`) scelta nella barra in alto.
 
 Il rilascio porta **sempre** l'elemento nella sua posizione speculare sull'altro lato: stessa cartella, stesso posto. Non conta su quale riga lo lasci cadere — GEMINUS allinea i due lati, non riorganizza il disco.
 
@@ -455,17 +558,79 @@ In modalità `Sposta`, se qualche file di una cartella è rimasto indietro, **la
 
 #### Cancellare file
 
-**Tasto destro** su una riga → **Cancella**. GEMINUS chiede conferma dicendo il nome dell'elemento e che **verrà eliminato definitivamente**. Il bottone già pronto è Annulla: per cancellare devi scegliere tu.
+Seleziona una o più righe e premi `Canc`, oppure tasto destro → **Cestino**. L'elemento va nel Cestino del sistema (*su Linux*, il Cestino/Trash) e da lì lo puoi ripristinare.
+
+`Maiusc`+`Canc` elimina **definitivamente**: niente cestino, nessun ripristino. Lo stesso succede se l'unità non ha un cestino (alcune chiavette USB e cartelle di rete): GEMINUS te lo dice ed elimina definitivamente solo dopo la tua conferma. La conferma nomina l'elemento e dice che **verrà eliminato definitivamente**. Il bottone già pronto è Annulla: per cancellare devi scegliere tu.
 
 Su una cartella la cancellazione porta via **tutto quello che c'è dentro**, sottocartelle comprese, in un colpo solo. La conferma nomina la cartella, non elenca il contenuto: guarda cosa c'è dentro prima di confermare.
 
 Può anche fermarsi a metà — un file protetto, una cartella che non si lascia toccare. In quel caso GEMINUS te lo dice, e la vista si rifà su quello che è rimasto davvero sul disco: quello che vedi dopo è la situazione vera, non quella di prima.
 
-E definitivamente vuol dire definitivamente: **niente cestino, nessun ripristino**. È una scelta, non una dimenticanza — il cestino del sistema, da qui, non spostava niente e non avvisava, e un cestino interno all'app avrebbe promesso una sicurezza che non poteva mantenere. Meglio una conferma chiara di una rete che non tiene.
-
-Nell'uso normale la rete è il confronto stesso: un file cancellato per sbaglio dal backup esiste ancora sull'originale, e un confronto più un trascinamento lo rimettono a posto. Quello che non torna è ciò che cancelli dalla parte in cui era l'unica copia: prima di confermare, guarda su quale colonna sei.
+Nell'uso normale la rete è il confronto stesso: un file cancellato per sbaglio dal backup esiste ancora sull'originale, e un confronto più un trascinamento lo rimettono a posto. Quello che non torna è ciò che elimini definitivamente dalla parte in cui era l'unica copia: prima di confermare, guarda su quale colonna sei.
 
 Sui collegamenti (🔗) la cancellazione rimuove il collegamento e non tocca il file o la cartella a cui punta.
+
+#### Menu tasto destro
+
+Tasto destro su un **file o cartella**: Apri, Copia / Sposta nell'altro disco, Rinomina, Copia percorso, Cestino (o Elimina).
+
+Tasto destro su un **blocco Disco A / B**: Apri, Cambia cartella, Confronta, Controlla salute unità, Copia percorso.
+
+#### Scorciatoie da tastiera
+
+| Tasti | Azione |
+|---|---|
+| `Ctrl`+`C` / `Ctrl`+`X` / `Ctrl`+`V` | Copia / sposta la selezione nell'altro disco |
+| `Canc` | Cestino |
+| `Maiusc`+`Canc` | Elimina definitivamente |
+| `F5` | Ripeti il confronto |
+| `F2` | Rinomina |
+| `Ctrl`+`F` | Cerca |
+| `Ctrl`+`A` | Seleziona tutto |
+| `Esc` | Deseleziona |
+
+#### Preferiti
+
+Il menu **★ Preferiti** salva la coppia A↔B corrente con un nome, carica una coppia salvata o la rimuove.
+
+#### Pianificazione
+
+Il pulsante **⏱ Pianificazione** in alto apre la finestra delle attività pianificate: GEMINUS confronta da solo due cartelle negli orari che scegli e, se vuoi, le allinea copiando.
+
+La finestra elenca le attività, ognuna con **nome**, **dischi** (A e B), **quando** parte, **prossima esecuzione** ed **esito dell'ultima esecuzione**. Ogni attività ha quattro pulsanti: **Esegui ora**, **Modifica**, **Registro** ed **Elimina**. Il pulsante **Registro** apre il registro dell'attività, dove ogni esecuzione viene annotata.
+
+**Nuova attività** chiede:
+
+- **Nome** dell'attività.
+- **Disco A** e **Disco B**, scelti col solito selettore cartella.
+- **Confronto**: **Veloce** o **Approfondito**. Il **Completo** non è pianificabile, perché richiede il permesso di amministratore.
+- **Regole sulle differenze**, una per ogni caso:
+  - *Solo in A*: copia da A a B / non fare nulla.
+  - *Solo in B*: copia da B ad A / non fare nulla.
+  - *File diversi*: vince il più recente / copia A→B (sovrascrive B) / copia B→A (sovrascrive A) / non fare nulla.
+- **Quando**: ogni giorno a un'ora, ogni settimana in certi giorni a un'ora, oppure ogni N ore (da 1 a 23).
+
+Cosa sapere prima di fidarsi:
+
+- **GEMINUS deve essere aperto.** Le attività partono solo con il programma in esecuzione, anche ridotto a icona. Se la scadenza passa mentre l'app è chiusa, l'attività parte una volta sola all'apertura.
+- **Un'attività non cancella mai niente.** Copia soltanto; le regole *non fare nulla* lasciano le differenze dove sono.
+- **Prima controlla i dischi.** Prima di copiare, GEMINUS verifica che i dischi siano quelli salvati con l'attività (nome o identificativo dell'unità). Se non corrispondono, l'esecuzione viene saltata e il registro lo annota. Serve con le USB che cambiano lettera quando le colleghi.
+- **Un file difettoso non ferma l'esecuzione.** Un file che dà errore viene saltato e annotato nel registro; gli altri vanno avanti.
+- **Durante l'esecuzione la finestra è occupata.** Mentre un'attività pianificata è in corso non puoi lanciare dalla finestra altri confronti o copie.
+
+#### Avanzamento nella barra delle applicazioni
+
+Durante confronti e copie l'avanzamento compare anche sul pulsante di GEMINUS nella barra delle applicazioni di Windows.
+
+#### Integrazione con Esplora file (solo Windows)
+
+L'installer aggiunge due voci al menu del tasto destro di ogni cartella o unità in Esplora file: **Imposta come Disco A in GEMINUS** e **Imposta come Disco B in GEMINUS**. Se GEMINUS è già aperto, riusa la finestra. Da riga di comando:
+
+```
+geminus.exe --disk-a <percorso> --disk-b <percorso>
+```
+
+Il trascinamento da Esplora file sulla finestra di GEMINUS **non** è supportato: usa le voci del menu o il selettore.
 
 #### Quando un file dà problemi
 
@@ -634,7 +799,7 @@ Controlla che lo spazio totale sia quello atteso e che il filesystem sia quello 
 ### Domande frequenti
 
 **GEMINUS modifica i miei file?**
-Non da solo. Il confronto è in sola lettura: guarda e non tocca niente. I file cambiano solo quando lo chiedi tu, e sono due i modi: trascinare qualcosa da una colonna all'altra, o cancellare col tasto destro. Nel primo caso, se dall'altra parte c'è un file con lo stesso nome ma diverso, GEMINUS chiede sempre cosa fare prima di sovrascriverlo; nel secondo chiede conferma, e la cancellazione è definitiva.
+Non da solo. Il confronto è in sola lettura: guarda e non tocca niente. I file cambiano solo quando lo chiedi tu, e sono due i modi: trascinare qualcosa da una colonna all'altra, o eliminare (tasto destro o `Canc`). Nel primo caso, se dall'altra parte c'è un file con lo stesso nome ma diverso, GEMINUS chiede sempre cosa fare prima di sovrascriverlo; nel secondo l'elemento va nel Cestino, a meno che tu non scelga l'eliminazione definitiva (che chiede conferma).
 
 **I miei dati vengono inviati su internet?**
 No. GEMINUS funziona completamente offline. Non c'è telemetria, non c'è cloud, non c'è connessione di rete. Tutto resta sul tuo computer.
@@ -656,3 +821,12 @@ GEMINUS salta le cartelle che cambiano continuamente da sole, dove il confronto 
 
 **Quanto è affidabile il confronto Approfondito?**
 Molto. GEMINUS legge il contenuto dei due file dall'inizio alla fine: se differiscono anche di un solo byte, lo vede. Il caso in cui due file diversi vengano dichiarati uguali è così improbabile che non capiterà in nessuna vita umana.
+
+**Dove finiscono i file cancellati?**
+Nel Cestino del sistema (*su Linux*, il Cestino/Trash), da dove li puoi ripristinare. Solo `Maiusc`+`Canc`, oppure un'unità senza cestino e dopo la tua conferma, elimina per sempre.
+
+**Posso trascinare file da Esplora file dentro GEMINUS?**
+No. Usa le voci del tasto destro "Imposta come Disco A / B in GEMINUS" oppure il selettore cartella.
+
+**Posso pianificare con il programma chiuso?**
+No, per ora serve l'app aperta (anche ridotta a icona va bene). Se la scadenza passa mentre è chiusa, l'attività parte una volta sola all'apertura. Vedi [Pianificazione](#pianificazione).

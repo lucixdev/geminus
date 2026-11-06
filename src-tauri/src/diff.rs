@@ -136,6 +136,10 @@ struct DiffNode {
     size_a: Option<u64>,
     #[serde(rename = "sB")]
     size_b: Option<u64>,
+    #[serde(rename = "mA")]
+    mod_a: Option<i64>,
+    #[serde(rename = "mB")]
+    mod_b: Option<i64>,
     #[serde(rename = "linkA")]
     link_a: bool,
     #[serde(rename = "linkB")]
@@ -215,6 +219,18 @@ pub async fn start_compare(
     });
 
     Ok(())
+}
+
+// The same comparison `start_compare` runs, on the calling thread, for the
+// scheduler. Ends with the usual "compare_complete" / "compare_stopped" event.
+pub(crate) fn compare_blocking(app: &AppHandle, root_a: &Path, root_b: &Path, mode: CompareMode) {
+    let same_device = match (crate::sys::device_id(root_a), crate::sys::device_id(root_b)) {
+        (Some(a), Some(b)) => a == b,
+        _ => true,
+    };
+    STOP.store(false, Ordering::Relaxed);
+    LEAKED_THREADS.store(0, Ordering::Relaxed);
+    compare_paths(app, root_a, root_b, same_device, mode);
 }
 
 #[tauri::command]
@@ -826,6 +842,8 @@ fn build_tree(
 
         let size_a = map_a.get(*path).filter(|s| !s.is_dir).map(|s| s.size);
         let size_b = map_b.get(*path).filter(|s| !s.is_dir).map(|s| s.size);
+        let mod_a = map_a.get(*path).map(|s| s.modified);
+        let mod_b = map_b.get(*path).map(|s| s.modified);
         let link_a = map_a.get(*path).map(|s| s.is_symlink).unwrap_or(false);
         let link_b = map_b.get(*path).map(|s| s.is_symlink).unwrap_or(false);
         // Hidden only where every side that has it says so: hidden on one side
@@ -844,6 +862,8 @@ fn build_tree(
             s: status,
             size_a,
             size_b,
+            mod_a,
+            mod_b,
             link_a,
             link_b,
             h: hidden,
