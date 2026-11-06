@@ -777,6 +777,14 @@ body.dark .btn.primary{color:#000;}
 .scan-prog,.op-prog,.scan-prog-fill,.op-prog-fill{height:4px;border-radius:2px;}
 .scan-cancel-btn{border-radius:var(--r);font-weight:400;letter-spacing:0;background:var(--s);border-color:var(--bd2);}
 .rename-input{border-radius:var(--r);font-weight:400;background:var(--s);}
+/* Context menu: Windows 11 flyout */
+.ctx-menu{background:var(--s);border:1px solid var(--bd);border-radius:var(--r-lg);padding:4px;min-width:220px;
+  box-shadow:0 8px 24px rgba(0,0,0,.28),0 0 2px rgba(0,0,0,.2);}
+.ctx-item{padding:6px 12px;font-size:13px;letter-spacing:0;border-radius:var(--r);margin:1px 0;}
+.ctx-item:hover{background:var(--s3);}
+.ctx-item.disabled{color:var(--t3);opacity:.55;pointer-events:none;}
+.ctx-sep{height:1px;background:var(--bd);margin:4px 8px;}
+.mode-hint{margin-left:auto;font-size:12px;color:var(--t3);}
 </style>
 </head>
 <body id="body-root">
@@ -1129,7 +1137,7 @@ body.dark .btn.primary{color:#000;}
 
 <!-- TOOLBAR -->
 <div class="toolbar">
-  <div class="disk-block" id="diskBlockA">
+  <div class="disk-block" id="diskBlockA" oncontextmenu="onDiskCtx(event,'A')">
     <div style="width:32px;height:32px;border-radius:6px;background:var(--ac-bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💾</div>
     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;" onclick="chooseDisk('A')">
       <span class="disk-label" data-i18n="disk_a">Disco A</span>
@@ -1140,7 +1148,7 @@ body.dark .btn.primary{color:#000;}
     <button class="disk-deepcheck-btn" id="deepBtnA" onclick="openStandaloneDeepCheck('A')" style="display:none; font-size: 1.5em;">🩺</button>
   </div>
   <span class="sep">⇌</span>
-  <div class="disk-block" id="diskBlockB">
+  <div class="disk-block" id="diskBlockB" oncontextmenu="onDiskCtx(event,'B')">
     <div style="width:32px;height:32px;border-radius:6px;background:var(--ok-bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💾</div>
     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;" onclick="chooseDisk('B')">
       <span class="disk-label" data-i18n="disk_b">Disco B</span>
@@ -1161,6 +1169,7 @@ body.dark .btn.primary{color:#000;}
     <button class="chip mode-chip on" id="modeCopy" onclick="setMode('copy')" data-i18n="mode_copy">Copia</button>
     <button class="chip mode-chip" id="modeMove" onclick="setMode('move')" data-i18n="mode_move">Sposta</button>
   </div>
+  <span class="mode-hint" data-i18n="mode_hint">Trascina: Ctrl = copia, Maiusc = sposta</span>
 </div>
 
 <!-- PROGRESS -->
@@ -1192,7 +1201,7 @@ body.dark .btn.primary{color:#000;}
 
 <!-- COLUMNS -->
 <div class="columns">
-  <div class="col" id="colA" ondragover="event.preventDefault()" ondrop="onDrop(event,'A',null,null,false)">
+  <div class="col" id="colA" ondragover="onColOver(event)" ondrop="onDrop(event,'A',null,null,false)">
     <div class="col-head">
       <div class="col-dot" style="background:#185FA5"></div>
       <span id="labelA" data-i18n="disk_a">Disco A</span>
@@ -1200,7 +1209,7 @@ body.dark .btn.primary{color:#000;}
     </div>
     <div id="listA"></div>
   </div>
-  <div class="col" id="colB" ondragover="event.preventDefault()" ondrop="onDrop(event,'B',null,null,false)">
+  <div class="col" id="colB" ondragover="onColOver(event)" ondrop="onDrop(event,'B',null,null,false)">
     <div class="col-head">
       <div class="col-dot" style="background:#0F6E56"></div>
       <span id="labelB" data-i18n="disk_b">Disco B</span>
@@ -1492,6 +1501,11 @@ const I18N = {
     status_batch_stopped: '⏹ Gruppo annullato: {done} di {n} elementi completati',
     status_batch_none: '↷ Niente da fare: tutti i {k} elementi erano già presenti',
     drag_group: '{n} elementi',
+    ctx_open: 'Apri', ctx_copy_to_A: 'Copia in Disco A', ctx_copy_to_B: 'Copia in Disco B',
+    ctx_move_to_A: 'Sposta in Disco A', ctx_move_to_B: 'Sposta in Disco B',
+    ctx_copy_path: 'Copia percorso', ctx_change: 'Cambia cartella…', ctx_compare: 'Confronta',
+    ctx_health: 'Controlla salute unità', status_path_copied: 'Percorso copiato negli appunti',
+    mode_hint: 'Trascina: Ctrl = copia, Maiusc = sposta',
     op_batch_item: 'Elemento {i} di {n}',
     batch_conflict_title: 'File diversi già presenti',
     batch_conflict_msg: '{k} file esistono già in {toDisk} con un contenuto diverso. Sovrascriverli cancella per sempre la versione che c\'è ora:',
@@ -1733,6 +1747,11 @@ const I18N = {
     status_batch_stopped: '⏹ Group cancelled: {done} of {n} items done',
     status_batch_none: '↷ Nothing to do: all {k} items were already there',
     drag_group: '{n} items',
+    ctx_open: 'Open', ctx_copy_to_A: 'Copy to Disk A', ctx_copy_to_B: 'Copy to Disk B',
+    ctx_move_to_A: 'Move to Disk A', ctx_move_to_B: 'Move to Disk B',
+    ctx_copy_path: 'Copy path', ctx_change: 'Change folder…', ctx_compare: 'Compare',
+    ctx_health: 'Check drive health', status_path_copied: 'Path copied to clipboard',
+    mode_hint: 'Drag: Ctrl = copy, Shift = move',
     op_batch_item: 'Item {i} of {n}',
     batch_conflict_title: 'Different files already there',
     batch_conflict_msg: '{k} files already exist in {toDisk} with different content. Overwriting them deletes the version there now for good:',
@@ -3022,13 +3041,28 @@ function onDS(e, relPath, side, isDir, bytes) {
   }
 }
 
+// Windows rules: Ctrl forces copy, Shift forces move, nothing follows the
+// transfer mode chosen in the bar. The cursor shows which one will happen.
+function dragMovesFor(e) {
+  if (e.shiftKey) return true;
+  if (e.ctrlKey) return false;
+  return currentMode === 'move';
+}
+function setDropEffect(e) {
+  try { e.dataTransfer.dropEffect = dragMovesFor(e) ? 'move' : 'copy'; } catch (_) {}
+}
+function onColOver(e) {
+  e.preventDefault();
+  setDropEffect(e);
+}
 function onDOV(e) {
   e.preventDefault();
+  setDropEffect(e);
   e.currentTarget.classList.add('drag-over');
 }
 function onDLV(e) { e.currentTarget.classList.remove('drag-over'); }
 
-async function onDrop(e, toSide, targetRelPath, targetIsDir, targetAbsent) {
+async function onDrop(e, toSide, targetRelPath, targetIsDir, targetAbsent, forceMove) {
   e.preventDefault();
   e.stopPropagation();
   document.querySelectorAll('.row.drag-over').forEach(r => r.classList.remove('drag-over'));
@@ -3039,7 +3073,7 @@ async function onDrop(e, toSide, targetRelPath, targetIsDir, targetAbsent) {
   const dragInfo = dragged;
   dragged = null;
   _dragInProgress = false;
-  const moveMode = (currentMode === 'move');
+  const moveMode = (typeof forceMove === 'boolean') ? forceMove : dragMovesFor(e);
 
   if (dragInfo.group) {
     await runBatch(dragInfo.group, dragInfo.side, toSide, moveMode);
@@ -4266,29 +4300,58 @@ async function initScannerListeners() {
 // CONTEXT MENU + CONFIRM DELETE DIALOG
 // ══════════════════════════════════════════════════════════
 
-// One entry: the menu is built from this list, not by hand in the page.
-const CTX_MENU_ITEMS = [
-  { id: 'delete', labelKey: 'btn_delete', danger: true, handler: askDeleteConfirm }
-];
-
 let _ctxTarget = null;
 let _confirmTarget = null;
 
-function buildCtxMenu() {
+// The menu is built from a list of entries every time it opens: what it offers
+// depends on what was clicked. An entry is { labelKey, handler, danger, disabled }
+// or the string 'sep' for a divider.
+function buildCtxMenu(items) {
   const menu = document.getElementById('ctxMenu');
   menu.innerHTML = '';
-  CTX_MENU_ITEMS.forEach(item => {
+  (items || []).forEach(item => {
+    if (item === 'sep') {
+      const sep = document.createElement('div');
+      sep.className = 'ctx-sep';
+      menu.appendChild(sep);
+      return;
+    }
     const el = document.createElement('div');
-    el.className = 'ctx-item' + (item.danger ? ' danger' : '');
-    el.setAttribute('data-i18n', item.labelKey);
+    el.className = 'ctx-item' + (item.danger ? ' danger' : '') + (item.disabled ? ' disabled' : '');
     el.textContent = t(item.labelKey);
-    el.onclick = () => {
-      const target = _ctxTarget;
-      hideCtxMenu();
-      item.handler(target);
-    };
+    if (!item.disabled) {
+      el.onclick = () => {
+        const target = _ctxTarget;
+        hideCtxMenu();
+        item.handler(target);
+      };
+    }
     menu.appendChild(el);
   });
+}
+
+async function ctxTransfer(ctx, move) {
+  if (operating) { stk('status_busy'); return; }
+  const to = ctx.side === 'A' ? 'B' : 'A';
+  const found = findNode(ctx.relPath);
+  const sz = found ? (ctx.side === 'A' ? found.node.sA : found.node.sB) : null;
+  dragged = { relPath: ctx.relPath, side: ctx.side, isDir: ctx.isDir, bytes: sz == null ? null : sz, group: null };
+  await onDrop({ preventDefault() {}, stopPropagation() {} }, to, null, null, false, move);
+}
+
+async function ctxCopyPath(ctx) {
+  const root = ctx.root || '';
+  const sep = root.includes('\\') ? '\\' : '/';
+  const full = ctx.relPath ? root.replace(/[\\/]+$/, '') + sep + ctx.relPath.split('/').join(sep) : root;
+  try { await navigator.clipboard.writeText(full); stk('status_path_copied'); } catch (_) {}
+}
+
+async function ctxOpen(ctx) {
+  try {
+    await invoke('open_item', { root: ctx.root, rel: ctx.relPath || '' });
+  } catch (err) {
+    showResultDialog(t('err_title'), [errText(err)]);
+  }
 }
 
 function onCtx(e, relPath, side, isDir, name) {
@@ -4306,7 +4369,39 @@ function onCtx(e, relPath, side, isDir, name) {
     }
   }
   const root = side === 'A' ? pathAval : pathBval;
+  const other = side === 'A' ? pathBval : pathAval;
+  const to = side === 'A' ? 'B' : 'A';
   _ctxTarget = { relPath, side, isDir, name, root };
+  const noOther = !other;
+  buildCtxMenu([
+    { labelKey: 'ctx_open', handler: ctxOpen },
+    'sep',
+    { labelKey: 'ctx_copy_to_' + to, handler: c => ctxTransfer(c, false), disabled: noOther },
+    { labelKey: 'ctx_move_to_' + to, handler: c => ctxTransfer(c, true), disabled: noOther },
+    'sep',
+    { labelKey: 'ctx_copy_path', handler: ctxCopyPath },
+    'sep',
+    { labelKey: 'btn_delete', danger: true, handler: askDeleteConfirm }
+  ]);
+  showCtxMenu(e.clientX, e.clientY);
+}
+
+// Right click on a drive block: what Windows offers on a drive in Explorer.
+function onDiskCtx(e, side) {
+  e.preventDefault();
+  e.stopPropagation();
+  const root = side === 'A' ? pathAval : pathBval;
+  _ctxTarget = { relPath: '', side, isDir: true, name: root, root };
+  const has = !!root;
+  buildCtxMenu([
+    { labelKey: 'ctx_open', handler: ctxOpen, disabled: !has },
+    { labelKey: 'ctx_change', handler: c => chooseDisk(c.side) },
+    'sep',
+    { labelKey: 'ctx_compare', handler: () => startCompare(), disabled: !(pathAval && pathBval) },
+    { labelKey: 'ctx_health', handler: c => openStandaloneDeepCheck(c.side), disabled: !has },
+    'sep',
+    { labelKey: 'ctx_copy_path', handler: ctxCopyPath, disabled: !has }
+  ]);
   showCtxMenu(e.clientX, e.clientY);
 }
 
@@ -4336,7 +4431,7 @@ window.addEventListener('blur', () => hideCtxMenu());
 
 // The engine's own context menu is blocked everywhere except on a real row.
 document.addEventListener('contextmenu', (e) => {
-  if (!e.target.closest('.row[draggable=true]')) {
+  if (!e.target.closest('.row[draggable=true]') && !e.target.closest('.disk-block')) {
     e.preventDefault();
     hideCtxMenu();
   }
@@ -4595,7 +4690,6 @@ initScannerListeners();
 // Which system this runs on is asked once at startup, and only to choose the
 // wording of the diagnosis windows.
 invoke('check_smartctl').then(s => { _smartSystem = s.system; }).catch(() => {});
-buildCtxMenu();
 render();
 updateHint();
 openOnboarding();
