@@ -124,6 +124,11 @@ pub fn run() {
       }
       let app_handle = app.handle().clone();
       if let Some(window) = app.get_webview_window("main") {
+        // The window's own icon (title bar, taskbar, Alt+Tab): set explicitly,
+        // so it never falls back to the generic one.
+        if let Ok(icon) = tauri::image::Image::from_bytes(include_bytes!("../icons/icon.png")) {
+          let _ = window.set_icon(icon);
+        }
         window.on_window_event(move |event| {
           if let tauri::WindowEvent::CloseRequested { api, .. } = event {
             api.prevent_close();
