@@ -30,6 +30,7 @@
 
 1. [About GEMINUS](#about-geminus)
 2. [How to use](#how-to-use)
+   - [Schedule](#schedule)
 3. [Slow or faulty disks](#slow-or-faulty-disks)
 4. [Formatting a disk](#formatting-a-disk)
 5. [Frequently asked questions](#frequently-asked-questions)
@@ -185,6 +186,31 @@ Right click on a **Drive A / B block**: Open, Change folder, Compare, Check driv
 #### Favorites
 
 The **★ Favorites** menu saves the current A↔B pair under a name, loads a saved pair back, or removes it.
+
+#### Schedule
+
+The **⏱ Schedule** button at the top opens the window of scheduled tasks: GEMINUS compares two folders by itself at the times you choose and, if you want, aligns them by copying.
+
+The window lists the tasks, each with its **name**, its **disks** (A and B), **when** it runs, its **next run** and the **outcome of the last run**. Each task has four buttons: **Run now**, **Edit**, **Log** and **Delete**. The **Log** button opens the task's log, where every run is written down.
+
+**New task** asks for:
+
+- **Name** of the task.
+- **Drive A** and **Drive B**, chosen with the usual folder picker.
+- **Comparison**: **Quick** or **Deep**. **Full** cannot be scheduled, because it needs the administrator's permission.
+- **Rules for differences**, one for each case:
+  - *Only in A*: copy from A to B / do nothing.
+  - *Only in B*: copy from B to A / do nothing.
+  - *Different files*: the most recent wins / copy A→B (overwrites B) / copy B→A (overwrites A) / do nothing.
+- **When**: every day at a time, every week on chosen days at a time, or every N hours (from 1 to 23).
+
+What to know before you rely on it:
+
+- **GEMINUS must be open.** Tasks start only while the program is running, even minimized to an icon. If a due time goes by while the app is closed, the task runs once when you open it.
+- **A task never deletes anything.** It only copies; the *do nothing* rules leave the differences as they are.
+- **It checks the disks first.** Before copying, GEMINUS verifies that the disks are the ones saved with the task (the name or identifier of the drive). If they don't match, the run is skipped and the log says so. This helps with USB drives that change letter when you plug them in.
+- **A bad file doesn't stop the run.** A file that gives an error is skipped and noted in the log; the others carry on.
+- **The window stays busy during a run.** While a scheduled task is running, you can't start other comparisons or copies from the window.
 
 #### Taskbar progress
 
@@ -396,6 +422,9 @@ To the system's Recycle Bin (*on Linux*, the Trash), where you can restore them.
 **Can I drag files from File Explorer into GEMINUS?**
 No. Use the right click entries "Set as Drive A / B in GEMINUS" or the folder picker.
 
+**Can I schedule with the program closed?**
+No, for now the app has to be open (minimized is fine). If a due time passes while it is closed, the task runs once when you open it. See [Schedule](#schedule).
+
 ---
 ---
 
@@ -407,6 +436,7 @@ No. Use the right click entries "Set as Drive A / B in GEMINUS" or the folder pi
 
 1. [Cosa È GEMINUS](#cosa-è-geminus)
 2. [Come si usa](#come-si-usa)
+   - [Pianificazione](#pianificazione)
 3. [Dischi lenti o difettosi](#dischi-lenti-o-difettosi)
 4. [Formattare un disco](#formattare-un-disco)
 5. [Domande frequenti](#domande-frequenti)
@@ -562,6 +592,31 @@ Tasto destro su un **blocco Disco A / B**: Apri, Cambia cartella, Confronta, Con
 #### Preferiti
 
 Il menu **★ Preferiti** salva la coppia A↔B corrente con un nome, carica una coppia salvata o la rimuove.
+
+#### Pianificazione
+
+Il pulsante **⏱ Pianificazione** in alto apre la finestra delle attività pianificate: GEMINUS confronta da solo due cartelle negli orari che scegli e, se vuoi, le allinea copiando.
+
+La finestra elenca le attività, ognuna con **nome**, **dischi** (A e B), **quando** parte, **prossima esecuzione** ed **esito dell'ultima esecuzione**. Ogni attività ha quattro pulsanti: **Esegui ora**, **Modifica**, **Registro** ed **Elimina**. Il pulsante **Registro** apre il registro dell'attività, dove ogni esecuzione viene annotata.
+
+**Nuova attività** chiede:
+
+- **Nome** dell'attività.
+- **Disco A** e **Disco B**, scelti col solito selettore cartella.
+- **Confronto**: **Veloce** o **Approfondito**. Il **Completo** non è pianificabile, perché richiede il permesso di amministratore.
+- **Regole sulle differenze**, una per ogni caso:
+  - *Solo in A*: copia da A a B / non fare nulla.
+  - *Solo in B*: copia da B ad A / non fare nulla.
+  - *File diversi*: vince il più recente / copia A→B (sovrascrive B) / copia B→A (sovrascrive A) / non fare nulla.
+- **Quando**: ogni giorno a un'ora, ogni settimana in certi giorni a un'ora, oppure ogni N ore (da 1 a 23).
+
+Cosa sapere prima di fidarsi:
+
+- **GEMINUS deve essere aperto.** Le attività partono solo con il programma in esecuzione, anche ridotto a icona. Se la scadenza passa mentre l'app è chiusa, l'attività parte una volta sola all'apertura.
+- **Un'attività non cancella mai niente.** Copia soltanto; le regole *non fare nulla* lasciano le differenze dove sono.
+- **Prima controlla i dischi.** Prima di copiare, GEMINUS verifica che i dischi siano quelli salvati con l'attività (nome o identificativo dell'unità). Se non corrispondono, l'esecuzione viene saltata e il registro lo annota. Serve con le USB che cambiano lettera quando le colleghi.
+- **Un file difettoso non ferma l'esecuzione.** Un file che dà errore viene saltato e annotato nel registro; gli altri vanno avanti.
+- **Durante l'esecuzione la finestra è occupata.** Mentre un'attività pianificata è in corso non puoi lanciare dalla finestra altri confronti o copie.
 
 #### Avanzamento nella barra delle applicazioni
 
@@ -772,3 +827,6 @@ Nel Cestino del sistema (*su Linux*, il Cestino/Trash), da dove li puoi ripristi
 
 **Posso trascinare file da Esplora file dentro GEMINUS?**
 No. Usa le voci del tasto destro "Imposta come Disco A / B in GEMINUS" oppure il selettore cartella.
+
+**Posso pianificare con il programma chiuso?**
+No, per ora serve l'app aperta (anche ridotta a icona va bene). Se la scadenza passa mentre è chiusa, l'attività parte una volta sola all'apertura. Vedi [Pianificazione](#pianificazione).
