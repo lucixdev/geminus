@@ -785,6 +785,59 @@ body.dark .btn.primary{color:#000;}
 .ctx-item.disabled{color:var(--t3);opacity:.55;pointer-events:none;}
 .ctx-sep{height:1px;background:var(--bd);margin:4px 8px;}
 .mode-hint{margin-left:auto;font-size:12px;color:var(--t3);}
+/* Folder picker: Explorer-style */
+.picker-box{width:860px;max-width:94vw;height:560px;max-height:90vh;padding:0;overflow:hidden;gap:0;}
+.picker-header{margin:0;padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg);}
+.picker-title{font-size:13px;font-weight:600;}
+.picker-close{font-size:20px;border-radius:var(--r);}
+.picker-close:hover{background:#C42B1C;color:#fff;}
+.picker-nav{display:flex;align-items:center;gap:4px;padding:8px 12px;background:var(--s);}
+.picker-nav-btn{background:transparent;border:1px solid transparent;border-radius:var(--r);width:30px;height:30px;
+  font-size:16px;color:var(--t);cursor:default;}
+.picker-nav-btn:hover:not(:disabled){background:var(--s3);}
+.picker-nav-btn:disabled{opacity:.35;}
+.picker-addr{flex:1;display:flex;align-items:center;min-width:0;height:30px;background:var(--s2);border:1px solid var(--bd2);
+  border-radius:var(--r);padding:0 6px;margin:0 4px;}
+.picker-addr:hover{background:var(--s3);}
+.picker-addr:focus-within{border-bottom:2px solid var(--ac);}
+.picker-breadcrumb{background:none;border:none;margin:0;padding:0;display:flex;align-items:center;flex:1;min-width:0;
+  overflow:hidden;white-space:nowrap;font-size:13px;color:var(--t);}
+.picker-crumb{color:var(--t);padding:2px 6px;border-radius:3px;}
+.picker-crumb:hover{background:var(--bd);text-decoration:none;}
+.picker-crumb-sep{color:var(--t3);margin:0;font-size:11px;}
+.picker-addr-input{flex:1;background:transparent;border:none;outline:none;color:var(--t);font:inherit;font-size:13px;min-width:0;}
+.picker-main{flex:1;display:flex;min-height:0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);}
+.picker-side{width:210px;flex-shrink:0;overflow-y:auto;padding:6px;background:var(--s);border-right:1px solid var(--bd);}
+.picker-side-group{font-size:11px;font-weight:600;color:var(--t3);padding:10px 10px 4px;}
+.picker-side-item{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:var(--r);font-size:13px;color:var(--t);cursor:default;
+  white-space:nowrap;overflow:hidden;}
+.picker-side-item span{overflow:hidden;text-overflow:ellipsis;}
+.picker-side-item:hover{background:var(--s3);}
+.picker-side-item.active{background:var(--ac-bg);box-shadow:inset 3px 0 0 var(--ac);}
+.picker-pane{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--s);}
+.picker-colhead{display:flex;padding:6px 12px;font-size:12px;color:var(--t2);border-bottom:1px solid var(--bd);}
+.picker-colhead span:first-child,.picker-item-name{flex:1;min-width:0;}
+.picker-colhead span:last-child,.picker-item-type{width:150px;flex-shrink:0;}
+.picker-list{border:none;border-radius:0;background:var(--s);padding:2px 4px;}
+.picker-list::-webkit-scrollbar{width:12px;}
+.picker-list::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:6px;border:3px solid transparent;background-clip:padding-box;}
+.picker-item{padding:3px 8px;border-bottom:none;border-radius:var(--r);margin:1px 0;font-size:13px;user-select:none;}
+.picker-item-name{display:flex;align-items:center;gap:8px;overflow:hidden;}
+.picker-item-name span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.picker-item-type{font-size:12px;color:var(--t2);}
+.picker-item:hover{background:var(--s3);}
+.picker-item.selected{background:var(--ac-bg);outline:1px solid var(--ac);outline-offset:-1px;}
+.picker-folderrow{display:flex;align-items:center;gap:10px;padding:10px 14px 0;background:var(--bg);font-size:13px;}
+.picker-folderrow label{min-width:60px;color:var(--t2);}
+.picker-path-input{flex:1;height:28px;background:var(--s);border:1px solid var(--bd2);border-radius:var(--r);padding:0 8px;
+  color:var(--t);font:inherit;font-size:13px;margin:0;}
+.picker-footer{padding:12px 14px;background:var(--bg);gap:8px;}
+.picker-btn{border-radius:var(--r);padding:5px 18px;font-size:13px;min-width:120px;}
+.picker-btn.primary{color:#fff;}
+body.dark .picker-btn.primary{color:#000;}
+.picker-btn.primary:hover{opacity:1;filter:brightness(1.1);}
+.picker-action-btn{border-radius:var(--r);background:transparent;border-color:transparent;font-size:12px;}
+.picker-action-btn:hover,.picker-action-btn.on{background:var(--s3);border-color:var(--bd2);}
 </style>
 </head>
 <body id="body-root">
@@ -1070,20 +1123,31 @@ body.dark .btn.primary{color:#000;}
       <span class="picker-title" id="pickerTitle">Scegli cartella</span>
       <button class="picker-close" onclick="pickerCancel()">&times;</button>
     </div>
-    <div class="picker-actions">
-      <button class="picker-action-btn" onclick="pickerGoDevices()" data-i18n="picker_devices">&#9167; Dispositivi</button>
-      <button class="picker-action-btn" onclick="pickerGoHome()" data-i18n="picker_home">&#127968; Home</button>
-      <button class="picker-action-btn" id="pickerRootBtn" onclick="pickerGoRoot()" data-i18n="picker_root">/ Root</button>
-      <button class="picker-action-btn" onclick="pickerGoUp()"   data-i18n="picker_up">&#8593; Su</button>
-      <span style="width:12px;display:inline-block"></span>
+    <div class="picker-nav">
+      <button class="picker-nav-btn" id="pickerBackBtn" onclick="pickerBack()">&#8592;</button>
+      <button class="picker-nav-btn" id="pickerFwdBtn" onclick="pickerForward()">&#8594;</button>
+      <button class="picker-nav-btn" id="pickerUpBtn" onclick="pickerGoUp()">&#8593;</button>
+      <div class="picker-addr" id="pickerAddr" onclick="pickerEditAddr(event)">
+        <div class="picker-breadcrumb" id="pickerBreadcrumb"></div>
+        <input class="picker-addr-input" id="pickerAddrInput" spellcheck="false" hidden>
+      </div>
+      <button class="picker-nav-btn" id="pickerRefreshBtn" onclick="pickerRefresh()">&#10227;</button>
       <button class="picker-action-btn" id="pickerHiddenBtn" onclick="pickerToggleHidden(this)" data-i18n="picker_hidden">👁 Nascosti</button>
     </div>
-    <div class="picker-breadcrumb" id="pickerBreadcrumb"></div>
-    <div class="picker-list" id="pickerList"></div>
-    <div class="picker-path" id="pickerPath"></div>
+    <div class="picker-main">
+      <div class="picker-side" id="pickerSide"></div>
+      <div class="picker-pane">
+        <div class="picker-colhead"><span id="pickerColName">Nome</span><span id="pickerColType">Tipo</span></div>
+        <div class="picker-list" id="pickerList"></div>
+      </div>
+    </div>
+    <div class="picker-folderrow">
+      <label for="pickerPath" id="pickerFolderLbl">Cartella:</label>
+      <input class="picker-path-input" id="pickerPath" readonly>
+    </div>
     <div class="picker-footer">
-      <button class="picker-btn" onclick="pickerCancel()" data-i18n="btn_cancel">Annulla</button>
       <button class="picker-btn primary" onclick="pickerConfirm()" data-i18n="picker_select">Scegli questa cartella</button>
+      <button class="picker-btn" onclick="pickerCancel()" data-i18n="btn_cancel">Annulla</button>
     </div>
   </div>
 </div>
@@ -1409,6 +1473,10 @@ const I18N = {
     picker_hidden: '👁 Nascosti',
     picker_select: 'Scegli questa cartella', picker_empty: 'Cartella vuota',
     picker_current: 'Percorso corrente:',
+    picker_back: 'Indietro', picker_forward: 'Avanti', picker_up_title: 'Livello superiore', picker_refresh: 'Aggiorna',
+    picker_col_name: 'Nome', picker_col_type: 'Tipo', picker_folder_label: 'Cartella:',
+    picker_quick: 'Accesso rapido', picker_home_label: 'Home', picker_thispc: 'Questo PC',
+    picker_type_folder: 'Cartella di file', picker_type_drive: 'Unità',
     mode_label: 'Modalità trasferimento', mode_copy: 'Copia', mode_move: 'Sposta',
     filter_all: 'Tutti', filter_modified: 'Modificati',
     filter_only_a: 'Solo in A', filter_only_b: 'Solo in B',
@@ -1660,6 +1728,10 @@ const I18N = {
     picker_hidden: '👁 Hidden',
     picker_select: 'Select this folder', picker_empty: 'Empty folder',
     picker_current: 'Current path:',
+    picker_back: 'Back', picker_forward: 'Forward', picker_up_title: 'Up one level', picker_refresh: 'Refresh',
+    picker_col_name: 'Name', picker_col_type: 'Type', picker_folder_label: 'Folder:',
+    picker_quick: 'Quick access', picker_home_label: 'Home', picker_thispc: 'This PC',
+    picker_type_folder: 'File folder', picker_type_drive: 'Drive',
     mode_label: 'Transfer mode', mode_copy: 'Copy', mode_move: 'Move',
     filter_all: 'All', filter_modified: 'Modified',
     filter_only_a: 'Only in A', filter_only_b: 'Only in B',
@@ -4544,14 +4616,25 @@ function _escAttr(s) {
     .replace(/[\r\n]/g,''));
 }
 
+const _PK_ICON_FOLDER = '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M2 6a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2v1H2z" fill="#E8B23A"/><path d="M2 9h20v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" fill="#FFCA4F"/></svg>';
+const _PK_ICON_DRIVE = '<svg viewBox="0 0 24 24" width="20" height="20"><rect x="2" y="8" width="20" height="9" rx="2" fill="#9AA5B1"/><rect x="2" y="8" width="20" height="3" rx="1.5" fill="#C5CDD6"/><circle cx="18" cy="14" r="1.2" fill="#3BB54A"/></svg>';
+const _PK_ICON_PC = '<svg viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="4" width="18" height="12" rx="1.5" fill="#4EA3E0"/><rect x="5" y="6" width="14" height="8" fill="#BFE0FA"/><rect x="9" y="17" width="6" height="2" fill="#8A949E"/></svg>';
+const _PK_ICON_HOME = '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#6FA8DC"/></svg>';
+
+let _pickerHist = [];      // entries: { dev: true } or { path }
+let _pickerHistIdx = -1;
+let _pickerSel = null;     // the folder selected in the list, if any
+let _pickerDevices = [];
+
 async function openFolderPicker(side) {
   return new Promise(async (resolve) => {
     _pickerResolver = resolve;
     setDynText('pickerTitle', t('disk_dialog_title', { side }));
-    // Where there is no single root the button has nowhere to go: it hides,
-    // and Devices is the way up to the drives.
+    pickerLabels();
+    // Where there is no single root the entry has nowhere to go and is left out.
     try { _pickerRoot = await invoke('get_root_path'); } catch(e) { _pickerRoot = null; }
-    document.getElementById('pickerRootBtn').style.display = _pickerRoot ? '' : 'none';
+    try { _pickerDevices = await invoke('list_devices'); } catch(e) { _pickerDevices = []; }
+    _pickerHist = []; _pickerHistIdx = -1;
     let start;
     try { start = await invoke('get_home_dir'); } catch(e) { start = _pickerRoot; }
     if (start) await pickerNavigate(start); else await pickerGoDevices();
@@ -4559,8 +4642,57 @@ async function openFolderPicker(side) {
   });
 }
 
-async function pickerNavigate(path) {
-  _pickerInDevicesView = false;
+function pickerLabels() {
+  document.getElementById('pickerBackBtn').title = t('picker_back');
+  document.getElementById('pickerFwdBtn').title = t('picker_forward');
+  document.getElementById('pickerUpBtn').title = t('picker_up_title');
+  document.getElementById('pickerRefreshBtn').title = t('picker_refresh');
+  document.getElementById('pickerColName').textContent = t('picker_col_name');
+  document.getElementById('pickerColType').textContent = t('picker_col_type');
+  document.getElementById('pickerFolderLbl').textContent = t('picker_folder_label');
+}
+
+// One history entry per place visited; Back and Forward walk it like Explorer.
+function pickerPush(entry) {
+  _pickerHist = _pickerHist.slice(0, _pickerHistIdx + 1);
+  _pickerHist.push(entry);
+  _pickerHistIdx = _pickerHist.length - 1;
+}
+
+function pickerUpdateNavButtons() {
+  document.getElementById('pickerBackBtn').disabled = _pickerHistIdx <= 0;
+  document.getElementById('pickerFwdBtn').disabled = _pickerHistIdx >= _pickerHist.length - 1;
+  document.getElementById('pickerUpBtn').disabled = _pickerInDevicesView;
+}
+
+function pickerRenderSide() {
+  const cur = _pickerInDevicesView ? null : _pickerPath;
+  const item = (icon, label, action, active) =>
+    `<div class="picker-side-item${active ? ' active' : ''}" onclick="${action}">${icon}<span>${_escHtml(label)}</span></div>`;
+  let h = `<div class="picker-side-group">${_escHtml(t('picker_quick'))}</div>`;
+  h += item(_PK_ICON_HOME, t('picker_home_label'), 'pickerGoHome()', false);
+  if (_pickerRoot) h += item(_PK_ICON_FOLDER, _pickerRoot, 'pickerGoRoot()', cur === _pickerRoot);
+  h += `<div class="picker-side-group">${_escHtml(t('picker_devices_label'))}</div>`;
+  h += item(_PK_ICON_PC, t('picker_thispc'), 'pickerGoDevices()', _pickerInDevicesView);
+  for (const d of _pickerDevices) {
+    const active = cur && (cur === d.path || cur.startsWith(d.path.replace(/[\\/]+$/, '') + '/') || cur.startsWith(d.path));
+    h += item(_PK_ICON_DRIVE, d.name, `pickerNavigate('${_escAttr(d.path)}')`, !!active);
+  }
+  document.getElementById('pickerSide').innerHTML = h;
+}
+
+function pickerSetFolderField(text) {
+  document.getElementById('pickerPath').value = text || '';
+}
+
+function pickerSelect(el, path, name) {
+  document.querySelectorAll('#pickerList .picker-item.selected').forEach(n => n.classList.remove('selected'));
+  el.classList.add('selected');
+  _pickerSel = path;
+  pickerSetFolderField(name);
+}
+
+async function pickerNavigate(path, noPush) {
   let r;
   try {
     r = await invoke('browse_dir', { path });
@@ -4568,30 +4700,83 @@ async function pickerNavigate(path) {
     console.error('browse_dir failed:', e);
     return;
   }
+  _pickerInDevicesView = false;
+  if (!noPush) pickerPush({ path });
   _pickerPath = r.path;
   _pickerParent = r.parent;
-  // Breadcrumb: the backend hands over the trail already cut the way this
-  // system cuts paths.
-  const crumbs = document.getElementById('pickerBreadcrumb');
-  crumbs.innerHTML = r.crumbs.map((c, i) =>
-    (i ? `<span class="picker-crumb-sep">&rsaquo;</span>` : '') +
-    `<span class="picker-crumb" onclick="pickerNavigate('${_escAttr(c.path)}')">${_escHtml(c.label)}</span>`
-  ).join('');
-  // The list shows folders only.
+  _pickerSel = null;
+  // Address bar: the backend hands over the trail already cut the way this
+  // system cuts paths. Every segment is a button, with a chevron between.
+  pickerSetCrumbs([{ label: t('picker_thispc'), dev: true }].concat(r.crumbs));
   const list = document.getElementById('pickerList');
   const dirs = r.entries.filter(e => e.is_dir && (pickerShowHidden || !e.is_hidden));
   if (dirs.length === 0) {
     list.innerHTML = `<div class="picker-empty">${_escHtml(t('picker_empty'))}</div>`;
   } else {
-    list.innerHTML = dirs.map(e => {
-      return `<div class="picker-item" onclick="pickerNavigate('${_escAttr(e.path)}')">
-        <span class="picker-item-icon">📁</span>
-        <span>${_escHtml(e.name)}</span>
-      </div>`;
-    }).join('');
+    const type = _escHtml(t('picker_type_folder'));
+    list.innerHTML = dirs.map(e =>
+      `<div class="picker-item" onclick="pickerSelect(this,'${_escAttr(e.path)}','${_escAttr(e.name)}')" ondblclick="pickerNavigate('${_escAttr(e.path)}')">
+        <span class="picker-item-name">${_PK_ICON_FOLDER}<span>${_escHtml(e.name)}</span></span>
+        <span class="picker-item-type">${type}</span>
+      </div>`).join('');
   }
-  // The path shown under the list.
-  document.getElementById('pickerPath').textContent = t('picker_current') + ' ' + r.path;
+  pickerSetFolderField(baseNameOf(r.path) || r.path);
+  pickerRenderSide();
+  pickerUpdateNavButtons();
+}
+
+function pickerSetCrumbs(crumbs) {
+  document.getElementById('pickerBreadcrumb').innerHTML = crumbs.map((c, i) =>
+    (i ? '<span class="picker-crumb-sep">&rsaquo;</span>' : '') +
+    (c.dev
+      ? `<span class="picker-crumb" onclick="event.stopPropagation();pickerGoDevices()">${_escHtml(c.label)}</span>`
+      : `<span class="picker-crumb" onclick="event.stopPropagation();pickerNavigate('${_escAttr(c.path)}')">${_escHtml(c.label)}</span>`)
+  ).join('');
+}
+
+// Click on the empty part of the address bar turns it into a text field.
+function pickerEditAddr(e) {
+  if (e.target.closest('.picker-crumb') || _pickerInDevicesView) return;
+  const inp = document.getElementById('pickerAddrInput');
+  document.getElementById('pickerBreadcrumb').hidden = true;
+  inp.hidden = false;
+  inp.value = _pickerPath || '';
+  inp.focus(); inp.select();
+}
+function pickerEndEditAddr() {
+  document.getElementById('pickerAddrInput').hidden = true;
+  document.getElementById('pickerBreadcrumb').hidden = false;
+}
+(function() {
+  const inp = document.getElementById('pickerAddrInput');
+  inp.addEventListener('keydown', async (e) => {
+    e.stopPropagation();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const v = inp.value.trim();
+      pickerEndEditAddr();
+      if (v) await pickerNavigate(v);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      pickerEndEditAddr();
+    }
+  });
+  inp.addEventListener('blur', pickerEndEditAddr);
+})();
+
+async function pickerBack() {
+  if (_pickerHistIdx <= 0) return;
+  _pickerHistIdx--;
+  await pickerShowEntry(_pickerHist[_pickerHistIdx]);
+}
+async function pickerForward() {
+  if (_pickerHistIdx >= _pickerHist.length - 1) return;
+  _pickerHistIdx++;
+  await pickerShowEntry(_pickerHist[_pickerHistIdx]);
+}
+async function pickerShowEntry(entry) {
+  if (entry.dev) await pickerGoDevices(true);
+  else await pickerNavigate(entry.path, true);
 }
 
 async function pickerGoHome() {
@@ -4601,7 +4786,9 @@ async function pickerGoHome() {
 }
 
 async function pickerGoUp() {
-  if (!_pickerParent) return;
+  // From a drive's top folder, up is the list of drives, as in Explorer.
+  if (_pickerInDevicesView) return;
+  if (!_pickerParent) { await pickerGoDevices(); return; }
   await pickerNavigate(_pickerParent);
 }
 
@@ -4609,31 +4796,28 @@ async function pickerGoRoot() {
   if (_pickerRoot) await pickerNavigate(_pickerRoot);
 }
 
-async function pickerGoDevices() {
+// "This PC": every drive as a tile-like row.
+async function pickerGoDevices(noPush) {
+  try { _pickerDevices = await invoke('list_devices'); } catch (e) { _pickerDevices = []; }
   _pickerInDevicesView = true;
-  _pickerParent = null;   // the drive list has nothing above it
-  let items = [];
-  try {
-    items = await invoke('list_devices');
-  } catch (e) {
-    items = [];
-  }
-
-  const crumbs = document.getElementById('pickerBreadcrumb');
-  crumbs.innerHTML = `<span class="picker-crumb">${_escHtml(t('picker_devices_label'))}</span>`;
-
+  _pickerParent = null;
+  _pickerSel = null;
+  if (!noPush) pickerPush({ dev: true });
+  pickerSetCrumbs([{ label: t('picker_thispc'), dev: true }]);
   const list = document.getElementById('pickerList');
-  if (items.length === 0) {
+  if (_pickerDevices.length === 0) {
     list.innerHTML = `<div class="picker-empty">${_escHtml(t('picker_no_devices'))}</div>`;
   } else {
-    list.innerHTML = items.map(e => {
-      return `<div class="picker-item" onclick="pickerNavigate('${_escAttr(e.path)}')">
-        <span class="picker-item-icon">📁</span>
-        <span>${_escHtml(e.name)}</span>
-      </div>`;
-    }).join('');
+    const type = _escHtml(t('picker_type_drive'));
+    list.innerHTML = _pickerDevices.map(e =>
+      `<div class="picker-item" onclick="pickerSelect(this,'${_escAttr(e.path)}','${_escAttr(e.name)}')" ondblclick="pickerNavigate('${_escAttr(e.path)}')">
+        <span class="picker-item-name">${_PK_ICON_DRIVE}<span>${_escHtml(e.name)}</span></span>
+        <span class="picker-item-type">${type}</span>
+      </div>`).join('');
   }
-  document.getElementById('pickerPath').textContent = '';
+  pickerSetFolderField('');
+  pickerRenderSide();
+  pickerUpdateNavButtons();
 }
 
 function pickerToggleHidden(el) {
@@ -4644,18 +4828,20 @@ function pickerToggleHidden(el) {
 
 function pickerRefresh() {
   if (_pickerInDevicesView) {
-    pickerGoDevices();
+    pickerGoDevices(true);
   } else if (_pickerPath) {
-    pickerNavigate(_pickerPath);
+    pickerNavigate(_pickerPath, true);
   }
 }
 
 function pickerConfirm() {
   // The drive list is not a folder: confirming there would hand back whichever
   // path was open before it.
-  if (_pickerInDevicesView) return;
+  // A folder selected in the list is the choice; with none selected, the folder shown.
+  const choice = _pickerSel || (_pickerInDevicesView ? null : _pickerPath);
+  if (!choice) return;
   document.getElementById('pickerDialog').classList.remove('visible');
-  if (_pickerResolver) { _pickerResolver(_pickerPath); _pickerResolver = null; }
+  if (_pickerResolver) { _pickerResolver(choice); _pickerResolver = null; }
 }
 
 function pickerCancel() {
